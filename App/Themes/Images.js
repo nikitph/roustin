@@ -29,7 +29,8 @@ const images = {
   cart: require('../Images/cart.png'),
   basket: require('../Images/basket.png'),
   tilttag: require('../Images/tilttag.png'),
-  chats: require('../Images/chats.png')
+  chats: require('../Images/chats.png'),
+  gifbg: require('../Images/gifbg.gif')
 }
 
 export default images
