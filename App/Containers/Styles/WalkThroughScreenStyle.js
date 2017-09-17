@@ -16,5 +16,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
     resizeMode: 'contain',
     width: Metrics.screenWidth * 0.35,
+    marginTop: -140
   }
 })

@@ -30,7 +30,9 @@ const images = {
   basket: require('../Images/basket.png'),
   tilttag: require('../Images/tilttag.png'),
   chats: require('../Images/chats.png'),
-  gifbg: require('../Images/gifbg.gif')
+  gifbg: require('../Images/gifbg.gif'),
+  loginbg: require('../Images/bwbg.jpg'),
+  roustin: require('../Images/roustin.png')
 }
 
 export default images

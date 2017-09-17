@@ -1,94 +1,115 @@
 // @flow
-
-import {ScrollView, Text, KeyboardAvoidingView} from 'react-native'
-import {connect} from 'react-redux'
+// I18n
+import { Text, View, Image } from 'react-native'
+import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 // external libs
-import Icon from 'react-native-vector-icons/FontAwesome'
 import * as Animatable from 'react-native-animatable'
-
 // Styles
 import styles from './Styles/WalkThroughScreenStyle'
-
-// I18n
-import {StyleSheet, View} from 'react-native';
-import React, {Component} from 'react';
-import {PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator} from 'rn-viewpager';
+import React, { Component } from 'react'
+import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager'
 import RoundedButton from '../Components/RoundedButton'
-import {Images, Metrics, Colors} from '../Themes'
-
+import { Images, Metrics } from '../Themes'
+import { RectangleButton } from 'react-native-button-component'
 
 class WalkThroughScreen extends React.Component {
 
-  render() {
+  render () {
     return (
       <View style={{flex:1}}>
-        <IndicatorViewPager
-          style={{flex:1}}
-          indicator={this._renderDotIndicator()}
-        >
-          <View style={{backgroundColor:'#F7EDD3',justifyContent:'center', alignItems:'center'}}>
-            <Animatable.Image animation='fadeIn' source={Images.logo} style={[styles.topLogo]}/>
-            <Text
-              style={{fontFamily:'American Typewriter', textAlign:'center', color:'#8F7140', fontSize:16, marginLeft:25,  marginRight:25,  marginTop:-20}}>
-              Thank you for choosing Roust.in. Lets do a quick walkthrough of how to use it.</Text>
-
+        <Image source={Images.loginbg} style={{flex:0.9}} width={Metrics.screenWidth} blurRadius={10}>
+          <View style={{flex:0.5, justifyContent:'center', alignItems:'flex-end'}}>
+            <Animatable.Image animation='fadeIn' source={Images.roustin} style={[styles.topLogo]}/>
           </View>
-          <View style={{backgroundColor:'#F7EDD3',justifyContent:'center', alignItems:'center'}}>
-            <Animatable.Image animation='fadeIn' source={Images.basket} style={[styles.cart]}/>
-            <Text
-              style={{fontFamily:'American Typewriter', textAlign:'center', color:'#8F7140', fontSize:16, marginLeft:25,  marginRight:25,  marginTop:-50}}>
-              Click buy to see everything on sale. Select to see details and contact seller</Text>
+          <View style={{flex:0.5, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10 }}>
+
+            <IndicatorViewPager
+              style={{flex:1, width:Metrics.screenWidth-50}}
+              indicator={this._renderDotIndicator()}
+            >
+              <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
+                <Text
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:20, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:20}}>
+                  Thank you for choosing Roust.in. Lets do a quick walkthrough of how to use it.</Text>
+
+              </View>
+              <View style={{backgroundColor:'transparent',justifyContent:'flex-start', alignItems:'flex-start'}}>
+                <Animatable.Image animation='fadeIn' source={Images.basket} style={[styles.cart]}/>
+                <Text
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:-20}}>
+                  Click buy to see everything on sale. Select to see details and contact seller</Text>
+              </View>
+              <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
+                <Animatable.Image animation='fadeIn' source={Images.tilttag} style={[styles.cart]}/>
+                <Text
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:-50}}>
+                  Click sell. Enter details and your item is out for sale.</Text>
+              </View>
+              <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
+                <Animatable.Image animation='fadeIn' source={Images.chats} style={[styles.cart, {marginTop:-190}]}/>
+                <Text
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:-75}}>
+                  Chat with buyers/sellers in app. Settle your transaction offline. Done!</Text>
+
+              </View>
+            </IndicatorViewPager>
           </View>
-          <View style={{backgroundColor:'#F7EDD3',justifyContent:'center', alignItems:'center'}}>
-            <Animatable.Image animation='fadeIn' source={Images.tilttag} style={[styles.cart]}/>
-            <Text
-              style={{fontFamily:'American Typewriter', textAlign:'center', color:'#8F7140', fontSize:16, marginLeft:25,  marginRight:25,  marginTop:-50}}>
-              Click sell. Enter details and your item is out for sale.</Text>
+        </Image>
+        <View
+          style={{flex:0.1, flexDirection:'row', alignItems:'flex-end', backgroundColor:'#F7EDD3'}}>
+          <View style={{flex:0.5}}>
+            <RectangleButton
+              onPress={() => {}}
+              text="Sign Up"
+              type="primary"
+              height={75}
+              backgroundColors={['#665234', '#514128']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}>
+            </RectangleButton>
           </View>
-          <View style={{backgroundColor:'#F7EDD3',justifyContent:'center', alignItems:'center'}}>
-            <Animatable.Image animation='fadeIn' source={Images.chats} style={[styles.cart]}/>
-            <Text
-              style={{fontFamily:'American Typewriter', textAlign:'center', color:'#8F7140', fontSize:16, marginLeft:25,  marginRight:25,  marginTop:-75}}>
-              Chat with buyers/sellers in app. Settle your transaction offline. Done!</Text>
+          <View style={{flex:0.5}}>
 
-
-            <View style={{marginTop:75}}>
-
-              <RoundedButton onPress={()=>this.props.navigation.navigate('LaunchScreen')
-}>Sign In</RoundedButton>
-            </View>
-
+            <RectangleButton
+              onPress={() => {}}
+              text="Login"
+              type="primary"
+              height={75}
+              backgroundColors={['#BF9C65', '#CEA76A']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}
+            >
+            </RectangleButton>
           </View>
-        </IndicatorViewPager>
-
+        </View>
 
       </View>
     );
   }
 
-  _renderTitleIndicator() {
+  _renderTitleIndicator () {
     return <PagerTitleIndicator titles={['one', 'two', 'three']}/>;
   }
 
-  _renderDotIndicator() {
+  _renderDotIndicator () {
     return <PagerDotIndicator pageCount={4} dotStyle={{
         width: 10,
         height: 10,
         borderRadius: 10 >> 1,
         backgroundColor: 'transparent',
-        borderColor:'#B72219',
+        borderColor:'#665234',
         borderWidth:1,
         margin: 10 >> 1}}
                               selectedDotStyle={{width: 10,
         height: 10,
         borderRadius: 10 >> 1,
-        backgroundColor: '#B72219',
+        backgroundColor: '#514128',
         margin: 10 >> 1}}
 
                               style={{ position: 'absolute',
-        bottom: 50,
+        bottom: 10,
         left: 0,
         right: 0,
         flexDirection: 'row',
@@ -97,7 +118,7 @@ class WalkThroughScreen extends React.Component {
     />;
   }
 
-  _renderTabIndicator() {
+  _renderTabIndicator () {
     let tabs = [{
       text: 'Home',
       iconSource: require('../Images/buy.png'),
