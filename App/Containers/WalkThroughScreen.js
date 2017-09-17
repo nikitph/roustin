@@ -35,7 +35,7 @@ class WalkThroughScreen extends React.Component {
                   Thank you for choosing Roust.in. Lets do a quick walkthrough of how to use it.</Text>
 
               </View>
-              <View style={{backgroundColor:'transparent',justifyContent:'flex-start', alignItems:'flex-start'}}>
+              <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
                 <Animatable.Image animation='fadeIn' source={Images.basket} style={[styles.cart]}/>
                 <Text
                   style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:-20}}>
@@ -62,7 +62,7 @@ class WalkThroughScreen extends React.Component {
           <View style={{flex:0.5}}>
             <RectangleButton
               onPress={() => {}}
-              text="Sign Up"
+              text="SIGN UP"
               type="primary"
               height={75}
               backgroundColors={['#665234', '#514128']}
@@ -74,7 +74,7 @@ class WalkThroughScreen extends React.Component {
 
             <RectangleButton
               onPress={() => {}}
-              text="Login"
+              text="LOGIN"
               type="primary"
               height={75}
               backgroundColors={['#BF9C65', '#CEA76A']}
