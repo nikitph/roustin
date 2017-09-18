@@ -4,9 +4,9 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  loginRequest: ['data'],
+  loginRequest: ['email','password'],
   loginSuccess: ['payload'],
-  loginFailure: null
+  loginFailure: ['payload']
 })
 
 export const LoginTypes = Types
@@ -34,8 +34,8 @@ export const success = (state, action) => {
 }
 
 // Something went wrong somewhere.
-export const failure = state =>
-  state.merge({ fetching: false, error: true, payload: null })
+export const failure = (state, error) =>
+  state.merge({ fetching: false, error, payload: null, })
 
 /* ------------- Hookup Reducers To Types ------------- */
 

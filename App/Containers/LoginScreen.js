@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, KeyboardAvoidingView, Image, View, Text, TextInput } from 'react-native'
+import { ScrollView, KeyboardAvoidingView, Image, View, Text, TextInput, PropTypes } from 'react-native'
 import { connect } from 'react-redux'
 import { Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -17,7 +17,7 @@ class LoginScreen extends Component {
 
   props: LoginScreenProps;
 
-  constructor (props : LoginScreenProps) {
+  constructor (props: LoginScreenProps) {
     super(props);
 
     this.state = {
@@ -26,7 +26,8 @@ class LoginScreen extends Component {
       invalidEmail: false,
       invalidPassword: false,
       incorrectPassword: false,
-      noMatch: false
+      noMatch: false,
+      buttonstate: props.fetching? "fetching" : "ready"
     }
   }
 
@@ -59,7 +60,7 @@ class LoginScreen extends Component {
   }
 
   handlePressLogin = () => {
-    const { email, password } = this.state
+    const {email, password} = this.state
     this.props.attemptLogin(email, password)
   }
 
@@ -116,18 +117,13 @@ class LoginScreen extends Component {
                               underlineColorAndroid='transparent'
                               placeholder={'Password'}
                               onChangeText={(password)=> this.setState({password})}
-                              />
+                            />
                           </View>
 
 
                         </View>
 
-                        { this.state.invalidEmail && <Text style={styles.errorText}>Invalid email address </Text> }
-                        { this.state.invalidPassword &&
-                        <Text style={styles.errorText}>Password should be at least 6 characters </Text> }
-                        { this.state.incorrectPassword &&
-                        <Text style={styles.errorText}>The password is invalid </Text> }
-                        { this.state.noMatch && <Text style={styles.errorText}>The email and password do not match, please recheck your email and password </Text> }
+                        { this.props.error && <Text>Invalid email address </Text> }
 
                       </View>
 
@@ -135,13 +131,23 @@ class LoginScreen extends Component {
                   </View>
                   <View style={{flex:0.2}}>
                     <RectangleButton
-                    onPress={() => {this.props.attemptLogin()}}
-                    text="SIGN IN"
-                    type="primary"
-                    backgroundColors={['#665234', '#514128']}
-                    gradientStart={{ x: 0.5, y: 1 }}
-                    gradientEnd={{ x: 1, y: 1 }}>
-                  </RectangleButton></View>
+                      onPress={() => {this.handlePressLogin()}}
+                      type="primary"
+                      backgroundColors={['#665234', '#514128']}
+                      gradientStart={{ x: 0.5, y: 1 }}
+                      gradientEnd={{ x: 1, y: 1 }}
+                      buttonState={this.state.buttonstate}
+                      states={{
+                              ready: {
+                                onPress: () => {this.handlePressLogin()},
+                                text: 'SIGN IN',
+                              },
+                              fetching: {
+                                spinner: true,
+                                text: 'Signing In...',
+                              },
+                            }}>
+                    </RectangleButton></View>
                 </View>
               </View>
             </Image>
@@ -153,14 +159,16 @@ class LoginScreen extends Component {
 }
 
 type LoginScreenProps = {
-  dispatch: () => any,
-  fetching: boolean,
-  attemptLogin: () => void
+  dispatch: PropTypes.func,
+  fetching: PropTypes.boolean,
+  attemptLogin: PropTypes.func,
+  error: PropTypes.object
 }
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.login.fetching
+    fetching: state.login.fetching,
+    error: state.login.error
   }
 };
 
