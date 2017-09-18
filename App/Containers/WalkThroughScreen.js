@@ -16,6 +16,10 @@ import { RectangleButton } from 'react-native-button-component'
 
 class WalkThroughScreen extends React.Component {
 
+  static navigationOptions = {
+    header: null,
+  };
+
   render () {
     return (
       <View style={{flex:1}}>
@@ -73,7 +77,7 @@ class WalkThroughScreen extends React.Component {
           <View style={{flex:0.5}}>
 
             <RectangleButton
-              onPress={() => {}}
+              onPress={()=>this.props.navigation.navigate('LoginScreen')}
               text="LOGIN"
               type="primary"
               height={75}
