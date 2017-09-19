@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/Ionicons'
 import * as Animatable from 'react-native-animatable'
+import DropdownAlert from 'react-native-dropdownalert'
 import { RectangleButton } from 'react-native-button-component'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import LoginActions from '../Redux/LoginRedux'
@@ -27,7 +28,8 @@ class LoginScreen extends Component {
       invalidPassword: false,
       incorrectPassword: false,
       noMatch: false,
-      buttonstate: props.fetching? "fetching" : "ready"
+      buttonstate: props.fetching ? "fetching" : "ready",
+      alerted: false
     }
   }
 
@@ -60,8 +62,8 @@ class LoginScreen extends Component {
   }
 
   handlePressLogin = () => {
-    const {email, password} = this.state
-    this.props.attemptLogin(email, password)
+    const {email, password} = this.state;
+    this.props.attemptLogin(email, password);
   }
 
   render () {
@@ -123,7 +125,9 @@ class LoginScreen extends Component {
 
                         </View>
 
-                        { this.props.error && <Text>Invalid email address </Text> }
+                        { this.props.error && !this.state.alerted &&
+                        this.dropdown.alertWithType('error', 'Error', this.props.error.payload.message)}
+
 
                       </View>
 
@@ -153,6 +157,14 @@ class LoginScreen extends Component {
             </Image>
           </View>
         </KeyboardAvoidingView>
+        <DropdownAlert
+          ref={(ref) => this.dropdown = ref}
+          onClose={() => this.setState({alerted:true})}
+          showCancel={true}
+          translucent={true}
+          errorColor={'rgba(250,50,50,1)'}
+          closeInterval={6000}
+        />
       </ScrollView>
     )
   }

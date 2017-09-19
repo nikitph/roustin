@@ -8,9 +8,7 @@ export function * login ({ email, password }) {
   console.tron.log(email, password);
   try
   {
-    const response = yield call(dbService.auth.signInWithEmailAndPassword,email.toString(), password.toString(), function () {
-      put(LoginActions.loginSuccess('hi'));
-    });
+    const response = yield call(dbService.auth.signInWithEmailAndPassword,email.toString(), password.toString(), function () {});
     console.tron.log(response);
 
     yield put(LoginActions.loginSuccess({ username : { username : "hi me" }}));
@@ -18,7 +16,6 @@ export function * login ({ email, password }) {
   }
   catch(error)
   {
-    console.log(error);
     yield put(LoginActions.loginFailure(error))
   }
 }
