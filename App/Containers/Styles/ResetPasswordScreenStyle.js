@@ -28,11 +28,6 @@ export default StyleSheet.create({
     fontSize:28,
     marginBottom: 20
   },
-  forgot : {
-    color: '#665234',
-    alignSelf: 'flex-end',
-    fontSize:14,
-  },
   errorText : {
     color: 'red'
   },

@@ -7,72 +7,38 @@ import * as Animatable from 'react-native-animatable'
 import DropdownAlert from 'react-native-dropdownalert'
 import { RectangleButton } from 'react-native-button-component'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-import LoginActions from '../Redux/LoginRedux'
+import ResetPasswordActions from '../Redux/ResetPasswordRedux'
 // Styles
-import styles from './Styles/LoginScreenStyle'
+import styles from './Styles/ResetPasswordScreenStyle'
 
-class LoginScreen extends Component {
+class ResetPasswordScreen extends Component {
   static navigationOptions = {
     header: null,
   };
 
-  props: LoginScreenProps;
+  props: ResetPasswordScreenProps;
 
-  constructor (props: LoginScreenProps) {
+  constructor (props: ResetPasswordScreenProps) {
     super(props);
     this.showAlert = this.showAlert.bind(this);
 
     this.state = {
       email: '',
-      password: '',
-      invalidEmail: false,
-      invalidPassword: false,
-      incorrectPassword: false,
-      noMatch: false,
       buttonstate: props.fetching ? "fetching" : "ready",
     }
   }
 
-  formValidation (result) {
+  handlePressResetPassword = (state) => {
+    const {email} = state;
+    this.props.attemptResetPassword(email, this.showAlert);
+  };
 
-    // if the result is true, log the user in
-    const {code} = result;
-
-    code === 'auth/invalid-email'
-      ? this.setState({invalidEmail: true})
-      : this.setState({invalidEmail: false})
-
-    code === 'auth/weak-password'
-      ? this.setState({invalidPassword: true})
-      : this.setState({invalidPassword: false})
-
-    code === 'auth/wrong-password'
-      ? this.setState({incorrectPassword: true})
-      : this.setState({incorrectPassword: false})
-
-    code === 'auth/user-not-found'
-      ? this.setState({noMatch: true})
-      : this.setState({noMatch: false})
-
-  }
-
-  submitForm (state) {
-    const {email, password} = state;
-    signInWithEmailAndPassword(email, password, this.formValidation.bind(this));
-  }
-
-  handlePressLogin = () => {
-    const {email, password} = this.state;
-    this.props.attemptLogin(email, password, this.showAlert);
-  }
-
-  showAlert(type,title,message) {
+  showAlert (type, title, message) {
     this.dropdown.alertWithType(type, title, message);
   };
 
   render () {
     const props = this.props;
-    const {globalStyles, auth, app} = props;
     return (
       <ScrollView style={{height:Metrics.screenHeight}}>
         <KeyboardAvoidingView behavior='height'>
@@ -85,12 +51,12 @@ class LoginScreen extends Component {
                 style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10, flexDirection:'row' }}>
                 <View style={{flexDirection:'column', flex:1}}>
                   <View style={{flex:0.1}}>
-                    <Text style={[styles.header]}> Login </Text>
+                    <Text style={[styles.header]}> Reset Password </Text>
                   </View>
                   <View style={{flex:0.7, flexDirection:'row'}}>
                     <View style={{flex:0.1, justifyContent:'center', alignItems:'center'}}>
                       <Icon name="ios-arrow-back" size={50} color="#900"
-                            onPress={()=>this.props.navigation.navigate('WalkThroughScreen')}
+                            onPress={()=>props.navigation.navigate('LoginScreen')}
                       />
                     </View>
                     <View style={{flex:0.9}}>
@@ -106,39 +72,16 @@ class LoginScreen extends Component {
                               underlineColorAndroid='transparent'
                               placeholder={'Email Address'}
                               onChangeText={(email)=> this.setState({email})}
-                              onSubmitEditing={() => this.refs.password.focus()}
                             />
 
                           </View>
-
-                          <View style={styles.row}>
-                            <TextInput
-                              ref='password'
-                              value={this.state.password}
-                              keyboardType='default'
-                              returnKeyType='go'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              secureTextEntry
-                              underlineColorAndroid='transparent'
-                              placeholder={'Password'}
-                              onChangeText={(password)=> this.setState({password})}
-                            />
-                          </View>
-                          <View>
-                            <Text style={[styles.forgot]} onPress={()=>this.props.navigation.navigate('ResetPasswordScreen')}
-                            > Forgot Password </Text>
-                          </View>
-
                         </View>
-
                       </View>
 
                     </View>
                   </View>
                   <View style={{flex:0.2}}>
                     <RectangleButton
-                      onPress={() => {this.handlePressLogin()}}
                       type="primary"
                       backgroundColors={['#665234', '#514128']}
                       gradientStart={{ x: 0.5, y: 1 }}
@@ -146,12 +89,12 @@ class LoginScreen extends Component {
                       buttonState={this.state.buttonstate}
                       states={{
                               ready: {
-                                onPress: () => {this.handlePressLogin()},
-                                text: 'SIGN IN',
+                                onPress: () => {this.handlePressResetPassword(this.state)},
+                                text: 'SEND PASSWORD RESET EMAIL',
                               },
                               fetching: {
                                 spinner: true,
-                                text: 'Signing In...',
+                                text: 'Sending...',
                               },
                             }}>
                     </RectangleButton></View>
@@ -172,23 +115,21 @@ class LoginScreen extends Component {
   }
 }
 
-type LoginScreenProps = {
+type ResetPasswordScreenProps = {
   dispatch: PropTypes.func,
-  fetching: PropTypes.boolean,
-  attemptLogin: PropTypes.func,
-  error: PropTypes.object
+  attemptResetPassword: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.login.fetching,
+    fetching: state.reset.fetching,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (email, password, alertfunc) => dispatch(LoginActions.loginRequest(email, password, alertfunc))
+    attemptResetPassword: (email, alertfunc) => dispatch(ResetPasswordActions.resetPasswordRequest(email, alertfunc))
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordScreen)

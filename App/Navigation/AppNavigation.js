@@ -1,4 +1,5 @@
 import { StackNavigator } from 'react-navigation'
+import ResetPasswordScreen from '../Containers/ResetPasswordScreen'
 import SignUpScreen from '../Containers/SignUpScreen'
 import LoginScreen from '../Containers/LoginScreen'
 import WalkThroughScreen from '../Containers/WalkThroughScreen'
@@ -8,6 +9,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  ResetPasswordScreen: { screen: ResetPasswordScreen },
   SignUpScreen: { screen: SignUpScreen },
   LoginScreen: { screen: LoginScreen, headerMode:'screen' },
   WalkThroughScreen: { screen: WalkThroughScreen },
