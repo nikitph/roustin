@@ -65,7 +65,7 @@ class WalkThroughScreen extends React.Component {
           style={{flex:0.1, flexDirection:'row', alignItems:'flex-end', backgroundColor:'#F7EDD3'}}>
           <View style={{flex:0.5}}>
             <RectangleButton
-              onPress={() => {}}
+              onPress={()=>this.props.navigation.navigate('SignUpScreen')}
               text="SIGN UP"
               type="primary"
               height={75}

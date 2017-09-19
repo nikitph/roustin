@@ -7,24 +7,26 @@ import * as Animatable from 'react-native-animatable'
 import DropdownAlert from 'react-native-dropdownalert'
 import { RectangleButton } from 'react-native-button-component'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-import LoginActions from '../Redux/LoginRedux'
+import SignUpActions from '../Redux/SignUpRedux'
 // Styles
-import styles from './Styles/LoginScreenStyle'
+import styles from './Styles/SignUpScreenStyle'
 
-class LoginScreen extends Component {
+class SignUpScreen extends Component {
   static navigationOptions = {
     header: null,
   };
 
-  props: LoginScreenProps;
+  props: SignUpScreenProps;
 
-  constructor (props: LoginScreenProps) {
+  constructor (props: SignUpScreenProps) {
     super(props);
     this.showAlert = this.showAlert.bind(this);
 
     this.state = {
       email: '',
       password: '',
+      confirmPassword: '',
+      passwordMismatch: false,
       invalidEmail: false,
       invalidPassword: false,
       incorrectPassword: false,
@@ -33,38 +35,19 @@ class LoginScreen extends Component {
     }
   }
 
-  formValidation (result) {
 
-    // if the result is true, log the user in
-    const {code} = result;
-
-    code === 'auth/invalid-email'
-      ? this.setState({invalidEmail: true})
-      : this.setState({invalidEmail: false})
-
-    code === 'auth/weak-password'
-      ? this.setState({invalidPassword: true})
-      : this.setState({invalidPassword: false})
-
-    code === 'auth/wrong-password'
-      ? this.setState({incorrectPassword: true})
-      : this.setState({incorrectPassword: false})
-
-    code === 'auth/user-not-found'
-      ? this.setState({noMatch: true})
-      : this.setState({noMatch: false})
-
-  }
-
-  submitForm (state) {
-    const {email, password} = state;
-    signInWithEmailAndPassword(email, password, this.formValidation.bind(this));
-  }
-
-  handlePressLogin = () => {
-    const {email, password} = this.state;
-    this.props.attemptLogin(email, password, this.showAlert);
-  }
+  handlePressSignUp = (state) => {
+    const {email, password, confirmPassword} = state;
+    if(password == confirmPassword)
+    {
+      this.setState({passwordMismatch:false});
+      this.props.attemptSignUp(email, password,this.showAlert);
+    }
+    else
+    {
+      this.setState({passwordMismatch:true})
+    }
+  };
 
   showAlert(type,title,message) {
     this.dropdown.alertWithType(type, title, message);
@@ -72,7 +55,6 @@ class LoginScreen extends Component {
 
   render () {
     const props = this.props;
-    const {globalStyles, auth, app} = props;
     return (
       <ScrollView style={{height:Metrics.screenHeight}}>
         <KeyboardAvoidingView behavior='height'>
@@ -85,12 +67,12 @@ class LoginScreen extends Component {
                 style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10, flexDirection:'row' }}>
                 <View style={{flexDirection:'column', flex:1}}>
                   <View style={{flex:0.1}}>
-                    <Text style={[styles.header]}> Login </Text>
+                    <Text style={[styles.header]}> SignUp </Text>
                   </View>
                   <View style={{flex:0.7, flexDirection:'row'}}>
                     <View style={{flex:0.1, justifyContent:'center', alignItems:'center'}}>
                       <Icon name="ios-arrow-back" size={50} color="#900"
-                            onPress={()=>this.props.navigation.navigate('WalkThroughScreen')}
+                            onPress={()=>props.navigation.navigate('WalkThroughScreen')}
                       />
                     </View>
                     <View style={{flex:0.9}}>
@@ -126,8 +108,23 @@ class LoginScreen extends Component {
                             />
                           </View>
 
-
+                          <View style={styles.row}>
+                            <TextInput
+                              ref='password'
+                              value={this.state.confirmPassword}
+                              keyboardType='default'
+                              returnKeyType='go'
+                              autoCapitalize='none'
+                              autoCorrect={false}
+                              secureTextEntry
+                              underlineColorAndroid='transparent'
+                              placeholder={'Confirm Password'}
+                              onChangeText={(confirmPassword)=> this.setState({confirmPassword})}
+                            />
+                          </View>
                         </View>
+
+                        {this.state.passwordMismatch && this.showAlert('error','Error','The passwords do not match') }
 
                       </View>
 
@@ -135,7 +132,6 @@ class LoginScreen extends Component {
                   </View>
                   <View style={{flex:0.2}}>
                     <RectangleButton
-                      onPress={() => {this.handlePressLogin()}}
                       type="primary"
                       backgroundColors={['#665234', '#514128']}
                       gradientStart={{ x: 0.5, y: 1 }}
@@ -143,12 +139,12 @@ class LoginScreen extends Component {
                       buttonState={this.state.buttonstate}
                       states={{
                               ready: {
-                                onPress: () => {this.handlePressLogin()},
-                                text: 'SIGN IN',
+                                onPress: () => {this.handlePressSignUp(this.state)},
+                                text: 'SIGN UP',
                               },
                               fetching: {
                                 spinner: true,
-                                text: 'Signing In...',
+                                text: 'Signing Up...',
                               },
                             }}>
                     </RectangleButton></View>
@@ -169,23 +165,23 @@ class LoginScreen extends Component {
   }
 }
 
-type LoginScreenProps = {
+type SignUpScreenProps = {
   dispatch: PropTypes.func,
   fetching: PropTypes.boolean,
-  attemptLogin: PropTypes.func,
+  attemptSignUp: PropTypes.func,
   error: PropTypes.object
 }
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.login.fetching,
+    fetching: state.signup.fetching,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (email, password, alertfunc) => dispatch(LoginActions.loginRequest(email, password, alertfunc))
+    attemptSignUp: (email, password, alertfunc) => dispatch(SignUpActions.signUpRequest(email, password, alertfunc))
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

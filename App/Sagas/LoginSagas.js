@@ -4,8 +4,8 @@ import LoginActions from '../Redux/LoginRedux'
 import { dbService } from '../Services/Firebase'
 
 // attempts to login
-export function * login ({ email, password }) {
-  console.tron.log(email, password);
+export function * login ({ email, password, alertfunc}) {
+  console.tron.log(alertfunc, password);
   try
   {
     const response = yield call(dbService.auth.signInWithEmailAndPassword,email.toString(), password.toString(), function () {});
@@ -16,6 +16,7 @@ export function * login ({ email, password }) {
   }
   catch(error)
   {
-    yield put(LoginActions.loginFailure(error))
+    yield put(LoginActions.loginFailure(error));
+    alertfunc('error','Error', error.message)
   }
 }
