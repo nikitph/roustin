@@ -14,7 +14,7 @@ import { call, put } from 'redux-saga/effects'
 import ResetPasswordActions from '../Redux/ResetPasswordRedux'
 import { dbService } from '../Services/Firebase'
 
-export function * resetPassword ({ email, password, alertfunc}) {
+export function * resetPassword ({ email, alertfunc}) {
   try
   {
     const response = yield call(dbService.auth.sendPasswordResetEmail,email.toString());
