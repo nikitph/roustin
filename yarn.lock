@@ -6509,6 +6509,10 @@ react-native-button-component@^0.1.25:
     react-native-linear-gradient "^2.0.0"
     react-native-spinkit "^1.0.2"
 
+react-native-camera-roll-picker@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-camera-roll-picker/-/react-native-camera-roll-picker-1.2.1.tgz#b98b728974bd38f61e6944de1950dcb58c26dbc0"
+
 react-native-circular-progress@cconstantinescu/react-native-circular-progress:
   version "0.0.8"
   resolved "https://codeload.github.com/cconstantinescu/react-native-circular-progress/tar.gz/22587158f6abcac9d6cadf60fdd92bfd9a5f10a9"
@@ -6558,10 +6562,6 @@ react-native-dropdownalert@^2.11.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-in-app-notification@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-in-app-notification/-/react-native-in-app-notification-2.0.0.tgz#e3a42783c8b6f8211014778335cb803666e1f210"
-
 react-native-linear-gradient@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.3.0.tgz#757997197e35edf52e290891a11566e462845da1"
@@ -6573,10 +6573,6 @@ react-native-spinkit@^1.0.2:
   resolved "https://registry.yarnpkg.com/react-native-spinkit/-/react-native-spinkit-1.1.1.tgz#3ae512f3978bc750b7c02639911e1710750d8539"
   dependencies:
     prop-types "^15.5.8"
-
-react-native-swipe-gestures@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.2.tgz#914e1a72a94bc55b322b4622a01103ab879296dd"
 
 react-native-tab-view@^0.0.65:
   version "0.0.65"

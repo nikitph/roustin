@@ -10,7 +10,8 @@ export default () => {
     search: require('./SearchRedux').reducer,
     login: require('./LoginRedux').reducer,
     signup: require('./SignUpRedux').reducer,
-    reset: require('./ResetPasswordRedux').reducer
+    reset: require('./ResetPasswordRedux').reducer,
+    signupdetails: require('./SignUpDetailsRedux').reducer
   });
 
   return configureStore(rootReducer, rootSaga)

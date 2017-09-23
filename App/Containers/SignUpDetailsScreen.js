@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, KeyboardAvoidingView, Image, View, Text, TextInput, PropTypes } from 'react-native'
+import { ScrollView, KeyboardAvoidingView, Image, View, Text, TextInput, PropTypes, Modal } from 'react-native'
 import { connect } from 'react-redux'
 import { Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -7,18 +7,20 @@ import * as Animatable from 'react-native-animatable'
 import DropdownAlert from 'react-native-dropdownalert'
 import { RectangleButton } from 'react-native-button-component'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-import SignUpActions from '../Redux/SignUpRedux'
+import SignUpDetailsActions from '../Redux/SignUpDetailsRedux'
 // Styles
-import styles from './Styles/SignUpScreenStyle'
+import styles from './Styles/SignUpDetailsScreenStyle'
+import CameraRollPicker from 'react-native-camera-roll-picker';
 
-class SignUpScreen extends Component {
+
+class SignUpDetailsScreen extends Component {
   static navigationOptions = {
     header: null,
   };
 
-  props: SignUpScreenProps;
+  props: SignUpDetailsScreenProps;
 
-  constructor (props: SignUpScreenProps) {
+  constructor (props: SignUpDetailsScreenProps) {
     super(props);
     this.showAlert = this.showAlert.bind(this);
 
@@ -32,16 +34,34 @@ class SignUpScreen extends Component {
       incorrectPassword: false,
       noMatch: false,
       buttonstate: props.fetching ? "fetching" : "ready",
+      modal: false
     }
   }
 
+  selectImage() {
+    // if the user didn't select an image, skip this
+    if (!this.state.selectedImage) return;
 
-  handlePressSignUp = (state) => {
+    // set the image uri to the profile image and close the modal
+    this.setState({profileImage: this.state.selectedImage.uri});
+    this.handleImageSelector();
+  }
+
+  getSelectedImages(images, current) {
+    this.setState({selectedImage: current})
+  }
+
+  handleImageSelector() {
+    this.setState({modal: !this.state.modal});
+  }
+
+
+  handlePressSignUpDetails = (state) => {
     const {email, password, confirmPassword} = state;
     if(password == confirmPassword)
     {
       this.setState({passwordMismatch:false});
-      this.props.attemptSignUp(email, password,this.showAlert, this.props.navigation);
+      this.props.attemptSignUpDetails(email, password,this.showAlert);
     }
     else
     {
@@ -67,7 +87,7 @@ class SignUpScreen extends Component {
                 style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10, flexDirection:'row' }}>
                 <View style={{flexDirection:'column', flex:1}}>
                   <View style={{flex:0.1}}>
-                    <Text style={[styles.header]}> SignUp </Text>
+                    <Text style={[styles.header]}> SignUpDetails </Text>
                   </View>
                   <View style={{flex:0.7, flexDirection:'row'}}>
                     <View style={{flex:0.1, justifyContent:'center', alignItems:'center'}}>
@@ -78,6 +98,51 @@ class SignUpScreen extends Component {
                     <View style={{flex:0.9}}>
                       <View style={styles.container}>
                         <View style={styles.form}>
+                          <View style={styles.row}>
+                            <Modal
+                              animationType="slide"
+                              transparent={false}
+                              visible={this.state.modal}
+                            >
+                              <View style={{flex:1}}>
+                                <Text style={styles.imagePickerTitle}>
+                                  Select an image for your profile
+                                </Text>
+
+                                <RectangleButton
+                                  type="primary"
+                                  backgroundColors={['#665234', '#514128']}
+                                  gradientStart={{ x: 0.5, y: 1 }}
+                                  gradientEnd={{ x: 1, y: 1 }}
+                                  text="hi"
+                                  onPress={() => this.handleImageSelector()}/>
+
+                                {/* image handler */}
+                                <CameraRollPicker
+                                  scrollRenderAheadDistance={500}
+                                  initialListSize={1}
+                                  pageSize={3}
+                                  removeClippedSubviews={false}
+                                  groupTypes='SavedPhotos'
+                                  batchSize={5}
+                                  maximum={1}
+                                  selected={this.state.selected}
+                                  selectSingleItem={true}
+                                  assetType='Photos'
+                                  imagesPerRow={3}
+                                  imageMargin={5}
+                                  callback={this.getSelectedImages.bind(this)} />
+                              </View>
+                            </Modal>
+                            <RectangleButton
+                              type="primary"
+                              backgroundColors={['#665234', '#514128']}
+                              gradientStart={{ x: 0.5, y: 1 }}
+                              gradientEnd={{ x: 1, y: 1 }}
+                              text="hi"
+                              onPress={() => this.handleImageSelector()}/>
+
+                          </View>
                           <View style={styles.row}>
                             <TextInput
                               value={this.state.email}
@@ -139,7 +204,7 @@ class SignUpScreen extends Component {
                       buttonState={this.state.buttonstate}
                       states={{
                               ready: {
-                                onPress: () => {this.handlePressSignUp(this.state)},
+                                onPress: () => {this.handlePressSignUpDetails(this.state)},
                                 text: 'SIGN UP',
                               },
                               fetching: {
@@ -165,23 +230,23 @@ class SignUpScreen extends Component {
   }
 }
 
-type SignUpScreenProps = {
+type SignUpDetailsScreenProps = {
   dispatch: PropTypes.func,
   fetching: PropTypes.boolean,
-  attemptSignUp: PropTypes.func,
+  attemptSignUpDetails: PropTypes.func,
   error: PropTypes.object
 }
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.signup.fetching,
+    fetching: state.signupdetails.fetching,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptSignUp: (email, password, alertfunc, nav) => dispatch(SignUpActions.signUpRequest(email, password, alertfunc, nav))
+    attemptSignUpDetails: (email, password, alertfunc, nav) => dispatch(SignUpDetailsActions.signUpDetailsRequest(email, password, alertfunc, nav))
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpDetailsScreen)
