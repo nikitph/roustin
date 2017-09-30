@@ -35,6 +35,10 @@ class WalkThroughScreen extends React.Component {
             >
               <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
                 <Text
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:28, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:20}}>
+                  Hi</Text>
+
+                <Text
                   style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:20, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:20}}>
                   Thank you for choosing Roust.in. Lets do a quick walkthrough of how to use it.</Text>
 
@@ -93,10 +97,6 @@ class WalkThroughScreen extends React.Component {
     );
   }
 
-  _renderTitleIndicator () {
-    return <PagerTitleIndicator titles={['one', 'two', 'three']}/>;
-  }
-
   _renderDotIndicator () {
     return <PagerDotIndicator pageCount={4} dotStyle={{
         width: 10,
@@ -120,23 +120,6 @@ class WalkThroughScreen extends React.Component {
         alignItems: 'center',
         justifyContent: 'center'}}
     />;
-  }
-
-  _renderTabIndicator () {
-    let tabs = [{
-      text: 'Home',
-      iconSource: require('../Images/buy.png'),
-      selectedIconSource: require('../Images/buy.png')
-    }, {
-      text: 'Message',
-      iconSource: require('../Images/buy.png'),
-      selectedIconSource: require('../Images/buy.png')
-    }, {
-      text: 'Profile',
-      iconSource: require('../Images/buy.png'),
-      selectedIconSource: require('../Images/buy.png')
-    }];
-    return <PagerTabIndicator tabs={tabs}/>;
   }
 
 }
