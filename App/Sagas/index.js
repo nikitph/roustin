@@ -9,6 +9,8 @@ import { StartupTypes } from '../Redux/StartupRedux'
 import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { SignUpTypes} from '../Redux/SignUpRedux'
+import { SignUpDetailsTypes} from '../Redux/SignUpDetailsRedux'
+
 import { ResetPasswordTypes } from '../Redux/ResetPasswordRedux'
 
 
@@ -19,6 +21,7 @@ import { startup } from './StartupSagas'
 import { getUserAvatar } from './GithubSagas'
 import { login } from './LoginSagas'
 import { signUp } from './SignUpSagas'
+import { uploadSaga } from './SignUpDetailsSagas'
 import { resetPassword } from './ResetPasswordSagas'
 
 /* ------------- API ------------- */
@@ -38,6 +41,7 @@ export default function * root () {
     takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(SignUpTypes.SIGN_UP_REQUEST, signUp),
+    takeLatest(SignUpDetailsTypes.SIGN_UP_DETAILS_REQUEST, uploadSaga),
     takeLatest(ResetPasswordTypes.RESET_PASSWORD_REQUEST, resetPassword)
 
   ])

@@ -6,8 +6,7 @@ export function * signUp ({ email, password, alertfunc, nav}) {
   try
   {
     const response = yield call(dbService.auth.createUserWithEmailAndPassword,email.toString(), password.toString(), function () {});
-    console.tron.log(response);
-    yield put(SignUpActions.signUpSuccess({ username : { username : "hi me" }}));
+    yield put(SignUpActions.signUpSuccess({ payload : response.uid }));
     nav.navigate('SignUpDetailsScreen')
 
   }

@@ -49,6 +49,8 @@ export default StyleSheet.create({
     paddingVertical: Metrics.smallMargin,
     margin:10,
     backgroundColor:'rgba(0,0,0,0.1)',
+    borderRadius:20,
+    paddingLeft:15
 
   },
   rowLabel: {

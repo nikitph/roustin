@@ -3,6 +3,10 @@ package com.roustin;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.rnfs.RNFSPackage;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
@@ -28,6 +32,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
+            new RNFSPackage(),
+            new ImageResizerPackage(),
+            new ImagePickerPackage(),
             new LinearGradientPackage(),
             new RNSpinkitPackage(),
             new ReactNativeConfigPackage(),

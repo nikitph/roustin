@@ -1,29 +1,40 @@
-/* ***********************************************************
-* A short word on how to use this automagically generated file.
-* We're often asked in the ignite gitter channel how to connect
-* to a to a third party api, so we thought we'd demonstrate - but
-* you should know you can use sagas for other flow control too.
-*
-* Other points:
-*  - You'll need to add this saga to sagas/index.js
-*  - This template uses the api declared in sagas/index.js, so
-*    you'll need to define a constant in that file.
-*************************************************************/
-
 import { call, put } from 'redux-saga/effects'
 import SignUpDetailsActions from '../Redux/SignUpDetailsRedux'
+import { dbService, mapp } from '../Services/Firebase'
+import { eventChannel, takeEvery } from 'redux-saga'
+import {Platform } from 'react-native'
+import { fileUpload } from '../Services/Uploader'
 
-export function * getSignUpDetails (api, action) {
-  const { data } = action
-  // make the call to the api
-  const response = yield call(api.getsignUpDetails, data)
+const storage = mapp.storage();
+const database = mapp.database();
 
-  // success?
-  if (response.ok) {
-    // You might need to change the response here - do this with a 'transform',
-    // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(SignUpDetailsActions.signUpDetailsSuccess(response.data))
-  } else {
-    yield put(SignUpDetailsActions.signUpDetailsFailure())
+
+export function * uploadSaga ({ image, displayName, alertfunc, nav}) {
+  console.tron.log(image, displayName, nav);
+  console.tron.log(displayName, nav);
+  let storageRef = storage.ref(`event-images/xyz`);
+  let hostRef = database.ref(`hostEvents/abc`);
+
+
+  const uploadUri = Platform.OS === 'ios' ? image.uri.replace('file://', '') : image.uri;
+  fileUpload(state.profileImage.uri,'', storageRef, hostRef);
+
+
+
+  try
+  {
+    const task = yield call(dbService.storage.uploadFile, 'images/', uploadUri);
+console.tron.log('hmm');
+    const channel = eventChannel(emit => task.on('state_changed', emit));
+
+    yield takeEvery(channel);
+
+    // Wait for upload to complete
+    yield task
+
+  }
+  catch(error)
+  {
+    alertfunc('error','Error', error.message)
   }
 }

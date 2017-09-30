@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, KeyboardAvoidingView, Image, View, Text, TextInput, PropTypes, Modal } from 'react-native'
+import { ScrollView, KeyboardAvoidingView, Image, View, Text, TextInput, PropTypes } from 'react-native'
 import { connect } from 'react-redux'
 import { Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -10,7 +10,7 @@ import { RectangleButton } from 'react-native-button-component'
 import SignUpDetailsActions from '../Redux/SignUpDetailsRedux'
 // Styles
 import styles from './Styles/SignUpDetailsScreenStyle'
-import CameraRollPicker from 'react-native-camera-roll-picker';
+import PhotoUpload from '../Components/PhotoUpload'
 
 
 class SignUpDetailsScreen extends Component {
@@ -25,47 +25,18 @@ class SignUpDetailsScreen extends Component {
     this.showAlert = this.showAlert.bind(this);
 
     this.state = {
-      email: '',
-      password: '',
-      confirmPassword: '',
-      passwordMismatch: false,
-      invalidEmail: false,
-      invalidPassword: false,
-      incorrectPassword: false,
-      noMatch: false,
+      displayName: '',
       buttonstate: props.fetching ? "fetching" : "ready",
-      modal: false
+      modal: false,
+      profileImage:'',
     }
   }
-
-  selectImage() {
-    // if the user didn't select an image, skip this
-    if (!this.state.selectedImage) return;
-
-    // set the image uri to the profile image and close the modal
-    this.setState({profileImage: this.state.selectedImage.uri});
-    this.handleImageSelector();
-  }
-
-  getSelectedImages(images, current) {
-    this.setState({selectedImage: current})
-  }
-
-  handleImageSelector() {
-    this.setState({modal: !this.state.modal});
-  }
-
 
   handlePressSignUpDetails = (state) => {
-    const {email, password, confirmPassword} = state;
-    if(password == confirmPassword)
+    const {profileImage, displayName} = state;
+    if(profileImage)
     {
-      this.setState({passwordMismatch:false});
-      this.props.attemptSignUpDetails(email, password,this.showAlert);
-    }
-    else
-    {
-      this.setState({passwordMismatch:true})
+      this.props.attemptSignUpDetails(profileImage, displayName, this.showAlert, this.props.navigation);
     }
   };
 
@@ -87,7 +58,7 @@ class SignUpDetailsScreen extends Component {
                 style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10, flexDirection:'row' }}>
                 <View style={{flexDirection:'column', flex:1}}>
                   <View style={{flex:0.1}}>
-                    <Text style={[styles.header]}> SignUpDetails </Text>
+                    <Text style={[styles.header]}> Your Details </Text>
                   </View>
                   <View style={{flex:0.7, flexDirection:'row'}}>
                     <View style={{flex:0.1, justifyContent:'center', alignItems:'center'}}>
@@ -98,94 +69,36 @@ class SignUpDetailsScreen extends Component {
                     <View style={{flex:0.9}}>
                       <View style={styles.container}>
                         <View style={styles.form}>
-                          <View style={styles.row}>
-                            <Modal
-                              animationType="slide"
-                              transparent={false}
-                              visible={this.state.modal}
-                            >
-                              <View style={{flex:1}}>
-                                <Text style={styles.imagePickerTitle}>
-                                  Select an image for your profile
-                                </Text>
-
-                                <RectangleButton
-                                  type="primary"
-                                  backgroundColors={['#665234', '#514128']}
-                                  gradientStart={{ x: 0.5, y: 1 }}
-                                  gradientEnd={{ x: 1, y: 1 }}
-                                  text="hi"
-                                  onPress={() => this.handleImageSelector()}/>
-
-                                {/* image handler */}
-                                <CameraRollPicker
-                                  scrollRenderAheadDistance={500}
-                                  initialListSize={1}
-                                  pageSize={3}
-                                  removeClippedSubviews={false}
-                                  groupTypes='SavedPhotos'
-                                  batchSize={5}
-                                  maximum={1}
-                                  selected={this.state.selected}
-                                  selectSingleItem={true}
-                                  assetType='Photos'
-                                  imagesPerRow={3}
-                                  imageMargin={5}
-                                  callback={this.getSelectedImages.bind(this)} />
-                              </View>
-                            </Modal>
-                            <RectangleButton
-                              type="primary"
-                              backgroundColors={['#665234', '#514128']}
-                              gradientStart={{ x: 0.5, y: 1 }}
-                              gradientEnd={{ x: 1, y: 1 }}
-                              text="hi"
-                              onPress={() => this.handleImageSelector()}/>
-
-                          </View>
+                          <PhotoUpload
+                            onPhotoSelect={avatar => {
+                             if (avatar) {
+                                   this.setState({profileImage : avatar});
+                                   console.tron.log(this.state);
+                                 }   }}>
+                            <Image
+                              style={{
+                                 paddingVertical: 10,
+                                 width: 100,
+                                 height: 100,
+                                 borderRadius: 50
+                               }}
+                              resizeMode='cover'
+                              source={{
+                                       uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
+                                     }}/>
+                          </PhotoUpload>
                           <View style={styles.row}>
                             <TextInput
-                              value={this.state.email}
+                              value={this.state.displayName}
                               keyboardType='default'
                               returnKeyType='next'
                               autoCapitalize='none'
                               autoCorrect={false}
                               underlineColorAndroid='transparent'
-                              placeholder={'Email Address'}
-                              onChangeText={(email)=> this.setState({email})}
-                              onSubmitEditing={() => this.refs.password.focus()}
+                              placeholder={'Display Name'}
+                              onChangeText={(displayName)=> this.setState({displayName})}
                             />
 
-                          </View>
-
-                          <View style={styles.row}>
-                            <TextInput
-                              ref='password'
-                              value={this.state.password}
-                              keyboardType='default'
-                              returnKeyType='go'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              secureTextEntry
-                              underlineColorAndroid='transparent'
-                              placeholder={'Password'}
-                              onChangeText={(password)=> this.setState({password})}
-                            />
-                          </View>
-
-                          <View style={styles.row}>
-                            <TextInput
-                              ref='password'
-                              value={this.state.confirmPassword}
-                              keyboardType='default'
-                              returnKeyType='go'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              secureTextEntry
-                              underlineColorAndroid='transparent'
-                              placeholder={'Confirm Password'}
-                              onChangeText={(confirmPassword)=> this.setState({confirmPassword})}
-                            />
                           </View>
                         </View>
 
@@ -205,11 +118,11 @@ class SignUpDetailsScreen extends Component {
                       states={{
                               ready: {
                                 onPress: () => {this.handlePressSignUpDetails(this.state)},
-                                text: 'SIGN UP',
+                                text: 'SUBMIT',
                               },
                               fetching: {
                                 spinner: true,
-                                text: 'Signing Up...',
+                                text: 'Submitting...',
                               },
                             }}>
                     </RectangleButton></View>
@@ -245,7 +158,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptSignUpDetails: (email, password, alertfunc, nav) => dispatch(SignUpDetailsActions.signUpDetailsRequest(email, password, alertfunc, nav))
+    attemptSignUpDetails: (image, displayName, alertfunc, nav) =>
+      dispatch(SignUpDetailsActions.signUpDetailsRequest(image, displayName, alertfunc, nav))
   }
 };
 
