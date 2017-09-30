@@ -22,6 +22,7 @@ class SignUpDetailsScreen extends Component {
 
   constructor (props: SignUpDetailsScreenProps) {
     super(props);
+    console.log(props);
     this.showAlert = this.showAlert.bind(this);
 
     this.state = {
@@ -36,7 +37,7 @@ class SignUpDetailsScreen extends Component {
     const {profileImage, displayName} = state;
     if(profileImage)
     {
-      this.props.attemptSignUpDetails(profileImage, displayName, this.showAlert, this.props.navigation);
+      this.props.attemptSignUpDetails(profileImage, displayName, this.showAlert, this.props.navigation, this.props.uid);
     }
   };
 
@@ -147,19 +148,21 @@ type SignUpDetailsScreenProps = {
   dispatch: PropTypes.func,
   fetching: PropTypes.boolean,
   attemptSignUpDetails: PropTypes.func,
-  error: PropTypes.object
+  error: PropTypes.object,
+  uid: PropTypes.string
 }
 
 const mapStateToProps = (state) => {
   return {
     fetching: state.signupdetails.fetching,
+    uid: state.signup.payload.uid
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptSignUpDetails: (image, displayName, alertfunc, nav) =>
-      dispatch(SignUpDetailsActions.signUpDetailsRequest(image, displayName, alertfunc, nav))
+    attemptSignUpDetails: (image, displayName, alertfunc, nav, uid) =>
+      dispatch(SignUpDetailsActions.signUpDetailsRequest(image, displayName, alertfunc, nav, uid))
   }
 };
 

@@ -7,30 +7,20 @@ import { fileUpload } from '../Services/Uploader'
 
 const storage = mapp.storage();
 const database = mapp.database();
+const usr = mapp.auth();
 
 
-export function * uploadSaga ({ image, displayName, alertfunc, nav}) {
-  console.tron.log(image, displayName, nav);
-  console.tron.log(displayName, nav);
-  let storageRef = storage.ref(`event-images/xyz`);
+export function * uploadSaga ({ image, displayName, alertfunc, nav, uid}) {
+  let storageRef = storage.ref(`user-images/${uid}`);
   let hostRef = database.ref(`hostEvents/abc`);
-
-
   const uploadUri = Platform.OS === 'ios' ? image.uri.replace('file://', '') : image.uri;
-  fileUpload(state.profileImage.uri,'', storageRef, hostRef);
-
-
 
   try
   {
-    const task = yield call(dbService.storage.uploadFile, 'images/', uploadUri);
-console.tron.log('hmm');
-    const channel = eventChannel(emit => task.on('state_changed', emit));
+    yield call(fileUpload, uploadUri,storageRef);
+    usr.currentUser.updateProfile({displayName: displayName});
 
-    yield takeEvery(channel);
-
-    // Wait for upload to complete
-    yield task
+    yield put(SignUpDetailsActions.signUpDetailsSuccess({ uid : 'yup'}));
 
   }
   catch(error)

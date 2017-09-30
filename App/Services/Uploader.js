@@ -3,15 +3,17 @@ import {
   Platform
 } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
+import { mapp } from '../Services/Firebase'
+const usr = mapp.auth();
 
-export function fileUpload(uri, selectedImage, storageRef, userRef, mime = 'image/jpeg') {
+
+export function fileUpload(uri, storageRef, mime = 'image/jpeg') {
 
   // Prepare Blob support
   const Blob = RNFetchBlob.polyfill.Blob
   const { fs } = RNFetchBlob
   window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
   window.Blob = Blob
-  console.tron.log('wtf')
 
   return new Promise((resolve, reject) => {
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
@@ -32,13 +34,7 @@ export function fileUpload(uri, selectedImage, storageRef, userRef, mime = 'imag
         return imageRef.getDownloadURL()
       })
       .then((url) => {
-        userRef.update({
-          profileImage: url
-        });
-        //for eventrefs as events are referencing image not profileImage
-        userRef.update({
-          image: url
-        });
+        usr.currentUser.updateProfile({photoURL : url});
         resolve(url)
       })
       .catch((error) => {
