@@ -50,8 +50,7 @@ export default class Header extends Component {
       </View>
         <View style={styles.container}>
           <View style={{flex:0.3, alignItems:'center', flexDirection:'row',justifyContent:'space-around'}}>
-              <Image source={{uri: usr.currentUser.photoURL}} style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
-              <Text>Hi You</Text>
+              <Text>Hi {usr.currentUser.displayName}</Text>
           </View>
 
           <View style={{flex:0.3, alignItems:'center'}}>

@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { RectangleButton } from 'react-native-button-component'
 import styles from './Styles/ButtonRowStyle'
+import { Images, Metrics } from '../Themes'
+
 
 export default class ButtonRow extends Component {
   // // Prop type warnings
@@ -23,7 +25,7 @@ export default class ButtonRow extends Component {
         <View style={{flex:0.5}}>
           <RectangleButton
             onPress={()=>{}}
-            text="SIGN UP"
+            text="BUY"
             type="primary"
             height={75}
             backgroundColors={['#665234', '#514128']}
@@ -35,7 +37,7 @@ export default class ButtonRow extends Component {
 
           <RectangleButton
             onPress={()=>{}}
-            text="LOGIN"
+            text="SELL"
             type="primary"
             height={75}
             backgroundColors={['#BF9C65', '#CEA76A']}
