@@ -23,8 +23,8 @@ class LoginScreen extends Component {
     this.showAlert = this.showAlert.bind(this);
 
     this.state = {
-      email: '',
-      password: '',
+      email: 'a@90.com',
+      password: '123456',
       invalidEmail: false,
       invalidPassword: false,
       incorrectPassword: false,
@@ -63,7 +63,7 @@ class LoginScreen extends Component {
 
   handlePressLogin = () => {
     const {email, password} = this.state;
-    this.props.attemptLogin(email, password, this.showAlert);
+    this.props.attemptLogin(email, password, this.showAlert, this.props.navigation);
   }
 
   showAlert(type,title,message) {
@@ -187,7 +187,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (email, password, alertfunc) => dispatch(LoginActions.loginRequest(email, password, alertfunc))
+    attemptLogin: (email, password, alertfunc, nav) => dispatch(LoginActions.loginRequest(email, password, alertfunc, nav))
   }
 };
 

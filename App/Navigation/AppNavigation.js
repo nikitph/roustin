@@ -1,4 +1,7 @@
 import { StackNavigator } from 'react-navigation'
+import React, {Component} from 'react'
+import DrawerContent from '../Containers/DrawerContent'
+import Dashboard from '../Containers/Dashboard'
 import SignUpDetailsScreen from '../Containers/SignUpDetailsScreen'
 import ResetPasswordScreen from '../Containers/ResetPasswordScreen'
 import SignUpScreen from '../Containers/SignUpScreen'
@@ -10,6 +13,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  Dashboard: { screen: Dashboard },
   SignUpDetailsScreen: { screen: SignUpDetailsScreen },
   ResetPasswordScreen: { screen: ResetPasswordScreen },
   SignUpScreen: { screen: SignUpScreen },
@@ -19,6 +23,7 @@ const PrimaryNav = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'screen',
+  gesturesEnabled: false,
   initialRouteName: 'WalkThroughScreen',
   navigationOptions: {
     headerStyle: styles.header

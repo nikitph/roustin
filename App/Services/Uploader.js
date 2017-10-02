@@ -35,6 +35,9 @@ export function fileUpload(uri, storageRef, mime = 'image/jpeg') {
       })
       .then((url) => {
         usr.currentUser.updateProfile({photoURL : url});
+        return url;
+      })
+      .then((url) => {
         resolve(url)
       })
       .catch((error) => {
