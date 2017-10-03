@@ -22,10 +22,21 @@ class Dashboard extends Component {
     gesturesEnabled: false,
 
   };
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  constructor (props) {
+    super(props);
+    this.onPressOne.bind(this);
+    this.onPressTwo.bind(this);
+  }
+
+  onPressOne(nav) {
+  nav.navigate('SellItemScreen');
+}
+
+  onPressTwo(nav) {
+  nav.navigate('SellItemScreen');
+}
+
+
 
   render () {
     console.log(this.props.navigation.state.params);
@@ -36,7 +47,7 @@ class Dashboard extends Component {
         <ScrollView style={styles.container}>
           <Image source={{uri: usr.currentUser.photoURL}} style={{flex:0.4,height:200, alignItems:'center'}} resizeMode={'cover'}/>
         </ScrollView>
-        <ButtonRow />
+        <ButtonRow onPressOne={this.onPressOne} onPressTwo={this.onPressTwo} nav={this.props.navigation}/>
       </View>
     )
   }

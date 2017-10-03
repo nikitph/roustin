@@ -19,12 +19,13 @@ export default class ButtonRow extends Component {
   // }
 
   render () {
+    console.log(this.props);
     return (
       <View >
         <View style={styles.btnCtnr}>
         <View style={{flex:0.5}}>
           <RectangleButton
-            onPress={()=>{}}
+            onPress={()=>this.props.onPressOne(this.props.nav)}
             text="BUY"
             type="primary"
             height={75}
@@ -36,7 +37,7 @@ export default class ButtonRow extends Component {
         <View style={{flex:0.5}}>
 
           <RectangleButton
-            onPress={()=>{}}
+            onPress={()=>this.props.onPressTwo(this.props.nav)}
             text="SELL"
             type="primary"
             height={75}

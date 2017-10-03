@@ -9,6 +9,7 @@ import { StartupTypes } from '../Redux/StartupRedux'
 import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { SignUpTypes} from '../Redux/SignUpRedux'
+import { SellItemTypes} from '../Redux/SellItemRedux'
 import { SignUpDetailsTypes} from '../Redux/SignUpDetailsRedux'
 
 import { ResetPasswordTypes } from '../Redux/ResetPasswordRedux'
@@ -23,7 +24,7 @@ import { login } from './LoginSagas'
 import { signUp } from './SignUpSagas'
 import { uploadSaga } from './SignUpDetailsSagas'
 import { resetPassword } from './ResetPasswordSagas'
-
+import {sellItemSaga}  from './SellItemSagas'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
@@ -42,7 +43,8 @@ export default function * root () {
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(SignUpTypes.SIGN_UP_REQUEST, signUp),
     takeLatest(SignUpDetailsTypes.SIGN_UP_DETAILS_REQUEST, uploadSaga),
-    takeLatest(ResetPasswordTypes.RESET_PASSWORD_REQUEST, resetPassword)
+    takeLatest(ResetPasswordTypes.RESET_PASSWORD_REQUEST, resetPassword),
+    takeLatest(SellItemTypes.SELL_ITEM_REQUEST, sellItemSaga)
 
   ])
 }
