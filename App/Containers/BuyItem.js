@@ -40,10 +40,13 @@ class BuyItem extends React.PureComponent {
     return <MyCustomCell title={item.title} description={item.description} />
   *************************************************************/
   renderRow ({item}) {
-    console.log(item);
+    let uri = item.eventImageOneUrl.length > 0 ? item.eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
     return (
       <View style={styles.row}>
-        <Image source={{uri : item.eventImageOneUrl}} resizeMode={'cover'} style={{height:100, alignItems:'stretch', backgroundColor:'yellow'}}  />
+        <Image source={{uri : uri}} resizeMode={'cover'}
+               style={{height:100, alignItems:'stretch', backgroundColor:'yellow', borderWidth:0.5, borderColor:'rgba(0,0,0,0.2)'}}  >
+        <Text style={styles.label}>{item.price}</Text>
+        </Image>
       </View>
     )
   }

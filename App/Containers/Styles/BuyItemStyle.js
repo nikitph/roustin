@@ -23,7 +23,8 @@ export default StyleSheet.create({
   },
   label: {
     textAlign: 'center',
-    color: Colors.snow
+    color: Colors.bloodOrange,
+    backgroundColor:'rgba(0,0,0,0.3)'
   },
   listContent: {
     marginTop: Metrics.baseMargin
