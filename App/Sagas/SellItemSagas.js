@@ -30,11 +30,12 @@ export function * sellItemSaga (data) {
 
   try
   {
-    let eventImageOneUrl='', eventImageTwoUrl='', eventImageThreeUrl ='';
+    let eventImageOneUrl='https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png',
+      eventImageTwoUrl='https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png',
+      eventImageThreeUrl ='https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
     if(eventImageOne) {
       const uploadUriOne = Platform.OS === 'ios' ? eventImageOne.uri.replace('file://', '') : eventImageOne.uri;
       eventImageOneUrl = yield call(itemFileUpload, uploadUriOne, eventImageOne.name,  storageRef);
-      console.log(eventImageOneUrl);
     }
     if(eventImageTwo)
     {
