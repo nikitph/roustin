@@ -15,5 +15,13 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignContent:'space-around',
     backgroundColor:'white'
+  },
+  conContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    alignContent:'space-around',
+    backgroundColor:'rgba(0,0,0,0.1)'
   }
 })

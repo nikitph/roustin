@@ -6,6 +6,8 @@ import { Images } from '../Themes'
 import { mapp } from '../Services/Firebase'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { NavigationActions } from 'react-navigation'
+import { RectangleButton, RoundButton } from 'react-native-button-component'
+
 
 const usr = mapp.auth();
 
@@ -64,20 +66,33 @@ export default class Header extends Component {
           </View>
 
         </View>
-        <View style={styles.container}>
-          <View style={{flex:0.3, alignItems:'center', flexDirection:'row',justifyContent:'space-around'}}>
-            <Text></Text>
+        <View style={styles.conContainer}>
+          <View style={{flex:0.3, backgroundColor:'rgba(0,0,0,0.4'}}>
+            <RectangleButton
+              onPress={()=>this.submitFunc()}
+              text="My Active Items"
+              type="primary"
+              height={30}
+              backgroundColors={['#1F1C18', '#8E0E00']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}>
+            </RectangleButton>
           </View>
 
-          <View style={{flex:0.3, alignItems:'center'}}>
+          <View style={{flex:0.4, alignItems:'center'}}>
             <Text>Item Input Form</Text>
           </View>
 
           <View style={{flex:0.3, alignItems:'center'}}>
-            <Icon name="ios-log-out-outline" size={25} color="#665234" onPress={()=>{
-              usr.signOut();
-              this.props.dispatch(resetAction);
-            }}/>
+            <RectangleButton
+              onPress={()=>this.submitFunc()}
+              text="My Sold Items"
+              type="primary"
+              height={30}
+              backgroundColors={['#1F1C18', '#8E0E00']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}>
+            </RectangleButton>
           </View>
 
         </View>

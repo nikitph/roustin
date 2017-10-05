@@ -1,4 +1,5 @@
 import { StackNavigator } from 'react-navigation'
+import BuyItem from '../Containers/BuyItem'
 import SellItemScreen from '../Containers/SellItemScreen'
 import React, {Component} from 'react'
 import DrawerContent from '../Containers/DrawerContent'
@@ -14,6 +15,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  BuyItem: { screen: BuyItem },
   SellItemScreen: { screen: SellItemScreen },
   Dashboard: { screen: Dashboard },
   SignUpDetailsScreen: { screen: SignUpDetailsScreen },

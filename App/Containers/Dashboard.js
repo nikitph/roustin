@@ -29,7 +29,7 @@ class Dashboard extends Component {
   }
 
   onPressOne(nav) {
-  nav.navigate('SellItemScreen');
+  nav.navigate('BuyItem');
 }
 
   onPressTwo(nav) {

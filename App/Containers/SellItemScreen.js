@@ -191,7 +191,7 @@ class SellItemScreen extends Component {
     return (
       <View style={{flex:1, backgroundColor: 'white'}}>
         <Header {...navigation}/>
-        <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around'}}>
+        <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:5}}>
           <PhotoUpload
             onPhotoSelect={avatar => {
                              if (avatar) {
