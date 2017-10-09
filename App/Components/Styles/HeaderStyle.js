@@ -14,7 +14,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     alignContent:'space-around',
-    backgroundColor:'white'
+    backgroundColor:'transparent'
   },
   conContainer: {
     display: 'flex',
@@ -23,5 +23,15 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignContent:'space-around',
     backgroundColor:'rgba(0,0,0,0.1)'
+  },
+  triangleCorner: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderRightWidth: 500,
+    borderTopWidth: 20,
+    borderRightColor: 'transparent',
+    borderTopColor: '#1F1C18'
   }
 })

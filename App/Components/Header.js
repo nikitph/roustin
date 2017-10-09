@@ -7,9 +7,17 @@ import { mapp } from '../Services/Firebase'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { NavigationActions } from 'react-navigation'
 import { RectangleButton, RoundButton } from 'react-native-button-component'
+import Badge from 'react-native-smart-badge'
+import AnimatedLinearGradient, {presetColors} from 'react-native-animated-linear-gradient'
 
 
 const usr = mapp.auth();
+
+const sunset = [
+  'rgb(239, 235, 186)',
+  'rgb(212, 222, 206)',
+  'rgb(255, 229, 170)'
+]
 
 const resetAction = NavigationActions.reset({
   index: 0,
@@ -31,10 +39,9 @@ export default class Header extends Component {
   // }
 
   render () {
-    console.log(this.props);
-    console.log(usr.currentUser);
     return (
       <View style={styles.row}>
+        <AnimatedLinearGradient customColors={sunset} speed={10000}/>
         <View style={styles.container}>
 
           <View style={{flex:0.3, alignItems:'center'}}>
@@ -51,18 +58,22 @@ export default class Header extends Component {
         </View>
         <View style={styles.container}>
           <View style={{flex:0.3, alignItems:'center', flexDirection:'row',justifyContent:'space-around'}}>
-            <Text>Hi {usr.currentUser.displayName}</Text>
+            <Text>{usr.currentUser.displayName}</Text>
           </View>
 
-          <View style={{flex:0.3, alignItems:'center'}}>
+          <View style={{flex:0.4, alignItems:'center'}}>
             <Icon name="ios-log-out-outline" size={25} color="#665234"/>
           </View>
 
-          <View style={{flex:0.3, alignItems:'center'}}>
-            <Icon name="ios-log-out-outline" size={25} color="#665234" onPress={()=>{
+          <View style={{flex:0.3, alignItems:'center',flexDirection:'row', justifyContent:'center'}}>
+            <Icon name="ios-chatbubbles" size={25} color="#665234" onPress={()=>{
               usr.signOut();
               this.props.dispatch(resetAction);
             }}/>
+            <Badge minWidth={12} minHeight={12} textStyle={{fontSize: 10,  color: 'white'}} style={{backgroundColor:'green',marginBottom:16, marginLeft:-5}}
+            >
+              {20}
+            </Badge>
           </View>
 
         </View>

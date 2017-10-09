@@ -6514,6 +6514,16 @@ react-native-animatable@^1.2.3:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-animated-linear-gradient@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-animated-linear-gradient/-/react-native-animated-linear-gradient-1.0.2.tgz#161a5f165162c53c4fca3b324e5417ac73cb4036"
+  dependencies:
+    rgb2hex "^0.1.0"
+
+react-native-badge-view@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-badge-view/-/react-native-badge-view-1.0.0.tgz#fdf77a8dbbb671764aa31d8023f652a0e68474ba"
+
 react-native-button-component@^0.1.25:
   version "0.1.25"
   resolved "https://registry.yarnpkg.com/react-native-button-component/-/react-native-button-component-0.1.25.tgz#d7faeafb21ba3522e4ce20fc642c1372a387e423"
@@ -6604,6 +6614,10 @@ react-native-linear-gradient@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.3.0.tgz#757997197e35edf52e290891a11566e462845da1"
   dependencies:
     prop-types "^15.5.10"
+
+react-native-smart-badge@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-smart-badge/-/react-native-smart-badge-1.1.1.tgz#98baad6283d1bef2d6cd9197187d41f780be7e96"
 
 react-native-spinkit@^1.0.2:
   version "1.1.1"
@@ -7153,6 +7167,10 @@ resumer@~0.0.0:
   resolved "https://registry.yarnpkg.com/resumer/-/resumer-0.0.0.tgz#f1e8f461e4064ba39e82af3cdc2a8c893d076759"
   dependencies:
     through "~2.3.4"
+
+rgb2hex@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/rgb2hex/-/rgb2hex-0.1.0.tgz#ccd55f860ae0c5c4ea37504b958e442d8d12325b"
 
 right-align@^0.1.1:
   version "0.1.3"

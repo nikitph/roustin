@@ -1,7 +1,10 @@
 import React from 'react'
-import { View, Text, FlatList, Image } from 'react-native'
+import { View, Text, FlatList, Image,TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { mapp } from '../Services/Firebase'
+import Header from '../Components/Header'
+import  SearchBar  from '../Components/SearchBar'
+
 
 const storage = mapp.storage();
 const usr = mapp.auth();
@@ -12,7 +15,31 @@ const db = mapp.database();
 // Styles
 import styles from './Styles/BuyItemStyle'
 
+class MyListItem extends React.PureComponent {
+  _onPress = () => {
+    this.props.nav.navigate('ItemDetail',{item:this.props.item})
+  };
+
+  render() {
+    return (
+      <TouchableOpacity style={styles.row} onPress={this._onPress}>
+        <Image source={{uri : this.props.uri}} resizeMode={'cover'}
+               style={{height:100, alignItems:'stretch', backgroundColor:'yellow', borderWidth:0.5, borderColor:'rgba(0,0,0,0.2)'}}
+        >
+          <Text style={styles.label}>{this.props.itemSummary}</Text>
+        </Image>
+      </TouchableOpacity>
+    )
+  }
+}
+
 class BuyItem extends React.PureComponent {
+  static navigationOptions = {
+    header: null,
+    gesturesEnabled: true,
+
+  };
+
 
   /* ***********************************************************
   * STEP 1
@@ -39,16 +66,15 @@ class BuyItem extends React.PureComponent {
   * e.g.
     return <MyCustomCell title={item.title} description={item.description} />
   *************************************************************/
-  renderRow ({item}) {
-    let uri = item.eventImageOneUrl.length > 0 ? item.eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
-    return (
-      <View style={styles.row}>
-        <Image source={{uri : uri}} resizeMode={'cover'}
-               style={{height:100, alignItems:'stretch', backgroundColor:'yellow', borderWidth:0.5, borderColor:'rgba(0,0,0,0.2)'}}  >
-        <Text style={styles.label}>{item.price}</Text>
-        </Image>
-      </View>
-    )
+  renderRow (item, nav) {
+    console.log(nav);
+let uri = item.eventImageOneUrl ? item.eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
+    return <MyListItem
+      uri={uri}
+      itemSummary={item.itemSummary}
+      item={item}
+      nav={nav}
+    />
   }
 
   /* ***********************************************************
@@ -58,8 +84,11 @@ class BuyItem extends React.PureComponent {
   *************************************************************/
   // Render a header?
   renderHeader = () =>
-    <Text style={[styles.label, styles.sectionHeader]}> - Header - </Text>
-
+    <SearchBar
+      onSearch={() => {}}
+      onCancel={() => {}}
+      searchTerm='HELLO!!'
+    />
   // Render a footer?
   renderFooter = () =>
     <Text style={[styles.label, styles.sectionHeader]}> - Footer - </Text>
@@ -74,7 +103,17 @@ class BuyItem extends React.PureComponent {
   // The default function if no Key is provided is index
   // an identifiable key is important if you plan on
   // item reordering.  Otherwise index is fine
-  keyExtractor = (item, index) => index
+  keyExtractor = (item, index) => index;
+
+  _onPressItem = () => {
+    /**
+     HOW DO YOU PASS THE INFORMATION OF THE SELECTED USER TO THE ViewUser SCREEN??
+     **/
+
+      this.setState((state) => {
+        return {navigation: this.props.navigation};
+      });
+    };
 
   // How many items should be kept im memory as we scroll?
   oneScreensWorth = 20
@@ -95,19 +134,23 @@ class BuyItem extends React.PureComponent {
 
   render () {
     let ref = db.ref("items");
-    let obj =null;
+    let obj = null;
     ref.on("value", function(snapshot) {
       obj = Object.values(snapshot.val());
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
+    const { navigation } = this.props;
 
     return (
       <View style={styles.container}>
+        <Header {...navigation}/>
+
         <FlatList
           contentContainerStyle={styles.listContent}
           data={obj}
-          renderItem={this.renderRow}
+          extraData={this.props.navigation}
+          renderItem={item => this.renderRow(item, this.props.navigation)}
           numColumns={3}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
