@@ -26,9 +26,7 @@ class ItemDetail extends Component {
 
   render () {
     const { navigation } = this.props;
-    console.log(navigation);
     const { item } = navigation.state.params.item;
-    console.log(item);
 
     return (
       <View style={{flex:1, backgroundColor: 'white'}}>
