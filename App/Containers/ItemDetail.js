@@ -63,9 +63,21 @@ class ItemDetail extends Component {
             {item.negotiable}</Text>
         </ScrollView>
         <View style={styles.btnCtnr}>
-            <TouchableOpacity onPress={this._onPress} style={{flex:1, backgroundColor:'blue', height:75}}>
-                <Text style={styles.label}>{item.itemSummary}</Text>
-            </TouchableOpacity>
+          <View style={{flex:0.2, alignItems:'center', justifyContent:'center', backgroundColor:'#665234'}}>
+            <Image source={{uri: item.sellerPic}}
+                   style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
+          </View>
+          <View style={{flex:0.8}}>
+            <RectangleButton
+              onPress={()=>this.props.navigation.navigate('ItemChat')}
+              text="CONTACT SELLER"
+              type="primary"
+              height={75}
+              backgroundColors={['#665234', '#514128']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}>
+            </RectangleButton>
+          </View>
         </View>
         <DropdownAlert
           ref={(ref) => this.dropdown = ref}
