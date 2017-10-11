@@ -7,18 +7,20 @@ const db = mapp.database();
 
 export function * itemChatPost (action) {
   const { data } = action;
-  const { message } = data;
+  const { text, buyerName, buyerId, buyerPic, sellerName, sellerId, sellerPic, itemSummary, itemKey, createdAt } = data;
+  const msgObj = { text, buyerName, buyerId, buyerPic, sellerName, sellerId, sellerPic, itemSummary, itemKey, createdAt };
+  console.log(action);
 
   try
   {
     let sellerMsgRef =
-      db.ref(`users/${data.seller}/messages`)
-        .push({message});
+      db.ref(`threads/${data.sellerId}/${data.buyerId}/${itemKey}/messages`)
+        .push(msgObj);
     const sellerMsgKey = sellerMsgRef.key;
 
     let buyerMsgRef =
-      db.ref(`users/${data.buyer}/messages`)
-        .push({message});
+      db.ref(`threadb/${data.buyerId}/${data.sellerId}/${itemKey}/messages`)
+        .push(msgObj);
     const buyerMsgKey = buyerMsgRef.key;
 
     yield put(ItemChatPostActions.itemChatPostSuccess({sellerMsgKey, buyerMsgKey}));

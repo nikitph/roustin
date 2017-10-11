@@ -17,7 +17,7 @@ import styles from './Styles/BuyItemStyle'
 
 class MyListItem extends React.PureComponent {
   _onPress = () => {
-    this.props.nav.navigate('ItemDetail',{item:this.props.item})
+    this.props.nav.navigate('ItemDetail',{item:this.props.item, itemKey: this.props.itemKey})
   };
 
   render() {
@@ -67,13 +67,14 @@ class BuyItem extends React.PureComponent {
     return <MyCustomCell title={item.title} description={item.description} />
   *************************************************************/
   renderRow (item, nav) {
-    console.log(nav);
-let uri = item.eventImageOneUrl ? item.eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
+    console.log(item.item);
+let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
     return <MyListItem
       uri={uri}
-      itemSummary={item.itemSummary}
-      item={item}
+      itemSummary={item.item[1].itemSummary}
+      item={item.item[1]}
       nav={nav}
+      itemKey={item.item[0]}
     />
   }
 
@@ -136,11 +137,12 @@ let uri = item.eventImageOneUrl ? item.eventImageOneUrl : 'https://www.cmsabirmi
     let ref = db.ref("items");
     let obj = null;
     ref.on("value", function(snapshot) {
-      obj = Object.values(snapshot.val());
+      obj = Object.entries(snapshot.val());
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
     const { navigation } = this.props;
+    console.log(obj);
 
     return (
       <View style={styles.container}>

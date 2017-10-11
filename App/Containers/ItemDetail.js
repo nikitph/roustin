@@ -26,28 +26,28 @@ class ItemDetail extends Component {
 
   render () {
     const { navigation } = this.props;
-    const { item } = navigation.state.params.item;
+    const { item, itemKey } = navigation.state.params;
 
     return (
       <View style={{flex:1, backgroundColor: 'white'}}>
         <Header {...navigation}/>
         <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:5}}>
 
-            <Image source={{uri: 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
+            <Image source={{uri: item.eventImageOneUrl || 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
                    style={{
                                  padding: 10,
                                  width:100,
                                  height: 100,
                                }} resizeMode={'cover'}/>
 
-            <Image source={{uri: 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
+            <Image source={{uri: item.eventImageTwoUrl || 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
                    style={{
                                  padding: 10,
                                  width:100,
                                  height: 100,
                                }} resizeMode={'cover'}/>
 
-            <Image source={{uri: 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
+            <Image source={{uri: item.eventImageThreeUrl || 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
                    style={{
                                  padding: 10,
                                  width:100,
@@ -67,7 +67,7 @@ class ItemDetail extends Component {
           </View>
           <View style={{flex:0.8}}>
             <RectangleButton
-              onPress={()=>this.props.navigation.navigate('ItemChat')}
+              onPress={()=>this.props.navigation.navigate('ItemChat', {item:item, itemKey: itemKey})}
               text="CONTACT SELLER"
               type="primary"
               height={75}

@@ -4,8 +4,7 @@ import {ScrollView, Text, KeyboardAvoidingView, View} from 'react-native'
 import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 
-// import MessageGetActions from '../Redux/MessageGetRedux'
-// import MessagePostActions from '../Redux/MessagePostRedux'
+import  ItemChatPostTypes  from '../Redux/ItemChatPostRedux'
 
 import {Metrics} from '../Themes'
 // external libs
@@ -14,23 +13,21 @@ import Animatable from 'react-native-animatable'
 
 // Styles
 import styles from './Styles/ItemChatStyle'
+import { dbService, mapp } from '../Services/Firebase'
 
 // I18n
 import { GiftedChat } from 'react-native-gifted-chat';
+const usr = mapp.auth();
 
 
 class ItemChat extends React.Component {
   constructor(props: Object) {
     super(props);
-    this.state = {
-      item_data: props.data,
-      seller: props.data,
-      seller_name: props.data,
-      buyer: props.buyer,
-      buyer_name: props.buyer_name,
-      messages: [],
-
-    };
+    const { navigation, messages } = props;
+    const { item, itemKey } = navigation.state.params;
+    let initState = Object.assign( {}, item , messages, { itemKey : itemKey },
+      { buyerId: usr.currentUser.uid, buyerName: usr.currentUser.displayName, buyerPic: usr.currentUser.photoURL });
+    this.state = initState;
     this.onSend = this.onSend.bind(this);
   }
 
@@ -52,19 +49,15 @@ class ItemChat extends React.Component {
   }
 
   onSend(messages = []) {
-    this.setState((previousState) => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }));
+
+    let msgObj = (messages[0]);
+    this.props.postMessage(Object.assign(this.state, msgObj));
+    this.setState((previousState) => {
+      return {
+        messages: GiftedChat.append(previousState.messages, messages),
+      };
+    });
   }
-
-  makeMsg = (message) => {
-
-
-
-  };
-
-
-
 
   render() {
 
@@ -73,9 +66,7 @@ class ItemChat extends React.Component {
           <GiftedChat
             messages={this.state.messages}
             onSend={(messages) => this.onSend(messages)}
-            user={{
-          _id: 1,
-        }}
+            user={{_id: this.state.buyerId}}
           />
 
     )
@@ -85,27 +76,33 @@ class ItemChat extends React.Component {
 
 ItemChat.propTypes = {
 
-  requestMessageGet: PropTypes.func,
-  requestMessagePost: PropTypes.func,
-  building: PropTypes.string,
-  user: PropTypes.string,
-  buyer: PropTypes.string,
-  buyer_name: PropTypes.string
+  postMessage: PropTypes.func
 
 };
 
 const mapStateToProps = (state) => {
   return {
 
-
+    messages: state.itemchat || [
+      {
+        _id: 1,
+        text: 'Hello developer',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+        },
+      },
+    ]
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
 
-    // requestMessageGet: (params) => dispatch(MessageGetActions.messageGetRequest(params)),
-    // requestMessagePost: (params) => dispatch(MessagePostActions.messagePostRequest(params))
+    postMessage: (data) =>
+      dispatch(ItemChatPostTypes.itemChatPostRequest(data))
 
   }
 };

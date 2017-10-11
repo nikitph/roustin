@@ -1,6 +1,7 @@
 
 import { call, put } from 'redux-saga/effects'
 import LoginActions from '../Redux/LoginRedux'
+import ItemChatActions from '../Redux/ItemChatRedux'
 import { dbService } from '../Services/Firebase'
 
 // attempts to login
@@ -11,6 +12,7 @@ export function * login ({ email, password, alertfunc, nav}) {
     const response = yield call(dbService.auth.signInWithEmailAndPassword,email.toString(), password.toString(), function () {});
     const { uid, displayName, photoURL } = response
     yield put(LoginActions.loginSuccess({ uid, displayName, photoURL }));
+    yield put(ItemChatActions.itemChatRequest());
     yield call(nav.navigate,'Dashboard',{ uid, displayName, photoURL })
 
   }
