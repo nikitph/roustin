@@ -12,6 +12,7 @@ import { SignUpTypes} from '../Redux/SignUpRedux'
 import { SellItemTypes} from '../Redux/SellItemRedux'
 import { SignUpDetailsTypes} from '../Redux/SignUpDetailsRedux'
 import { ItemChatTypes} from '../Redux/ItemChatRedux'
+import { ItemTypes} from '../Redux/ItemRedux'
 import { ItemChatPostTypes} from '../Redux/ItemChatPostRedux'
 
 import { ResetPasswordTypes } from '../Redux/ResetPasswordRedux'
@@ -28,6 +29,7 @@ import { uploadSaga } from './SignUpDetailsSagas'
 import { resetPassword } from './ResetPasswordSagas'
 import { sellItemSaga }  from './SellItemSagas'
 import { syncMsgSaga } from './ItemChatSagas'
+import { syncItemSaga } from './ItemSagas'
 import { itemChatPost } from './ItemChatPostSagas'
 /* ------------- API ------------- */
 
@@ -50,6 +52,7 @@ export default function * root () {
     takeLatest(ResetPasswordTypes.RESET_PASSWORD_REQUEST, resetPassword),
     takeLatest(SellItemTypes.SELL_ITEM_REQUEST, sellItemSaga),
     takeLatest(ItemChatTypes.ITEM_CHAT_REQUEST, syncMsgSaga),
+    takeLatest(ItemTypes.ITEM_REQUEST, syncItemSaga),
     takeLatest(ItemChatPostTypes.ITEM_CHAT_POST_REQUEST, itemChatPost)
 
   ])

@@ -1,4 +1,7 @@
 import { StackNavigator } from 'react-navigation'
+import BuyConversations from '../Containers/BuyConversations'
+import SellConversation from '../Containers/SellConversation'
+import BuyConversation from '../Containers/BuyConversation'
 import ItemChat from '../Containers/ItemChat'
 import ItemDetail from '../Containers/ItemDetail'
 import BuyItem from '../Containers/BuyItem'
@@ -17,6 +20,9 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  BuyConversations: { screen: BuyConversations },
+  SellConversation: { screen: SellConversation },
+  BuyConversation: { screen: BuyConversation },
   ItemChat: { screen: ItemChat },
   ItemDetail: { screen: ItemDetail },
   BuyItem: { screen: BuyItem },

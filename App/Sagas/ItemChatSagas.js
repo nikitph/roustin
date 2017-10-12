@@ -1,14 +1,14 @@
 import { call, put, take } from 'redux-saga/effects'
 import ItemChatActions from '../Redux/ItemChatRedux'
 import { mapp, dbService } from '../Services/Firebase'
-//import { take } from 'redux-saga'
+
 const usr = mapp.auth();
 
 
 export function * syncMsgSaga() {
   console.log(mapp.database.channel);
   console.log(usr.currentUser.uid);
-  const channel = yield call(dbService.database.channel, `threads/${usr.currentUser.uid}`);
+  const channel = yield call(dbService.database.channel, `users/${usr.currentUser.uid}/messages`);
 
   while(true) {
     const { value: messages } = yield take(channel);

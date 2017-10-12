@@ -14,8 +14,8 @@ export default () => {
     signupdetails: require('./SignUpDetailsRedux').reducer,
     sellitem: require('./SellItemRedux').reducer,
     itemchat: require('./ItemChatRedux').reducer,
-    itemchatpost: require('./ItemChatPostRedux').reducer
-
+    itemchatpost: require('./ItemChatPostRedux').reducer,
+    item: require('./ItemRedux').reducer
   });
 
   return configureStore(rootReducer, rootSaga)

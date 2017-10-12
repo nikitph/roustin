@@ -7,19 +7,22 @@ const db = mapp.database();
 
 export function * itemChatPost (action) {
   const { data } = action;
-  const { text, buyerName, buyerId, buyerPic, sellerName, sellerId, sellerPic, itemSummary, itemKey, createdAt } = data;
-  const msgObj = { text, buyerName, buyerId, buyerPic, sellerName, sellerId, sellerPic, itemSummary, itemKey, createdAt };
+  const { text, buyerName, buyerId, buyerPic, sellerName, sellerId, sellerPic, itemSummary, itemKey } = data;
+  const msgObj = Object.assign({ text, buyerName, buyerId, buyerPic, sellerName, sellerId, sellerPic, itemSummary, itemKey },
+    { createdAt : data.createdAt} );
   console.log(action);
+  console.log(msgObj);
+
 
   try
   {
     let sellerMsgRef =
-      db.ref(`threads/${data.sellerId}/${data.buyerId}/${itemKey}/messages`)
+      db.ref(`users/${data.sellerId}/messages`)
         .push(msgObj);
     const sellerMsgKey = sellerMsgRef.key;
 
     let buyerMsgRef =
-      db.ref(`threadb/${data.buyerId}/${data.sellerId}/${itemKey}/messages`)
+      db.ref(`users/${data.buyerId}/messages`)
         .push(msgObj);
     const buyerMsgKey = buyerMsgRef.key;
 

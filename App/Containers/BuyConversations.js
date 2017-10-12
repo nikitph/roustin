@@ -1,46 +1,14 @@
 import React from 'react'
-import { View, Text, FlatList, Image,TouchableOpacity } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { mapp } from '../Services/Firebase'
-import Header from '../Components/Header'
-import  SearchBar  from '../Components/SearchBar'
-
-
-const storage = mapp.storage();
-const usr = mapp.auth();
-const db = mapp.database();
 
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
 
 // Styles
-import styles from './Styles/BuyItemStyle'
+import styles from './Styles/BuyConversationsStyle'
+import * as _ from 'lodash'
 
-class MyListItem extends React.PureComponent {
-  _onPress = () => {
-    this.props.nav.navigate('ItemDetail',{item:this.props.item, itemKey: this.props.itemKey})
-  };
-
-  render() {
-    return (
-      <TouchableOpacity style={styles.row} onPress={this._onPress}>
-        <Image source={{uri : this.props.uri}} resizeMode={'cover'}
-               style={{height:100, alignItems:'stretch', backgroundColor:'yellow', borderWidth:0.5, borderColor:'rgba(0,0,0,0.2)'}}
-        >
-          <Text style={styles.label}>{this.props.itemSummary}</Text>
-        </Image>
-      </TouchableOpacity>
-    )
-  }
-}
-
-class BuyItem extends React.PureComponent {
-  static navigationOptions = {
-    header: null,
-    gesturesEnabled: true,
-
-  };
-
-
+class BuyConversations extends React.PureComponent {
   /* ***********************************************************
   * STEP 1
   * This is an array of objects with the properties you desire
@@ -66,18 +34,14 @@ class BuyItem extends React.PureComponent {
   * e.g.
     return <MyCustomCell title={item.title} description={item.description} />
   *************************************************************/
-  renderRow (item, nav) {
-    console.log(item.item);
-let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
-    if(item.item[1].sellerId == usr.currentUser.uid)
-      return;
-    return <MyListItem
-      uri={uri}
-      itemSummary={item.item[1].itemSummary}
-      item={item.item[1]}
-      nav={nav}
-      itemKey={item.item[0]}
-    />
+  renderRow ({item}) {
+    console.log(item);
+    return (
+      <View style={styles.row}>
+        <Text style={styles.boldLabel}>{item.buyerName}</Text>
+        <Text style={styles.label}>{item.itemSummary}</Text>
+      </View>
+    )
   }
 
   /* ***********************************************************
@@ -87,11 +51,8 @@ let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https
   *************************************************************/
   // Render a header?
   renderHeader = () =>
-    <SearchBar
-      onSearch={() => {}}
-      onCancel={() => {}}
-      searchTerm='HELLO!!'
-    />
+    <Text style={[styles.label, styles.sectionHeader]}> - Header - </Text>
+
   // Render a footer?
   renderFooter = () =>
     <Text style={[styles.label, styles.sectionHeader]}> - Footer - </Text>
@@ -106,17 +67,7 @@ let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https
   // The default function if no Key is provided is index
   // an identifiable key is important if you plan on
   // item reordering.  Otherwise index is fine
-  keyExtractor = (item, index) => index;
-
-  _onPressItem = () => {
-    /**
-     HOW DO YOU PASS THE INFORMATION OF THE SELECTED USER TO THE ViewUser SCREEN??
-     **/
-
-      this.setState((state) => {
-        return {navigation: this.props.navigation};
-      });
-    };
+  keyExtractor = (item, index) => index
 
   // How many items should be kept im memory as we scroll?
   oneScreensWorth = 20
@@ -136,24 +87,19 @@ let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https
   // )}
 
   render () {
-    const { navigation, items } = this.props;
-    console.log(this.props.items);
-
+    console.log(this.props.conversations);
     return (
       <View style={styles.container}>
-        <Header {...navigation}/>
-
         <FlatList
           contentContainerStyle={styles.listContent}
-          data={items}
-          extraData={this.props.navigation}
-          renderItem={item => this.renderRow(item, this.props.navigation)}
-          numColumns={3}
+          data={this.props.conversations}
+          renderItem={this.renderRow}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           ListEmptyComponent={this.renderEmpty}
+          ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
     )
@@ -161,8 +107,10 @@ let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https
 }
 
 const mapStateToProps = (state) => {
+  let msgArray = Object.values(state.itemchat.payload)
+    .map(({sellerName, sellerId, itemKey, itemSummary})=>({sellerName, sellerId, itemKey, itemSummary}));
   return {
-    items: Object.entries(state.item.payload)
+    conversations: _.uniqWith(msgArray, _.isEqual)
   }
 }
 
@@ -171,4 +119,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuyItem)
+export default connect(mapStateToProps, mapDispatchToProps)(BuyConversations)

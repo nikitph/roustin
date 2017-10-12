@@ -52,7 +52,10 @@ export default class Header extends Component {
           <Image source={Images.logo} style={{flex:0.4,height:30, alignItems:'center'}} resizeMode={'contain'}/>
 
           <View style={{flex:0.3, alignItems:'center'}}>
-            <Icon name="ios-log-out-outline" size={25} color="#665234"/>
+            <Icon name="ios-log-out-outline" size={25} color="#665234" onPress={()=>{
+              usr.signOut();
+              this.props.dispatch(resetAction);
+            }}/>
           </View>
 
         </View>
@@ -67,8 +70,7 @@ export default class Header extends Component {
 
           <View style={{flex:0.3, alignItems:'center',flexDirection:'row', justifyContent:'center'}}>
             <Icon name="ios-chatbubbles" size={25} color="#665234" onPress={()=>{
-              usr.signOut();
-              this.props.dispatch(resetAction);
+             this.props.navigate('BuyConversations');
             }}/>
             <Badge minWidth={12} minHeight={12} textStyle={{fontSize: 10,  color: 'white'}} style={{backgroundColor:'green',marginBottom:16, marginLeft:-5}}
             >
