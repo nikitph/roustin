@@ -5,7 +5,7 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: '#F1E7D1'
   },
   row: {
     flex: 1,

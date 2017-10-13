@@ -4,7 +4,6 @@ import { Fonts, Colors, Metrics } from '../../Themes/'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Metrics.smallMargin,
     backgroundColor: 'rgba(0,0,0,0.3)',
     flexDirection: 'row',
     width: Metrics.screenWidth - Metrics.baseMargin

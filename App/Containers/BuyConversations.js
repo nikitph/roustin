@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, FlatList } from 'react-native'
 import { connect } from 'react-redux'
+import  SearchBar  from '../Components/SearchBar'
+import Header from '../Components/Header'
 
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
 
@@ -9,6 +11,11 @@ import styles from './Styles/BuyConversationsStyle'
 import * as _ from 'lodash'
 
 class BuyConversations extends React.PureComponent {
+  static navigationOptions = {
+    header: null,
+    gesturesEnabled: true,
+
+  };
   /* ***********************************************************
   * STEP 1
   * This is an array of objects with the properties you desire
@@ -51,7 +58,11 @@ class BuyConversations extends React.PureComponent {
   *************************************************************/
   // Render a header?
   renderHeader = () =>
-    <Text style={[styles.label, styles.sectionHeader]}> - Header - </Text>
+    <SearchBar
+      onSearch={() => {}}
+      onCancel={() => {}}
+      searchTerm='HELLO!!'
+    />
 
   // Render a footer?
   renderFooter = () =>
@@ -88,8 +99,10 @@ class BuyConversations extends React.PureComponent {
 
   render () {
     console.log(this.props.conversations);
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
+        <Header {...navigation}/>
         <FlatList
           contentContainerStyle={styles.listContent}
           data={this.props.conversations}
