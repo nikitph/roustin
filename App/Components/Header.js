@@ -9,6 +9,9 @@ import { NavigationActions } from 'react-navigation'
 import { RectangleButton, RoundButton } from 'react-native-button-component'
 import Badge from 'react-native-smart-badge'
 import AnimatedLinearGradient, {presetColors} from 'react-native-animated-linear-gradient'
+import * as Animatable from 'react-native-animatable'
+import { connect } from 'react-redux'
+import * as _ from 'lodash'
 
 
 const usr = mapp.auth();
@@ -26,7 +29,7 @@ const resetAction = NavigationActions.reset({
   ]
 });
 
-export default class Header extends Component {
+class Header extends Component {
   // // Prop type warnings
   // static propTypes = {
   //   someProperty: PropTypes.object,
@@ -65,18 +68,20 @@ export default class Header extends Component {
           </View>
 
           <View style={{flex:0.4, alignItems:'center'}}>
-            <Icon name="ios-log-out-outline" size={25} color="#665234"/>
+            <Icon name="ios-chatbubbles" size={25} color="#665234" onPress={()=>{
+             this.props.navigate('BuyConversations');
+            }}/>
           </View>
 
-          <View style={{flex:0.3, alignItems:'center',flexDirection:'row', justifyContent:'center'}}>
-            <Icon name="ios-chatbubbles" size={25} color="#665234" onPress={()=>{
+          <Animatable.View animation='shake' style={{flex:0.3, alignItems:'center',flexDirection:'row', justifyContent:'center'}}>
+            <Icon name="ios-notifications-outline" size={25} color="#665234" onPress={()=>{
              this.props.navigate('BuyConversations');
             }}/>
             <Badge minWidth={12} minHeight={12} textStyle={{fontSize: 10,  color: 'white'}} style={{backgroundColor:'green',marginBottom:16, marginLeft:-5}}
             >
-              {20}
+              {this.props.notifs.length}
             </Badge>
-          </View>
+          </Animatable.View>
 
         </View>
         <View style={styles.conContainer}>
@@ -114,3 +119,19 @@ export default class Header extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  let notif = state.notifications.payload;
+  let notifArray = notif ? Object.values(notif)
+    .map(({sellerName, sellerId, itemKey, itemSummary})=>({sellerName, sellerId, itemKey, itemSummary})) : [];
+  return {
+    notifs: _.uniqWith(notifArray, _.isEqual)
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

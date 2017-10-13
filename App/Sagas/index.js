@@ -14,6 +14,7 @@ import { SignUpDetailsTypes} from '../Redux/SignUpDetailsRedux'
 import { ItemChatTypes} from '../Redux/ItemChatRedux'
 import { ItemTypes} from '../Redux/ItemRedux'
 import { ItemChatPostTypes} from '../Redux/ItemChatPostRedux'
+import { NotificationsTypes } from '../Redux/NotificationsRedux'
 
 import { ResetPasswordTypes } from '../Redux/ResetPasswordRedux'
 
@@ -31,6 +32,7 @@ import { sellItemSaga }  from './SellItemSagas'
 import { syncMsgSaga } from './ItemChatSagas'
 import { syncItemSaga } from './ItemSagas'
 import { itemChatPost } from './ItemChatPostSagas'
+import { syncNotificationsSaga } from './NotificationsSagas'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
@@ -52,6 +54,7 @@ export default function * root () {
     takeLatest(ResetPasswordTypes.RESET_PASSWORD_REQUEST, resetPassword),
     takeLatest(SellItemTypes.SELL_ITEM_REQUEST, sellItemSaga),
     takeLatest(ItemChatTypes.ITEM_CHAT_REQUEST, syncMsgSaga),
+    takeLatest(NotificationsTypes.NOTIFICATIONS_REQUEST, syncNotificationsSaga),
     takeLatest(ItemTypes.ITEM_REQUEST, syncItemSaga),
     takeLatest(ItemChatPostTypes.ITEM_CHAT_POST_REQUEST, itemChatPost)
 

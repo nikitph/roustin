@@ -26,7 +26,12 @@ export function * itemChatPost (action) {
         .push(msgObj);
     const buyerMsgKey = buyerMsgRef.key;
 
-    yield put(ItemChatPostActions.itemChatPostSuccess({sellerMsgKey, buyerMsgKey}));
+    let notifRef =
+      db.ref(`users/${data.buyerId}/notifications`)
+        .push(msgObj);
+    const notifKey = notifRef.key;
+
+    yield put(ItemChatPostActions.itemChatPostSuccess({sellerMsgKey, buyerMsgKey, notifKey}));
   }
   catch (error)
   {
