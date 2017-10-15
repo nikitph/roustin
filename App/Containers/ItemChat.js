@@ -25,20 +25,17 @@ class ItemChat extends React.Component {
     super(props);
     const { navigation, messages } = props;
     let { item, itemKey } = navigation.state.params;
-    console.log(item);
     if(!item.buyerId)
       item = Object.assign(item,
         { buyerId : usr.currentUser.uid, buyerName : usr.currentUser.displayName, buyerPic : usr.currentUser.photoURL});
 
     let initState = Object.assign( {}, item , messages, { itemKey : itemKey });
-    console.log(initState);
     this.state = initState;
     this.onSend = this.onSend.bind(this);
   }
 
   componentWillMount() {
     const { itemKey } = this.props.navigation.state.params;
-    console.log(this.props.messages);
 
     this.setState({
       messages: this.props.messages.filter(msg => (msg.buyerId == usr.currentUser.uid ||
@@ -53,7 +50,6 @@ class ItemChat extends React.Component {
   onSend(messages = []) {
 
     let msgObj = (messages[0]);
-    console.log(this.state);
     this.props.postMessage(Object.assign({}, this.state, msgObj));
     this.setState((previousState) => {
       return {
