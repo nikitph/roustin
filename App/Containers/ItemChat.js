@@ -24,8 +24,12 @@ class ItemChat extends React.Component {
   constructor(props: Object) {
     super(props);
     const { navigation, messages } = props;
-    const { item, itemKey } = navigation.state.params;
+    let { item, itemKey } = navigation.state.params;
     console.log(item);
+    if(!item.buyerId)
+      item = Object.assign(item,
+        { buyerId : usr.currentUser.uid, buyerName : usr.currentUser.displayName, buyerPic : usr.currentUser.photoURL});
+
     let initState = Object.assign( {}, item , messages, { itemKey : itemKey });
     console.log(initState);
     this.state = initState;

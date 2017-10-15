@@ -140,7 +140,8 @@ class BuyConversations extends React.PureComponent {
 
 const mapStateToProps = (state) => {
   let msgArray = Object.values(state.itemchat.payload)
-    .map(({sellerName, sellerId, itemKey, itemSummary, buyerName, buyerId})=>({sellerName, sellerId, itemKey, itemSummary, buyerId, buyerName}));
+    .map(({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic})=>
+      ({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic}));
   return {
     conversations: _.uniqWith(msgArray, _.isEqual)
   }
