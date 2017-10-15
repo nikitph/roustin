@@ -25,33 +25,28 @@ class ItemChat extends React.Component {
     super(props);
     const { navigation, messages } = props;
     const { item, itemKey } = navigation.state.params;
-    let initState = Object.assign( {}, item , messages, { itemKey : itemKey },
-      { buyerId: usr.currentUser.uid, buyerName: usr.currentUser.displayName, buyerPic: usr.currentUser.photoURL });
+    console.log(item);
+    let initState = Object.assign( {}, item , messages, { itemKey : itemKey });
+    console.log(initState);
     this.state = initState;
     this.onSend = this.onSend.bind(this);
   }
 
   componentWillMount() {
+    const { itemKey } = this.props.navigation.state.params;
+    console.log(this.props.messages);
+
     this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-      ],
+      messages: this.props.messages.filter(msg => (msg.buyerId == usr.currentUser.uid ||
+      msg.sellerId == usr.currentUser.uid) && msg.itemKey == itemKey)
     });
   }
 
   onSend(messages = []) {
 
     let msgObj = (messages[0]);
-    this.props.postMessage(Object.assign(this.state, msgObj));
+    console.log(this.state);
+    this.props.postMessage(Object.assign({}, this.state, msgObj));
     this.setState((previousState) => {
       return {
         messages: GiftedChat.append(previousState.messages, messages),
@@ -66,7 +61,7 @@ class ItemChat extends React.Component {
           <GiftedChat
             messages={this.state.messages}
             onSend={(messages) => this.onSend(messages)}
-            user={{_id: this.state.buyerId}}
+            user={{ _id: usr.currentUser.uid, name:usr.currentUser.displayName, avatar: usr.currentUser.photoURL }}
           />
 
     )
@@ -81,20 +76,9 @@ ItemChat.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  let msgArray = state.itemchat.payload ? Object.values(state.itemchat.payload) : [];
   return {
-
-    messages: state.itemchat || [
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://facebook.github.io/react/img/logo_og.png',
-        },
-      },
-    ]
+    messages: msgArray
   }
 };
 

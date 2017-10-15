@@ -10,6 +10,8 @@ import { dbService, mapp } from '../Services/Firebase'
 import { RectangleButton } from 'react-native-button-component'
 import DropdownAlert from 'react-native-dropdownalert'
 import Header from '../Components/Header'
+const usr = mapp.auth();
+
 
 class ItemDetail extends Component {
   static navigationOptions = {
@@ -27,6 +29,9 @@ class ItemDetail extends Component {
   render () {
     const { navigation } = this.props;
     const { item, itemKey } = navigation.state.params;
+    const combItem = Object.assign({}, item,
+      { buyerId: usr.currentUser.uid, buyerName: usr.currentUser.displayName, buyerPic: usr.currentUser.photoURL });
+    console.log(combItem);
 
     return (
       <View style={{flex:1, backgroundColor: 'white'}}>
@@ -67,7 +72,7 @@ class ItemDetail extends Component {
           </View>
           <View style={{flex:0.8}}>
             <RectangleButton
-              onPress={()=>this.props.navigation.navigate('ItemChat', {item:item, itemKey: itemKey})}
+              onPress={()=>this.props.navigation.navigate('ItemChat', {item: combItem, itemKey: itemKey})}
               text="CONTACT SELLER"
               type="primary"
               height={75}

@@ -1,8 +1,11 @@
 import React from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Image, Switch } from 'react-native'
 import { connect } from 'react-redux'
 import  SearchBar  from '../Components/SearchBar'
 import Header from '../Components/Header'
+import { dbService, mapp } from '../Services/Firebase'
+
+const usr = mapp.auth();
 
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
 
@@ -30,7 +33,8 @@ class BuyConversations extends React.PureComponent {
       {title: 'Fifth Title', description: 'Fifth Description'},
       {title: 'Sixth Title', description: 'Sixth Description'},
       {title: 'Seventh Title', description: 'Seventh Description'}
-    ]
+    ],
+    onlyBuyerMessages: false
   }
 
   /* ***********************************************************
@@ -41,13 +45,14 @@ class BuyConversations extends React.PureComponent {
   * e.g.
     return <MyCustomCell title={item.title} description={item.description} />
   *************************************************************/
-  renderRow ({item}) {
+  renderRow ({item}, nav, onlyBuyerMessages) {
     console.log(item);
     return (
-      <View style={styles.row}>
+      <TouchableOpacity style={styles.row} onPress={()=> nav.navigate('ItemChat',
+      {item: item, itemKey: item.itemKey})}>
         <Text style={styles.boldLabel}>{item.buyerName}</Text>
         <Text style={styles.label}>{item.itemSummary}</Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -98,15 +103,29 @@ class BuyConversations extends React.PureComponent {
   // )}
 
   render () {
-    console.log(this.props.conversations);
+    console.log(this.state.onlyBuyerMessages);
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Header {...navigation}/>
+        <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:5}}>
+            <Text> From Buyers </Text>
+
+          <Switch
+            onValueChange={(value) => {this.setState({onlyBuyerMessages: value}); }}
+            value={this.state.onlyBuyerMessages}
+            onTintColor={'#00adf5'}
+          />
+
+          <Text> From Sellers </Text>
+
+        </View>
         <FlatList
           contentContainerStyle={styles.listContent}
-          data={this.props.conversations}
-          renderItem={this.renderRow}
+          data={this.props.conversations.filter(msg=> { console.log(msg);
+            return this.state.onlyBuyerMessages ? msg.buyerId == usr.currentUser.uid :  msg.sellerId == usr.currentUser.uid
+          })}
+          renderItem={item => this.renderRow(item, this.props.navigation, this.state.onlyBuyerMessages)}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
           ListHeaderComponent={this.renderHeader}
@@ -121,7 +140,7 @@ class BuyConversations extends React.PureComponent {
 
 const mapStateToProps = (state) => {
   let msgArray = Object.values(state.itemchat.payload)
-    .map(({sellerName, sellerId, itemKey, itemSummary})=>({sellerName, sellerId, itemKey, itemSummary}));
+    .map(({sellerName, sellerId, itemKey, itemSummary, buyerName, buyerId})=>({sellerName, sellerId, itemKey, itemSummary, buyerId, buyerName}));
   return {
     conversations: _.uniqWith(msgArray, _.isEqual)
   }
