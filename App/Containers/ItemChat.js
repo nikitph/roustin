@@ -42,7 +42,11 @@ class ItemChat extends React.Component {
 
     this.setState({
       messages: this.props.messages.filter(msg => (msg.buyerId == usr.currentUser.uid ||
-      msg.sellerId == usr.currentUser.uid) && msg.itemKey == itemKey)
+      msg.sellerId == usr.currentUser.uid) && msg.itemKey == itemKey).sort(function compare(a, b) {
+        let dateA = new Date(a.createdAt);
+        let dateB = new Date(b.createdAt);
+        return dateB - dateA;
+      })
     });
   }
 
