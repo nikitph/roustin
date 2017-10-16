@@ -12,6 +12,7 @@ import  SellItemActions  from '../Redux/SellItemRedux'
 import styles from './Styles/SellItemScreenStyle'
 import { dbService, mapp } from '../Services/Firebase'
 import { RectangleButton } from 'react-native-button-component'
+import { SegmentedControls } from 'react-native-radio-buttons'
 import DropdownAlert from 'react-native-dropdownalert'
 
 
@@ -160,7 +161,7 @@ class SellItemScreen extends Component {
         eventImageOne: props.eventImageOne,
         eventImageTwo: props.eventImageTwo,
         eventImageThree: props.eventImageThree,
-
+        menu: "Item Input Form"
       }
     }
 
@@ -192,34 +193,17 @@ class SellItemScreen extends Component {
       <View style={{flex:1, backgroundColor: 'white'}}>
         <Header {...navigation}/>
         <View style={styles.conContainer}>
-          <View style={{flex:0.3, backgroundColor:'rgba(0,0,0,0.4'}}>
-            <RectangleButton
-              onPress={()=>this.submitFunc()}
-              text="My Active Items"
-              type="primary"
-              height={30}
-              backgroundColors={['#1F1C18', '#8E0E00']}
-              gradientStart={{ x: 0.5, y: 1 }}
-              gradientEnd={{ x: 1, y: 1 }}>
-            </RectangleButton>
-          </View>
-
-          <View style={{flex:0.4, alignItems:'center'}}>
-            <Text>Item Input Form</Text>
-          </View>
-
-          <View style={{flex:0.3, alignItems:'center'}}>
-            <RectangleButton
-              onPress={()=>this.submitFunc()}
-              text="My Sold Items"
-              type="primary"
-              height={30}
-              backgroundColors={['#1F1C18', '#8E0E00']}
-              gradientStart={{ x: 0.5, y: 1 }}
-              gradientEnd={{ x: 1, y: 1 }}>
-            </RectangleButton>
-          </View>
-
+          <SegmentedControls
+            options={ ["My Active Items","Item Input Form","My Sold Items"] }
+            onSelection={(onlyBuyerMessages)=> this.handleFieldChange(onlyBuyerMessages ,'onlyBuyerMessages') }
+            selectedOption={ this.state.menu }
+            optionContainerStyle={{flex:1}}
+            containerBorderTint={'#F1E7D1'}
+            containerBorderRadius={0}
+            selectedBackgroundColor={'#665234'}
+            tint={'#665234'}
+            separatorTint={'transparent'}
+          />
         </View>
         <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:5}}>
           <PhotoUpload
