@@ -36,7 +36,7 @@ class BuyConversations extends React.PureComponent {
       {title: 'Sixth Title', description: 'Sixth Description'},
       {title: 'Seventh Title', description: 'Seventh Description'}
     ],
-    onlyBuyerMessages: false
+    onlyBuyerMessages: true
   }
 
   /* ***********************************************************
