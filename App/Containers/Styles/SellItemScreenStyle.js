@@ -7,6 +7,14 @@ export default StyleSheet.create({
     marginTop:5,
     backgroundColor: '#F1E7D1'
   },
+  conContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    alignContent:'space-around',
+    backgroundColor:'rgba(0,0,0,0.1)'
+  },
   btnCtnr: {
     display: 'flex',
     flexDirection: 'row',

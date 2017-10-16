@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Image } from 'react-native'
+import { ScrollView, View, Image, Text } from 'react-native'
 import { connect } from 'react-redux'
 import Header from '../Components/Header'
 import ButtonRow from '../Components/ButtonRow'
@@ -191,6 +191,36 @@ class SellItemScreen extends Component {
     return (
       <View style={{flex:1, backgroundColor: 'white'}}>
         <Header {...navigation}/>
+        <View style={styles.conContainer}>
+          <View style={{flex:0.3, backgroundColor:'rgba(0,0,0,0.4'}}>
+            <RectangleButton
+              onPress={()=>this.submitFunc()}
+              text="My Active Items"
+              type="primary"
+              height={30}
+              backgroundColors={['#1F1C18', '#8E0E00']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}>
+            </RectangleButton>
+          </View>
+
+          <View style={{flex:0.4, alignItems:'center'}}>
+            <Text>Item Input Form</Text>
+          </View>
+
+          <View style={{flex:0.3, alignItems:'center'}}>
+            <RectangleButton
+              onPress={()=>this.submitFunc()}
+              text="My Sold Items"
+              type="primary"
+              height={30}
+              backgroundColors={['#1F1C18', '#8E0E00']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}>
+            </RectangleButton>
+          </View>
+
+        </View>
         <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:5}}>
           <PhotoUpload
             onPhotoSelect={avatar => {

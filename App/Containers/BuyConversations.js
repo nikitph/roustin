@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import  SearchBar  from '../Components/SearchBar'
 import Header from '../Components/Header'
 import { dbService, mapp } from '../Services/Firebase'
+import { RectangleButton } from 'react-native-button-component'
+import { SegmentedControls } from 'react-native-radio-buttons'
 
 const usr = mapp.auth();
 
@@ -85,6 +87,13 @@ class BuyConversations extends React.PureComponent {
   // item reordering.  Otherwise index is fine
   keyExtractor = (item, index) => index
 
+  handleFieldChange (value, fieldName) {
+    let inputObj = {};
+    inputObj[fieldName] = value == "Conversations with buyers";
+    this.setState(inputObj);
+    console.log(this.state.onlyBuyerMessages)
+  }
+
   // How many items should be kept im memory as we scroll?
   oneScreensWorth = 20
 
@@ -108,17 +117,18 @@ class BuyConversations extends React.PureComponent {
     return (
       <View style={styles.container}>
         <Header {...navigation}/>
-        <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:5}}>
-            <Text> From Buyers </Text>
-
-          <Switch
-            onValueChange={(value) => {this.setState({onlyBuyerMessages: value}); }}
-            value={this.state.onlyBuyerMessages}
-            onTintColor={'#00adf5'}
+        <View style={styles.conContainer}>
+          <SegmentedControls
+            options={ ["Conversations with buyers","Conversations with sellers"] }
+            onSelection={(onlyBuyerMessages)=> this.handleFieldChange(onlyBuyerMessages ,'onlyBuyerMessages') }
+            selectedOption={ this.state.onlyBuyerMessages ? "Conversations with buyers" : "Conversations with sellers" }
+            optionContainerStyle={{flex:1}}
+            containerBorderTint={'#F1E7D1'}
+            containerBorderRadius={0}
+            selectedBackgroundColor={'#665234'}
+            tint={'#665234'}
+            separatorTint={'#665234'}
           />
-
-          <Text> From Sellers </Text>
-
         </View>
         <FlatList
           contentContainerStyle={styles.listContent}

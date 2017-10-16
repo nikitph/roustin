@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './Styles/HeaderStyle'
 import { Images } from '../Themes'
 import { mapp } from '../Services/Firebase'
@@ -29,6 +29,13 @@ const resetAction = NavigationActions.reset({
   ]
 });
 
+const dashboardAction = NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({routeName: 'Dashboard'})
+  ]
+});
+
 class Header extends Component {
   // // Prop type warnings
   // static propTypes = {
@@ -52,7 +59,11 @@ class Header extends Component {
                    style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
           </View>
 
-          <Image source={Images.logo} style={{flex:0.4,height:30, alignItems:'center'}} resizeMode={'contain'}/>
+          <TouchableOpacity style={{flex:0.4,height:30, alignItems:'center'}} onPress={()=>{
+              this.props.dispatch(dashboardAction);
+            }}>
+          <Image source={Images.logo} style={{flex:1,height:30, alignItems:'center'}} resizeMode={'contain'} />
+          </TouchableOpacity>
 
           <View style={{flex:0.3, alignItems:'center'}}>
             <Icon name="ios-log-out-outline" size={25} color="#665234" onPress={()=>{
@@ -82,36 +93,6 @@ class Header extends Component {
               {this.props.notifs.length}
             </Badge>
           </Animatable.View>
-
-        </View>
-        <View style={styles.conContainer}>
-          <View style={{flex:0.3, backgroundColor:'rgba(0,0,0,0.4'}}>
-            <RectangleButton
-              onPress={()=>this.submitFunc()}
-              text="My Active Items"
-              type="primary"
-              height={30}
-              backgroundColors={['#1F1C18', '#8E0E00']}
-              gradientStart={{ x: 0.5, y: 1 }}
-              gradientEnd={{ x: 1, y: 1 }}>
-            </RectangleButton>
-          </View>
-
-          <View style={{flex:0.4, alignItems:'center'}}>
-            <Text>Item Input Form</Text>
-          </View>
-
-          <View style={{flex:0.3, alignItems:'center'}}>
-            <RectangleButton
-              onPress={()=>this.submitFunc()}
-              text="My Sold Items"
-              type="primary"
-              height={30}
-              backgroundColors={['#1F1C18', '#8E0E00']}
-              gradientStart={{ x: 0.5, y: 1 }}
-              gradientEnd={{ x: 1, y: 1 }}>
-            </RectangleButton>
-          </View>
 
         </View>
 
