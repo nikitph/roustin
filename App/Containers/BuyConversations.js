@@ -5,6 +5,7 @@ import  SearchBar  from '../Components/SearchBar'
 import Header from '../Components/Header'
 import { dbService, mapp } from '../Services/Firebase'
 import { RectangleButton } from 'react-native-button-component'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { SegmentedControls } from 'react-native-radio-buttons'
 
 const usr = mapp.auth();
@@ -52,8 +53,20 @@ class BuyConversations extends React.PureComponent {
     return (
       <TouchableOpacity style={styles.row} onPress={()=> nav.navigate('ItemChat',
       {item: item, itemKey: item.itemKey})}>
-        <Text style={styles.boldLabel}>{item.buyerName}</Text>
-        <Text style={styles.label}>{item.itemSummary}</Text>
+        <View style={{flex:0.2, alignItems:'flex-start'}}>
+          <Image source={{uri: item.buyerPic}}
+                 style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
+        </View>
+        <View style={{flex:0.4, alignItems:'flex-start'}}>
+          <Text style={styles.label}>{item.buyerName}</Text>
+        </View>
+        <View style={{flex:0.3, alignItems:'flex-start'}}>
+          <Text style={styles.label}>Re: {item.itemSummary}</Text>
+        </View>
+        <View style={{flex:0.1, alignItems:'center'}}>
+          <Icon name="ios-arrow-forward" size={32} color="rgba(116,100,78,1)"
+          />
+        </View>
       </TouchableOpacity>
     )
   }

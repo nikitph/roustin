@@ -9,9 +9,12 @@ export default StyleSheet.create({
   },
   row: {
     flex: 1,
-    backgroundColor: Colors.fire,
-    marginVertical: Metrics.smallMargin,
-    justifyContent: 'center'
+    backgroundColor: 'rgba(116,100,78,0.4)',
+    margin: Metrics.smallMargin,
+    flexDirection:'row',
+    justifyContent: 'center',
+    alignItems:'center',
+    borderRadius:20
   },
   boldLabel: {
     fontWeight: 'bold',
@@ -28,7 +31,9 @@ export default StyleSheet.create({
   },
   label: {
     textAlign: 'center',
-    color: Colors.snow
+    color: 'white',
+    fontSize:16,
+    fontFamily:'Avenir'
   },
   listContent: {
     marginTop: Metrics.baseMargin
