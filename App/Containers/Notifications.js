@@ -125,7 +125,7 @@ class Notifications extends React.PureComponent {
             options={ ["Notifications"] }
             selectedOption={ "Notifications" }
             optionContainerStyle={{flex:1}}
-            containerBorderTint={'#F1E7D1'}
+            containerBorderTint={'#665234'}
             containerBorderRadius={0}
             selectedBackgroundColor={'#665234'}
             tint={'#665234'}

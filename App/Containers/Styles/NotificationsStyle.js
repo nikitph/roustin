@@ -36,6 +36,6 @@ export default StyleSheet.create({
     fontFamily:'Avenir'
   },
   listContent: {
-    marginTop: 5
+    marginTop: 0
   }
 })
