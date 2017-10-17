@@ -31,11 +31,11 @@ export default StyleSheet.create({
   },
   label: {
     textAlign: 'center',
-    color: 'white',
+    color: 'rgb(79, 18, 34)',
     fontSize:16,
     fontFamily:'Avenir'
   },
   listContent: {
-    marginTop: Metrics.baseMargin
+    marginTop: 5
   }
 })

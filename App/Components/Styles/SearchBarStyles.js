@@ -4,15 +4,14 @@ import { Fonts, Colors, Metrics } from '../../Themes/'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'transparent',
     flexDirection: 'row',
-    width: Metrics.screenWidth - Metrics.baseMargin
+    width: Metrics.screenWidth
   },
   searchInput: {
     flex: 5,
     height: Metrics.searchBarHeight,
     alignSelf: 'center',
-    padding: Metrics.smallMargin,
     textAlign: 'left',
     fontFamily: Fonts.type.base,
     fontSize: Fonts.size.instructions,

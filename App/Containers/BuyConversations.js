@@ -90,7 +90,7 @@ class BuyConversations extends React.PureComponent {
 
   // Show this when data is empty
   renderEmpty = () =>
-    <Text style={styles.label}> - Nothing to See Here - </Text>
+    <Text style={styles.label}> - There are no relevant conversations - </Text>
 
   renderSeparator = () =>
     <Text style={styles.label}> - ~~~~~ - </Text>
@@ -104,7 +104,6 @@ class BuyConversations extends React.PureComponent {
     let inputObj = {};
     inputObj[fieldName] = value == "Conversations with buyers";
     this.setState(inputObj);
-    console.log(this.state.onlyBuyerMessages)
   }
 
   // How many items should be kept im memory as we scroll?
@@ -151,8 +150,6 @@ class BuyConversations extends React.PureComponent {
           renderItem={item => this.renderRow(item, this.props.navigation, this.state.onlyBuyerMessages)}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
-          ListHeaderComponent={this.renderHeader}
-          ListFooterComponent={this.renderFooter}
           ListEmptyComponent={this.renderEmpty}
           ItemSeparatorComponent={this.renderSeparator}
         />
