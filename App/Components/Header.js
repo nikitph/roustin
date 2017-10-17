@@ -86,7 +86,7 @@ class Header extends Component {
 
           <Animatable.View animation='shake' style={{flex:0.3, alignItems:'center',flexDirection:'row', justifyContent:'center'}}>
             <Icon name="ios-notifications-outline" size={25} color="#665234" onPress={()=>{
-             this.props.navigate('BuyConversations');
+             this.props.navigate('Notifications');
             }}/>
             <Badge minWidth={12} minHeight={12} textStyle={{fontSize: 10,  color: 'white'}} style={{backgroundColor:'green',marginBottom:16, marginLeft:-5}}
             >
