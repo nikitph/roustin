@@ -41,18 +41,16 @@ class Notifications extends React.PureComponent {
 
   renderRow ({item}, nav, onlyBuyerMessages) {
     console.log(item);
+    let isUserSeller = item.sellerId == usr.currentUser.uid;
     return (
       <TouchableOpacity style={styles.row} onPress={()=> nav.navigate('ItemChat',
       {item: item, itemKey: item.itemKey})}>
         <View style={{flex:0.2, alignItems:'flex-start'}}>
-          <Image source={{uri: item.buyerPic}}
+          <Image source={{uri: isUserSeller ? item.buyerPic : item.sellerPic}}
                  style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
         </View>
-        <View style={{flex:0.4, alignItems:'flex-start'}}>
-          <Text style={styles.label}>{item.buyerName}</Text>
-        </View>
-        <View style={{flex:0.3, alignItems:'flex-start'}}>
-          <Text style={styles.label}>Re: {item.itemSummary}</Text>
+        <View style={{flex:0.7, alignItems:'flex-start'}}>
+          <Text style={styles.label}>{isUserSeller? item.buyerName : item.sellerName} has sent you a message regarding {item.itemSummary}</Text>
         </View>
         <View style={{flex:0.1, alignItems:'center'}}>
           <Icon name="ios-arrow-forward" size={32} color="rgba(116,100,78,1)"
@@ -134,9 +132,7 @@ class Notifications extends React.PureComponent {
         </View>
         <FlatList
           contentContainerStyle={styles.listContent}
-          data={this.props.conversations.filter(msg=> { console.log(msg);
-            return this.state.onlyBuyerMessages ? msg.buyerId == usr.currentUser.uid :  msg.sellerId == usr.currentUser.uid
-          })}
+          data={this.props.conversations}
           renderItem={item => this.renderRow(item, this.props.navigation, this.state.onlyBuyerMessages)}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}

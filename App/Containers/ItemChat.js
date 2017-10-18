@@ -21,6 +21,13 @@ const usr = mapp.auth();
 
 
 class ItemChat extends React.Component {
+
+  static navigationOptions = {
+    title: 'Seller Chat',
+    headerTintColor: 'white',
+    headerStyle: { backgroundColor: '#8F7140'},
+  }
+
   constructor(props: Object) {
     super(props);
     const { navigation, messages } = props;
@@ -62,11 +69,13 @@ class ItemChat extends React.Component {
 
     return (
 
-          <GiftedChat
+      <View style={{flex:1, backgroundColor:'#F4EAD3'}}>
+      <GiftedChat
             messages={this.state.messages}
             onSend={(messages) => this.onSend(messages)}
             user={{ _id: usr.currentUser.uid, name:usr.currentUser.displayName, avatar: usr.currentUser.photoURL }}
           />
+      </View>
 
     )
   }
