@@ -69,7 +69,8 @@ class Dashboard extends Component {
             />
           </View>
           <Text style={styles.dbtextleft}>
-            Hi {usr.currentUser.displayName}</Text>
+            Hi {usr.currentUser.displayName},</Text>
+{/*
           <View style={styles.imgContainer}>
 
           <View style={{flex:0.3, alignItems:'center'}}>
@@ -85,6 +86,7 @@ class Dashboard extends Component {
           </View>
 
           </View>
+*/}
 
           <View style={styles.imgContainer}>
 

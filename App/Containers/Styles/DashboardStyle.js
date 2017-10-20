@@ -25,6 +25,6 @@ export default StyleSheet.create({
   marginLeft:20,  marginRight:20,marginTop:5},
   dbtextleft: {
     fontFamily:'AvenirNext-UltraLight', textAlign:'left', color:'#8F7140', fontSize:18, fontWeight:'300',
-    marginLeft:20,  marginRight:20,marginTop:5},
+    marginLeft:20,  marginRight:20,marginTop:10},
 
 })
