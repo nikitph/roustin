@@ -10,7 +10,7 @@ import * as Animatable from 'react-native-animatable'
 
 
 
-
+import * as _ from 'lodash'
 const usr = mapp.auth();
 
 
@@ -44,7 +44,10 @@ class Dashboard extends Component {
 
 
   render () {
-    console.log(this.props.navigation.state.params);
+    this.props.items && console.log(Object.values(this.props.items).filter(val=>val.sellerId==usr.currentUser.uid && !val.sold));
+    let length = this.props.items ? Object.values(this.props.items).filter(val=>val.sellerId==usr.currentUser.uid && !val.sold).length : 0;
+    let convos = this.props.conversations  && this.props.conversations.filter(msg=>
+        msg.buyerId == usr.currentUser.uid ||  msg.sellerId == usr.currentUser.uid).length;
     return (
 
       <View style={{flex:1, backgroundColor: 'white'}}>
@@ -78,7 +81,7 @@ class Dashboard extends Component {
           </View>
           <View style={{flex:0.7}}>
             <Text style={styles.dbtext}>
-              You are interested in 12 items</Text>
+              You are interested in {length} items</Text>
           </View>
 
           </View>
@@ -94,7 +97,7 @@ class Dashboard extends Component {
             </View>
             <View style={{flex:0.7}}>
               <Text style={styles.dbtext}>
-                12 items out for sale</Text>
+                {length} items out for sale</Text>
             </View>
 
           </View>
@@ -109,7 +112,7 @@ class Dashboard extends Component {
             </View>
             <View style={{flex:0.7}}>
               <Text style={styles.dbtext}>
-                10 conversations </Text>
+                {convos} conversations </Text>
             </View>
 
           </View>
@@ -122,7 +125,12 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
+  let msgArray = state.itemchat.payload ? Object.values(state.itemchat.payload)
+    .map(({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic})=>
+      ({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic})) : [];
   return {
+    items: state.item.payload,
+    conversations: _.uniqWith(msgArray, _.isEqual)
   }
 }
 
