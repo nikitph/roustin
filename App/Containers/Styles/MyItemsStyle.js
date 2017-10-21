@@ -9,7 +9,7 @@ export default StyleSheet.create({
   },
   row: {
     flex: 1,
-    backgroundColor: Colors.fire,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems:'stretch'
 
@@ -27,6 +27,5 @@ export default StyleSheet.create({
     backgroundColor:'rgba(0,0,0,0.3)'
   },
   listContent: {
-    marginTop: Metrics.baseMargin
   }
 })

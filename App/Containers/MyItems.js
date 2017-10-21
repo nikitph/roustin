@@ -22,7 +22,7 @@ class MyListItem extends React.PureComponent {
     return (
       <TouchableOpacity style={styles.row} onPress={this._onPress}>
         <Image source={{uri : this.props.uri}} resizeMode={'cover'}
-               style={{height:100, alignItems:'stretch', backgroundColor:'yellow', borderWidth:0.5, borderColor:'rgba(0,0,0,0.2)'}}
+               style={{height:100, alignItems:'stretch', backgroundColor:'transparent', borderWidth:0.5, borderColor:'rgba(0,0,0,0.2)'}}
         >
           <Text style={styles.label}>{this.props.itemSummary}</Text>
         </Image>
@@ -119,8 +119,6 @@ class MyItems extends React.PureComponent {
           numColumns={3}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
-          ListHeaderComponent={this.renderHeader}
-          ListFooterComponent={this.renderFooter}
           ListEmptyComponent={this.renderEmpty}
         />
       </View>
