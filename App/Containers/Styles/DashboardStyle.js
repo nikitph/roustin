@@ -20,6 +20,8 @@ export default StyleSheet.create({
     margin:5,
     flex:0.25
   },
+  topacity:{flex:1, alignItems:'center', justifyContent:'center', padding:5, borderRightWidth:1,
+    borderRightColor:'#F4EAD3', backgroundColor:'#8F7140'},
   dbtext: {
     fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'300',
   marginLeft:20,  marginRight:20,marginTop:5},

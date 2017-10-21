@@ -31,7 +31,7 @@ class ItemDetail extends Component {
     const { item, itemKey } = navigation.state.params;
     const combItem = Object.assign({}, item,
       { buyerId: usr.currentUser.uid, buyerName: usr.currentUser.displayName, buyerPic: usr.currentUser.photoURL });
-    console.log(combItem);
+    let isSeller = item.sellerId == usr.currentUser.uid;
 
     return (
       <View style={{flex:1, backgroundColor: 'white'}}>
@@ -66,11 +66,11 @@ class ItemDetail extends Component {
             {item.negotiable}</Text>
         </ScrollView>
         <View style={styles.btnCtnr}>
-          <View style={{flex:0.2, alignItems:'center', justifyContent:'center', backgroundColor:'#665234'}}>
+          { !isSeller && <View style={{flex:0.2, alignItems:'center', justifyContent:'center', backgroundColor:'#665234'}}>
             <Image source={{uri: item.sellerPic}}
                    style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
-          </View>
-          <View style={{flex:0.8}}>
+          </View> }
+          { !isSeller && <View style={{flex:0.8}}>
             <RectangleButton
               onPress={()=>this.props.navigation.navigate('ItemChat', {item: combItem, itemKey: itemKey})}
               text="CONTACT SELLER"
@@ -80,7 +80,32 @@ class ItemDetail extends Component {
               gradientStart={{ x: 0.5, y: 1 }}
               gradientEnd={{ x: 1, y: 1 }}>
             </RectangleButton>
+          </View>}
+          { isSeller && <View style={{flex:0.5}}>
+            <RectangleButton
+              onPress={()=>this.props.navigation.navigate('SellItemScreen')}
+              text="EDIT"
+              type="primary"
+              height={75}
+              backgroundColors={['#665234', '#514128']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}>
+            </RectangleButton>
           </View>
+         }
+          { isSeller &&  <View style={{flex:0.5}}>
+
+            <RectangleButton
+              onPress={()=>this.props.navigation.navigate('LoginScreen')}
+              text="DELETE"
+              type="primary"
+              height={75}
+              backgroundColors={['#BF9C65', '#CEA76A']}
+              gradientStart={{ x: 0.5, y: 1 }}
+              gradientEnd={{ x: 1, y: 1 }}
+            >
+            </RectangleButton>
+          </View> }
         </View>
         <DropdownAlert
           ref={(ref) => this.dropdown = ref}
