@@ -74,8 +74,10 @@ class Header extends Component {
 
         </View>
         <View style={styles.container}>
-          <View style={{flex:0.3, alignItems:'center', flexDirection:'row',justifyContent:'space-around'}}>
-            <Text>{usr.currentUser.displayName}</Text>
+          <View style={{flex:0.3, alignItems:'center', marginTop:5}}>
+            <Icon name="ios-pricetags-outline" size={25} color="#665234" onPress={()=>{
+             this.props.navigate('MyItems');
+            }}/>
           </View>
 
           <View style={{flex:0.4, alignItems:'center'}}>
