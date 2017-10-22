@@ -12,18 +12,17 @@
 
 import { call, put } from 'redux-saga/effects'
 import ItemDeleteActions from '../Redux/ItemDeleteRedux'
+import { mapp,dbService } from '../Services/Firebase'
 
-export function * itemDeleteSaga (api, action) {
+const usr = mapp.auth();
+
+
+export function * itemDeleteSaga (action) {
   const { data } = action
   // make the call to the api
-  const response = yield call(api.getitemDelete, data)
+  const itemResponse = yield call(dbService.database.delete,`items/${data}`);
+  const userItemResponse = yield call(dbService.database.delete,`users/${usr.currentUser.uid}/sells/${data}`);
 
-  // success?
-  if (response.ok) {
-    // You might need to change the response here - do this with a 'transform',
-    // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(ItemDeleteActions.itemDeleteSuccess(response.data))
-  } else {
-    yield put(ItemDeleteActions.itemDeleteFailure())
-  }
+  yield put(ItemDeleteActions.itemDeleteSuccess({ itemResponse, userItemResponse }));
+
 }

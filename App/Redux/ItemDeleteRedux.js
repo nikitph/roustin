@@ -25,7 +25,10 @@ export const INITIAL_STATE = Immutable({
 
 // request the data from an api
 export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
+{
+  console.log(data);
+  return state.merge({ fetching: true, data, payload: null })
+}
 
 // successful api lookup
 export const success = (state, action) => {

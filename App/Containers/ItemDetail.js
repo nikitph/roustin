@@ -3,6 +3,7 @@ import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
+import  ItemDeleteActions  from '../Redux/ItemDeleteRedux'
 
 // Styles
 import styles from './Styles/ItemDetailStyle'
@@ -96,7 +97,7 @@ class ItemDetail extends Component {
           { isSeller &&  <View style={{flex:0.5}}>
 
             <RectangleButton
-              onPress={()=>this.props.navigation.navigate('LoginScreen')}
+              onPress={()=>this.props.attemptDeleteItem(itemKey)}
               text="DELETE"
               type="primary"
               height={75}
@@ -126,6 +127,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    attemptDeleteItem: (data) =>
+    {
+       console.log(data);
+      return dispatch(ItemDeleteActions.itemDeleteRequest(data))
+    }
   }
 }
 
