@@ -16,7 +16,9 @@ export default () => {
     itemchat: require('./ItemChatRedux').reducer,
     itemchatpost: require('./ItemChatPostRedux').reducer,
     item: require('./ItemRedux').reducer,
-    notifications: require('./NotificationsRedux').reducer
+    notifications: require('./NotificationsRedux').reducer,
+    itemupdate: require('./ItemUpdateRedux').reducer,
+    itemdelete: require('./ItemDeleteRedux').reducer
   });
 
   return configureStore(rootReducer, rootSaga)
