@@ -32,7 +32,7 @@ class Dashboard extends Component {
   }
 
   onPressTwo (nav) {
-    nav.navigate('SellItemScreen');
+    nav.navigate('SellItemScreen',{});
   }
 
   render () {
@@ -138,10 +138,10 @@ const mapStateToProps = (state) => {
     items: state.item.payload,
     conversations: _.uniqWith(msgArray, _.isEqual)
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {}
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
