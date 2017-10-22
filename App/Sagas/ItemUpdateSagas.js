@@ -12,18 +12,17 @@
 
 import { call, put } from 'redux-saga/effects'
 import ItemUpdateActions from '../Redux/ItemUpdateRedux'
+import { mapp,dbService } from '../Services/Firebase'
 
-export function * itemUpdateSaga (api, action) {
+const usr = mapp.auth();
+
+export function * itemUpdateSaga ( action) {
   const { data } = action
+  const { itemKey, ...item } = data;
+  console.log(item);
   // make the call to the api
-  const response = yield call(api.getitemUpdate, data)
+  const itemResponse = yield call(dbService.database.patch,`items/${itemKey}`, item );
+  const userItemResponse = yield call(dbService.database.patch,`users/${usr.currentUser.uid}/sells/${itemKey}`, item);
 
-  // success?
-  if (response.ok) {
-    // You might need to change the response here - do this with a 'transform',
-    // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(ItemUpdateActions.itemUpdateSuccess(response.data))
-  } else {
-    yield put(ItemUpdateActions.itemUpdateFailure())
-  }
+  yield put(ItemUpdateActions.itemUpdateSuccess({ itemResponse, userItemResponse }));
 }

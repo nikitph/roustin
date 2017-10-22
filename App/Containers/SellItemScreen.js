@@ -8,6 +8,8 @@ import Former from '../Components/Former'
 import PhotoUpload from '../Components/PhotoUpload'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import  SellItemActions  from '../Redux/SellItemRedux'
+import  ItemUpdateActions  from '../Redux/ItemUpdateRedux'
+
 // Styles
 import styles from './Styles/SellItemScreenStyle'
 import { dbService, mapp } from '../Services/Firebase'
@@ -136,7 +138,7 @@ class SellItemScreen extends Component {
     let { itemKey } = navigation.state.params;
     if (itemKey) {
       console.tron.log(props.items[itemKey]);
-      this.state = Object.assign(props.items[itemKey],{itemKey: itemKey});
+      this.state = Object.assign({},props.items[itemKey],{itemKey: itemKey});
     }
     else {
       this.state = {
@@ -167,9 +169,9 @@ class SellItemScreen extends Component {
 
   submitFunc(){
     let val = this.refs.fcon.refs.form.getValue();
-    if(val && (this.state.eventImageOne || this.state.eventImageTwo || this.state.eventImageThree))
+    if(val && (this.state.eventImageOneUrl || this.state.eventImageTwoUrl || this.state.eventImageThreeUrl))
     {
-      this.props.attemptSellItem(this.state)
+      this.state.itemKey ? this.props.attemptUpdateItem(this.state) : this.props.attemptSellItem(this.state);
     }
     else {
       this.dropdown.alertWithType('error','Error', 'Please fill in the missing value(s). Atleast one item image is required');
@@ -252,7 +254,7 @@ class SellItemScreen extends Component {
             </RectangleButton>
           </View>
           {
-            this.props.shouldEdit ? <View style={{flex:0.5}}>
+            this.state.itemKey ? <View style={{flex:0.5}}>
 
             <RectangleButton
               onPress={()=>this.props.onPressTwo(this.props.nav)}
@@ -302,7 +304,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     attemptSellItem: (data) =>
-      dispatch(SellItemActions.sellItemRequest(data))
+      dispatch(SellItemActions.sellItemRequest(data)),
+
+    attemptUpdateItem: (data) =>
+    dispatch(ItemUpdateActions.itemUpdateRequest(data))
   }
 }
 
