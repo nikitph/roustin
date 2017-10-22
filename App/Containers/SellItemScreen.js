@@ -132,21 +132,11 @@ class SellItemScreen extends Component {
 
   constructor(props: Object) {
     super(props);
-    if (props.shouldEdit) {
-      console.tron.log(props);
-      this.state = {
-        itemSummary: props.itemSummary,
-        details: props.details,
-        price: props.price,
-        sold: props.sold,
-        negotiable: props.negotiable,
-        sellerId: props.sellerId,
-        sellerName: props.sellerName,
-        eventImageOne: props.eventImageOne,
-        eventImageTwo: props.eventImageTwo,
-        eventImageThree: props.eventImageThree,
-        _id: props.data._id,
-      }
+    const { navigation } = props;
+    let { itemKey } = navigation.state.params;
+    if (itemKey) {
+      console.tron.log(props.items[itemKey]);
+      this.state = Object.assign(props.items[itemKey],{itemKey: itemKey});
     }
     else {
       this.state = {
@@ -158,9 +148,9 @@ class SellItemScreen extends Component {
         sellerId: usr.currentUser.uid,
         sellerName: usr.currentUser.displayName,
         sellerPic: usr.currentUser.photoURL,
-        eventImageOne: props.eventImageOne,
-        eventImageTwo: props.eventImageTwo,
-        eventImageThree: props.eventImageThree,
+        eventImageOneUrl: props.eventImageOne,
+        eventImageTwoUrl: props.eventImageTwo,
+        eventImageThreeUrl: props.eventImageThree,
         menu: "Item Input Form"
       }
     }
@@ -211,7 +201,7 @@ class SellItemScreen extends Component {
                              if (avatar) {
                                    this.setState({eventImageOne : avatar});
                                  }   }}>
-            <Image source={{uri: 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
+            <Image source={{uri: this.state.eventImageOneUrl ?  this.state.eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
                    style={{
                                  padding: 10,
                                  width:100,
@@ -305,6 +295,7 @@ class SellItemScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    items: state.item.payload
   }
 }
 

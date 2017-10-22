@@ -84,7 +84,7 @@ class ItemDetail extends Component {
           </View>}
           { isSeller && <View style={{flex:0.5}}>
             <RectangleButton
-              onPress={()=>this.props.navigation.navigate('SellItemScreen')}
+              onPress={()=>this.props.navigation.navigate('SellItemScreen',{itemKey})}
               text="EDIT"
               type="primary"
               height={75}
