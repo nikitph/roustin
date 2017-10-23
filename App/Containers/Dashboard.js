@@ -80,7 +80,6 @@ class Dashboard extends Component {
   }
 
   render () {
-    this.props.items && console.log(Object.values(this.props.items).filter(val => val.sellerId == usr.currentUser.uid && !val.sold));
     let length = this.props.items ? Object.values(this.props.items).filter(val => val.sellerId == usr.currentUser.uid && !val.sold).length : 0;
     let convos = this.props.conversations && this.props.conversations.filter(msg =>
       msg.buyerId == usr.currentUser.uid || msg.sellerId == usr.currentUser.uid).length;

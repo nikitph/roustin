@@ -19,7 +19,6 @@ export default class ButtonRow extends Component {
   // }
 
   render () {
-    console.log(this.props);
     return (
       <View >
         <View style={styles.btnCtnr}>

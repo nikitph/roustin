@@ -46,7 +46,9 @@ export default StyleSheet.create({
       shadowColor:'black',
       shadowRadius:5,
       shadowOffset:{width: 10, height:10},
-      shadowOpacity:0.2
+      shadowOpacity: 0.3,
+      borderWidth: 1,
+      borderColor: 'rgba(0,0,0,0.1)'
     },
     rmroot: {
       height: 60,

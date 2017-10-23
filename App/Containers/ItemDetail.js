@@ -37,6 +37,14 @@ class ItemDetail extends Component {
     return (
       <View style={{flex:1, backgroundColor: 'white'}}>
         <Header {...navigation}/>
+        <View style={styles.conContainer}>
+          <TouchableOpacity
+            style={styles.topacity}>
+            <Text style={{color:'#F4EAD3', fontSize:14}}>
+              Item Details
+            </Text>
+          </TouchableOpacity>
+        </View>
         <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:5}}>
 
             <Image source={{uri: item.eventImageOneUrl || 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
@@ -60,12 +68,21 @@ class ItemDetail extends Component {
                                  height: 100,
                                }} resizeMode={'cover'}/>
         </View>
-        <ScrollView style={styles.container}>
-          <Text>{item.itemSummary}
-          {item.details}
-          {item.price}
-            {item.negotiable}</Text>
-        </ScrollView>
+        <View style={styles.container}>
+          <View style={{flex:0.1, alignContent: 'center'}}>
+            <Text style={styles.tstyle}>{item.itemSummary}</Text>
+          </View>
+          <View style={{flex:0.2}}>
+            <Text style={styles.tstyle}>{item.details}</Text>
+          </View>
+          <View style={{flex:0.1, alignContent: 'center'}}>
+            <Text style={styles.tstyle}>The item is priced at {item.price}</Text>
+          </View>
+          <View style={{flex:0.1, alignContent: 'center'}}>
+            <Text
+              style={styles.tstyle}>The price of the item is {item.negotiable ? "Negotiable." : "Not Negotiable."}</Text>
+          </View>
+        </View>
         <View style={styles.btnCtnr}>
           { !isSeller && <View style={{flex:0.2, alignItems:'center', justifyContent:'center', backgroundColor:'#665234'}}>
             <Image source={{uri: item.sellerPic}}
@@ -129,7 +146,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     attemptDeleteItem: (data) =>
     {
-       console.log(data);
       return dispatch(ItemDeleteActions.itemDeleteRequest(data))
     }
   }
