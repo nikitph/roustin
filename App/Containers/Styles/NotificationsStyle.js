@@ -38,6 +38,35 @@ export default StyleSheet.create({
   listContent: {
     marginTop: 0
   },
-  topacity:{flex:1, alignItems:'center', justifyContent:'center', padding:5, borderRightWidth:1,
-    borderRightColor:'#F4EAD3', backgroundColor:'#665234'},
+  topacity: {flex: 1, alignItems: 'center', justifyContent: 'center', padding: 5, backgroundColor: '#665234'},
+
+  rmcontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F4EAD3',
+    marginBottom: -30
+  },
+  rmitem: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(240,177,104,1)',
+    zIndex: 100,
+    shadowColor: 'black',
+    shadowRadius: 5,
+    shadowOffset: {width: 10, height: 10},
+    shadowOpacity: 0.2
+  },
+  rmroot: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#8F7140',
+    zIndex: 100
+  }
+  ,
 })

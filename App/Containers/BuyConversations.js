@@ -54,11 +54,11 @@ class BuyConversations extends React.PureComponent {
       <TouchableOpacity style={styles.row} onPress={()=> nav.navigate('ItemChat',
       {item: item, itemKey: item.itemKey})}>
         <View style={{flex:0.2, alignItems:'flex-start'}}>
-          <Image source={{uri: item.buyerPic}}
+          <Image source={{uri: this.state.onlyBuyerMessages ? item.buyerPic : item.sellerPic}}
                  style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
         </View>
         <View style={{flex:0.4, alignItems:'flex-start'}}>
-          <Text style={styles.label}>{item.buyerName}</Text>
+          <Text style={styles.label}>{this.state.onlyBuyerMessages ? item.buyerName : item.sellerName}</Text>
         </View>
         <View style={{flex:0.3, alignItems:'flex-start'}}>
           <Text style={styles.label}>Re: {item.itemSummary}</Text>
@@ -145,7 +145,7 @@ class BuyConversations extends React.PureComponent {
         <FlatList
           contentContainerStyle={styles.listContent}
           data={this.props.conversations.filter(msg=> { console.log(msg);
-            return this.state.onlyBuyerMessages ? msg.buyerId == usr.currentUser.uid :  msg.sellerId == usr.currentUser.uid
+            return !this.state.onlyBuyerMessages ? msg.buyerId == usr.currentUser.uid :  msg.sellerId == usr.currentUser.uid
           })}
           renderItem={item => this.renderRow(item, this.props.navigation, this.state.onlyBuyerMessages)}
           keyExtractor={this.keyExtractor}

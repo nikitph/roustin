@@ -1,21 +1,18 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity, Image, Switch } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
-import  SearchBar  from '../Components/SearchBar'
+import SearchBar from '../Components/SearchBar'
 import Header from '../Components/Header'
-import { dbService, mapp } from '../Services/Firebase'
-import { RectangleButton } from 'react-native-button-component'
+import { mapp } from '../Services/Firebase'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { SegmentedControls } from 'react-native-radio-buttons'
-
-const usr = mapp.auth();
+import RadialMenu from '../Components/RadialMenu'
 import * as _ from 'lodash'
-
-
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
-
 // Styles
 import styles from './Styles/NotificationsStyle'
+
+const usr = mapp.auth();
+const db = mapp.database();
 
 class Notifications extends React.PureComponent {
 
@@ -24,6 +21,48 @@ class Notifications extends React.PureComponent {
     gesturesEnabled: true,
 
   };
+
+  renderItems (count) {
+    return ["Clear Notifs", "Back"].map((i) => {
+      return (
+        <TouchableOpacity style={styles.rmitem} key={i}
+                          onSelect={ () => {if (i == "Back")
+                          this.props.navigation.navigate('Dashboard');
+                          else
+                          {
+                              let itemRef =
+      db.ref(`users/${usr.currentUser.uid}/notifications`)
+        .remove();
+
+                          }} }
+
+                          onPress={() => {if (i == "Back")
+                          this.props.navigation.navigate('Dashboard');
+                          else
+                          {
+                              let itemRef =
+      db.ref(`users/${usr.currentUser.uid}/notifications`)
+        .remove();
+
+                          }
+                          }}
+        >
+          <Text
+            style={{fontFamily:'Avenir', textAlign:'center', color:'#665234', fontSize:12, fontWeight:'400'}}>
+            {i}</Text>
+        </TouchableOpacity>
+      );
+    })
+  }
+
+  renderRoot () {
+    return (
+      <View style={styles.rmroot}>
+        <Icon name="ios-menu" size={30} color="#F4EAD3" style={{marginTop:-20}}
+        />
+      </View>
+    )
+  }
 
   state = {
     dataObjects: [
@@ -35,11 +74,9 @@ class Notifications extends React.PureComponent {
       {title: 'Sixth Title', description: 'Sixth Description'},
       {title: 'Seventh Title', description: 'Seventh Description'}
     ],
-    onlyBuyerMessages: true
-  }
+  };
 
-
-  renderRow ({item}, nav, onlyBuyerMessages) {
+  renderRow ({item}, nav) {
     console.log(item);
     let isUserSeller = item.sellerId == usr.currentUser.uid;
     return (
@@ -50,7 +87,8 @@ class Notifications extends React.PureComponent {
                  style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
         </View>
         <View style={{flex:0.7, alignItems:'flex-start'}}>
-          <Text style={styles.label}>{isUserSeller? item.buyerName : item.sellerName} has sent you a message regarding {item.itemSummary}</Text>
+          <Text style={styles.label}>{isUserSeller ? item.buyerName : item.sellerName}
+            has sent you a message regarding {item.itemSummary}</Text>
         </View>
         <View style={{flex:0.1, alignItems:'center'}}>
           <Icon name="ios-arrow-forward" size={32} color="rgba(116,100,78,1)"
@@ -79,7 +117,7 @@ class Notifications extends React.PureComponent {
 
   // Show this when data is empty
   renderEmpty = () =>
-    <Text style={styles.label}> - There are no relevant conversations - </Text>
+    <Text style={styles.label}> - There are no Notifications - </Text>
 
   renderSeparator = () =>
     <Text style={styles.label}> - ~~~~~ - </Text>
@@ -113,44 +151,51 @@ class Notifications extends React.PureComponent {
   // )}
 
   render () {
-    console.log(this.state.onlyBuyerMessages);
-    const { navigation } = this.props;
+    const {navigation} = this.props;
     return (
       <View style={styles.container}>
         <Header {...navigation}/>
         <View style={styles.conContainer}>
-            <TouchableOpacity
-              style={styles.topacity}>
-              <Text style={{color:'#F4EAD3', fontSize:14}}>
-                Notifications
-              </Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.topacity}>
+            <Text style={{color:'#F4EAD3', fontSize:14}}>
+              Notifications
+            </Text>
+          </TouchableOpacity>
         </View>
         <FlatList
           contentContainerStyle={styles.listContent}
           data={this.props.conversations}
-          renderItem={item => this.renderRow(item, this.props.navigation, this.state.onlyBuyerMessages)}
+          renderItem={item => this.renderRow(item, this.props.navigation)}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
           ListEmptyComponent={this.renderEmpty}
           ItemSeparatorComponent={this.renderSeparator}
         />
+        <View style={styles.rmcontainer}>
+          <RadialMenu spreadAngle={120} startAngle={30}
+                      onOpen={ this._onOpen }
+                      onClose={ this._onClose }>
+
+            { this.renderRoot() }
+            { this.renderItems(3) }
+          </RadialMenu>
+        </View>
       </View>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  let msgArray = Object.values(state.itemchat.payload)
-    .map(({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic})=>
-      ({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic}));
+  let msgArray = state.notifications.payload ? Object.values(state.notifications.payload)
+    .map(({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic}) =>
+      ({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic})) : [];
   return {
     conversations: _.uniqWith(msgArray, _.isEqual)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return {}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

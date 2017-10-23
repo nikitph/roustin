@@ -31,7 +31,7 @@ export function * itemChatPost (action) {
     let id = data.user._id == data.buyerId ? data.sellerId : data.buyerId;
     let notifRef =
       db.ref(`users/${id}/notifications`)
-        .push(msgObj);
+        .push(Object.assign({}, msgObj, {read: false}));
     const notifKey = notifRef.key;
     console.log(msgObj);
 
