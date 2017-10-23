@@ -63,7 +63,7 @@ class Dashboard extends Component {
                           this.props.navigation.navigate('MyItems')}}
         >
           <Text
-            style={{fontFamily:'Avenir', textAlign:'center', color:'white', fontSize:12, fontWeight:'400'}}>
+            style={{fontFamily:'Avenir', textAlign:'center', color:'#665234', fontSize:12, fontWeight:'400'}}>
             {i}</Text>
         </TouchableOpacity>
       );
