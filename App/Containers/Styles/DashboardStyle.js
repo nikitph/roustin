@@ -41,7 +41,7 @@ export default StyleSheet.create({
       borderRadius: 30,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(240,177,104,90)',
+      backgroundColor: 'rgba(240,177,104,1)',
       zIndex:100,
       shadowColor:'black',
       shadowRadius:5,
