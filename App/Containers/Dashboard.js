@@ -6,6 +6,8 @@ import ButtonRow from '../Components/ButtonRow'
 import { mapp } from '../Services/Firebase'
 import { Images } from '../Themes'
 import * as Animatable from 'react-native-animatable'
+import RadialMenu from '../Components/RadialMenu'
+import Icon from 'react-native-vector-icons/Ionicons'
 import * as _ from 'lodash'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -25,6 +27,8 @@ class Dashboard extends Component {
     super(props);
     this.onPressOne.bind(this);
     this.onPressTwo.bind(this);
+    this._onOpen = this._onOpen.bind(this);
+    this._onClose = this._onClose.bind(this);
   }
 
   onPressOne (nav) {
@@ -33,6 +37,46 @@ class Dashboard extends Component {
 
   onPressTwo (nav) {
     nav.navigate('SellItemScreen',{});
+  }
+  componentWillMount() {
+    this.setState({ output: "" });
+  }
+
+  _onOpen() {
+    this.setState({
+      output: 'on menu open'
+    })
+  }
+
+  _onClose() {
+    this.setState({
+      output: 'on menu close'
+    })
+  }
+
+  renderItems(count) {
+    return ["My Items","My Sold Items","Items buying"].map((i) => {
+      return (
+        <TouchableOpacity style={styles.rmitem} key={i}
+              onSelect={ () => {this.props.navigation.navigate('MyItems')} }
+                          onPress={() => {
+                          this.props.navigation.navigate('MyItems')}}
+        >
+          <Text
+            style={{fontFamily:'Avenir', textAlign:'center', color:'white', fontSize:12, fontWeight:'400'}}>
+            {i}</Text>
+        </TouchableOpacity>
+      );
+    })
+  }
+
+  renderRoot() {
+    return (
+      <View style={styles.rmroot}>
+        <Icon name="ios-menu" size={30} color="#F4EAD3" style={{marginTop:-20}}
+            />
+      </View>
+    )
   }
 
   render () {
@@ -48,30 +92,6 @@ class Dashboard extends Component {
         <View style={styles.container}>
           <Image source={{uri: usr.currentUser.photoURL}} style={{flex:0.3,height:200, alignItems:'center'}}
                  resizeMode={'cover'}/>
-          <View style={styles.conContainer}>
-            <TouchableOpacity
-              style={styles.topacity} onPress={() => {
-    this.props.navigation.navigate('MyItems')}}>
-              <Text style={{color:'#F4EAD3', fontSize:14}}>
-                My Items
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.topacity}>
-              <Text style={{color:'#F4EAD3', fontSize:14}}>
-                Items of Interest
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{flex:1, alignItems:'center', justifyContent:'center', padding:5,
-              borderRightWidth:1,borderRightColor:'#8F7140', backgroundColor:'#8F7140'}}>
-              <Text style={{color:'#F4EAD3', fontSize:14}}>
-                My Sold Items
-              </Text>
-            </TouchableOpacity>
-          </View>
           <Text style={styles.dbtextleft}>
             Hi {usr.currentUser.displayName},</Text>
           {/*
@@ -123,6 +143,15 @@ class Dashboard extends Component {
 
           </View>
 
+        </View>
+        <View style={styles.rmcontainer}>
+          <RadialMenu spreadAngle={120} startAngle={30}
+                      onOpen ={ this._onOpen }
+                      onClose={ this._onClose } >
+
+            { this.renderRoot() }
+            { this.renderItems(3) }
+          </RadialMenu>
         </View>
         <ButtonRow onPressOne={this.onPressOne} onPressTwo={this.onPressTwo} nav={this.props.navigation}/>
       </View>
