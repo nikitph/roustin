@@ -165,7 +165,7 @@ class Notifications extends React.PureComponent {
         </View>
         <FlatList
           contentContainerStyle={styles.listContent}
-          data={this.props.conversations}
+          data={this.props.notifications}
           renderItem={item => this.renderRow(item, this.props.navigation)}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
@@ -191,7 +191,7 @@ const mapStateToProps = (state) => {
     .map(({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic}) =>
       ({sellerName, sellerId, sellerPic, itemKey, itemSummary, buyerName, buyerId, buyerPic})) : [];
   return {
-    conversations: _.uniqWith(msgArray, _.isEqual)
+    notifications: _.uniqWith(msgArray, _.isEqual)
   }
 }
 

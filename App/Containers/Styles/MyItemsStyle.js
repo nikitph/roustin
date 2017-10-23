@@ -23,8 +23,8 @@ export default StyleSheet.create({
   },
   label: {
     textAlign: 'center',
-    color: Colors.bloodOrange,
-    backgroundColor:'rgba(0,0,0,0.3)'
+    color: '#F4EAD3',
+    backgroundColor: '#BF9C65'
   },
   listContent: {
   },
