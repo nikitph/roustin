@@ -37,5 +37,7 @@ export default StyleSheet.create({
   },
   listContent: {
     marginTop: 0
-  }
+  },
+  topacity:{flex:1, alignItems:'center', justifyContent:'center', padding:5, borderRightWidth:1,
+    borderRightColor:'#F4EAD3', backgroundColor:'#665234'},
 })

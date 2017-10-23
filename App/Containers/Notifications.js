@@ -119,16 +119,12 @@ class Notifications extends React.PureComponent {
       <View style={styles.container}>
         <Header {...navigation}/>
         <View style={styles.conContainer}>
-          <SegmentedControls
-            options={ ["Notifications"] }
-            selectedOption={ "Notifications" }
-            optionContainerStyle={{flex:1}}
-            containerBorderTint={'#665234'}
-            containerBorderRadius={0}
-            selectedBackgroundColor={'#665234'}
-            tint={'#665234'}
-            separatorTint={'#665234'}
-          />
+            <TouchableOpacity
+              style={styles.topacity}>
+              <Text style={{color:'#F4EAD3', fontSize:14}}>
+                Notifications
+              </Text>
+            </TouchableOpacity>
         </View>
         <FlatList
           contentContainerStyle={styles.listContent}

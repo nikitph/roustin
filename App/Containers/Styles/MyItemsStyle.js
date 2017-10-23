@@ -27,5 +27,13 @@ export default StyleSheet.create({
     backgroundColor:'rgba(0,0,0,0.3)'
   },
   listContent: {
-  }
+  },
+  topacity:{flex:1, alignItems:'center', justifyContent:'center', padding:5, borderRightWidth:1,
+    borderRightColor:'#F4EAD3', backgroundColor:'#665234'},
+  conContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
 })

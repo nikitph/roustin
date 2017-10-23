@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Image, Text } from 'react-native'
+import { ScrollView, View, Image, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import Header from '../Components/Header'
 import ButtonRow from '../Components/ButtonRow'
@@ -185,17 +185,12 @@ class SellItemScreen extends Component {
       <View style={{flex:1, backgroundColor: 'white'}}>
         <Header {...navigation}/>
         <View style={styles.conContainer}>
-          <SegmentedControls
-            options={ ["My Active Items","Item Input Form","My Sold Items"] }
-            onSelection={(onlyBuyerMessages)=> this.handleFieldChange(onlyBuyerMessages ,'onlyBuyerMessages') }
-            selectedOption={ this.state.menu }
-            optionContainerStyle={{flex:1}}
-            containerBorderTint={'#F1E7D1'}
-            containerBorderRadius={0}
-            selectedBackgroundColor={'#665234'}
-            tint={'#665234'}
-            separatorTint={'transparent'}
-          />
+          <TouchableOpacity
+            style={styles.topacity}>
+            <Text style={{color:'#F4EAD3', fontSize:14}}>
+              { this.state.itemKey ? "Edit Item" : "Item Input Form"}
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:5}}>
           <PhotoUpload

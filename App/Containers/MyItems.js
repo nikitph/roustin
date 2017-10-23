@@ -110,6 +110,14 @@ class MyItems extends React.PureComponent {
     return (
       <View style={styles.container}>
         <Header {...navigation}/>
+        <View style={styles.conContainer}>
+          <TouchableOpacity
+            style={styles.topacity}>
+            <Text style={{color:'#F4EAD3', fontSize:14}}>
+              My Items for Sale
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <FlatList
           contentContainerStyle={styles.listContent}
