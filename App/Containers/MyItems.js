@@ -40,10 +40,21 @@ class MyItems extends React.PureComponent {
 
 
   renderRow (item, nav) {
-    console.log(item.item);
+    console.log(nav);
+    const {sold} = nav.state.params;
+    console.log(sold);
+
     let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
     if(item.item[1].sellerId != usr.currentUser.uid)
       return;
+    if (sold) {
+      if (!item.item[1].sold)
+        return;
+    }
+    else {
+      if (item.item[1].sold)
+        return;
+    }
     return <MyListItem
       uri={uri}
       itemSummary={item.item[1].itemSummary}
@@ -105,6 +116,7 @@ class MyItems extends React.PureComponent {
   render () {
     const { navigation, items } = this.props;
     console.log(this.props.items);
+    const {sold} = navigation.state.params;
 
     return (
       <View style={styles.container}>
@@ -113,7 +125,7 @@ class MyItems extends React.PureComponent {
           <TouchableOpacity
             style={styles.topacity}>
             <Text style={{color:'#F4EAD3', fontSize:14}}>
-              My Items for Sale
+              {sold ? "My Sold Items" : "My Items for Sale"}
             </Text>
           </TouchableOpacity>
         </View>

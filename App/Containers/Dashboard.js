@@ -55,12 +55,13 @@ class Dashboard extends Component {
   }
 
   renderItems(count) {
-    return ["My Items","My Sold Items","Items buying"].map((i) => {
+    return ["My Items", "My Sold Items"].map((i) => {
       return (
         <TouchableOpacity style={styles.rmitem} key={i}
-              onSelect={ () => {this.props.navigation.navigate('MyItems')} }
-                          onPress={() => {
-                          this.props.navigation.navigate('MyItems')}}
+                          onSelect={ () => { i == "My Items" ? this.props.navigation.navigate('MyItems') :
+              this.props.navigation.navigate('MyItems', {sold: true})}}
+                          onPress={() => { i == "My Items" ? this.props.navigation.navigate('MyItems', {sold:false}) :
+                          this.props.navigation.navigate('MyItems', {sold: true})}}
         >
           <Text
             style={{fontFamily:'Avenir', textAlign:'center', color:'#665234', fontSize:12, fontWeight:'400'}}>
