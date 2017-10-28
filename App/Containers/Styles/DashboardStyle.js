@@ -18,7 +18,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     margin:5,
-    flex:0.25
+    flex: 0.25,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,0.1)'
   },
   topacity:{flex:1, alignItems:'center', justifyContent:'center', padding:5, borderRightWidth:1,
     borderRightColor:'#F4EAD3', backgroundColor:'#8F7140'},
