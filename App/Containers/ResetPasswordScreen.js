@@ -48,7 +48,7 @@ class ResetPasswordScreen extends Component {
                 <Animatable.Image animation='fadeIn' source={Images.roustin} style={[styles.topLogo]}/>
               </View>
               <View
-                style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10, flexDirection:'row' }}>
+                style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.55)', margin:20,borderRadius:10, flexDirection:'row' }}>
                 <View style={{flexDirection:'column', flex:1}}>
                   <View style={{flex:0.1}}>
                     <Text style={[styles.header]}> Reset Password </Text>
@@ -63,16 +63,22 @@ class ResetPasswordScreen extends Component {
                       <View style={styles.container}>
                         <View style={styles.form}>
                           <View style={styles.row}>
-                            <TextInput
-                              value={this.state.email}
-                              keyboardType='default'
-                              returnKeyType='next'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              underlineColorAndroid='transparent'
-                              placeholder={'Email Address'}
-                              onChangeText={(email)=> this.setState({email})}
-                            />
+                            <View style={{flex:0.1}}>
+                              <Icon name="ios-mail" size={24} color="rgba(0,0,0,0.5)"
+                              />
+                            </View>
+                            <View style={{flex:0.9}}>
+                              <TextInput
+                                value={this.state.email}
+                                keyboardType='default'
+                                returnKeyType='next'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                underlineColorAndroid='transparent'
+                                placeholder={'Email Address'}
+                                onChangeText={(email)=> this.setState({email})}
+                              />
+                            </View>
 
                           </View>
                         </View>

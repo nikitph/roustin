@@ -24,7 +24,7 @@ export default StyleSheet.create({
   header : {
     color: '#665234',
     alignSelf: 'center',
-    fontFamily:'PingFangTC-Thin',
+    fontFamily: 'AvenirNext-UltraLight',
     fontSize:28,
     marginBottom: 20
   },
@@ -51,10 +51,12 @@ export default StyleSheet.create({
     marginRight: 10,
   },
   row: {
+    display: 'flex',
+    flexDirection: 'row',
     paddingVertical: Metrics.smallMargin,
-    margin:10,
+    margin: 5,
     backgroundColor:'rgba(0,0,0,0.1)',
-
+    paddingLeft: 15
   },
   rowLabel: {
     color: Colors.charcoal

@@ -27,7 +27,7 @@ class WalkThroughScreen extends React.Component {
           <View style={{flex:0.5, justifyContent:'center', alignItems:'flex-end'}}>
             <Animatable.Image animation='fadeIn' source={Images.roustin} style={[styles.topLogo]}/>
           </View>
-          <View style={{flex:0.5, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10 }}>
+          <View style={{flex:0.5, backgroundColor:'rgba(247,237,212,0.55)', margin:20,borderRadius:10 }}>
 
             <IndicatorViewPager
               style={{flex:1, width:Metrics.screenWidth-50}}
@@ -109,7 +109,7 @@ class WalkThroughScreen extends React.Component {
                               selectedDotStyle={{width: 10,
         height: 10,
         borderRadius: 10 >> 1,
-        backgroundColor: '#514128',
+        backgroundColor: '#CEA76A',
         margin: 10 >> 1}}
 
                               style={{ position: 'absolute',

@@ -64,10 +64,10 @@ class SignUpScreen extends Component {
                 <Animatable.Image animation='fadeIn' source={Images.roustin} style={[styles.topLogo]}/>
               </View>
               <View
-                style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10, flexDirection:'row' }}>
+                style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.55)', margin:20,borderRadius:10, flexDirection:'row' }}>
                 <View style={{flexDirection:'column', flex:1}}>
                   <View style={{flex:0.1}}>
-                    <Text style={[styles.header]}> SignUp </Text>
+                    <Text style={[styles.header]}> Sign Up </Text>
                   </View>
                   <View style={{flex:0.7, flexDirection:'row'}}>
                     <View style={{flex:0.1, justifyContent:'center', alignItems:'center'}}>
@@ -79,48 +79,68 @@ class SignUpScreen extends Component {
                       <View style={styles.container}>
                         <View style={styles.form}>
                           <View style={styles.row}>
-                            <TextInput
-                              value={this.state.email}
-                              keyboardType='default'
-                              returnKeyType='next'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              underlineColorAndroid='transparent'
-                              placeholder={'Email Address'}
-                              onChangeText={(email)=> this.setState({email})}
-                              onSubmitEditing={() => this.refs.password.focus()}
-                            />
+                            <View style={{flex:0.1}}>
+                              <Icon name="ios-mail" size={24} color="rgba(0,0,0,0.5)"
+                              />
+                            </View>
+                            <View style={{flex:0.9}}>
+
+                              <TextInput
+                                value={this.state.email}
+                                keyboardType='default'
+                                returnKeyType='next'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                underlineColorAndroid='transparent'
+                                placeholder={'Email Address'}
+                                onChangeText={(email)=> this.setState({email})}
+                                onSubmitEditing={() => this.refs.password.focus()}
+                              />
+                            </View>
 
                           </View>
 
                           <View style={styles.row}>
-                            <TextInput
-                              ref='password'
-                              value={this.state.password}
-                              keyboardType='default'
-                              returnKeyType='go'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              secureTextEntry
-                              underlineColorAndroid='transparent'
-                              placeholder={'Password'}
-                              onChangeText={(password)=> this.setState({password})}
-                            />
+                            <View style={{flex:0.1}}>
+                              <Icon name="ios-key" size={24} color="rgba(0,0,0,0.5)"
+                              />
+                            </View>
+                            <View style={{flex:0.9}}>
+
+                              <TextInput
+                                ref='password'
+                                value={this.state.password}
+                                keyboardType='default'
+                                returnKeyType='go'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                secureTextEntry
+                                underlineColorAndroid='transparent'
+                                placeholder={'Password'}
+                                onChangeText={(password)=> this.setState({password})}
+                              />
+                            </View>
                           </View>
 
                           <View style={styles.row}>
-                            <TextInput
-                              ref='password'
-                              value={this.state.confirmPassword}
-                              keyboardType='default'
-                              returnKeyType='go'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              secureTextEntry
-                              underlineColorAndroid='transparent'
-                              placeholder={'Confirm Password'}
-                              onChangeText={(confirmPassword)=> this.setState({confirmPassword})}
-                            />
+                            <View style={{flex:0.1}}>
+                              <Icon name="ios-key" size={24} color="rgba(0,0,0,0.5)"
+                              />
+                            </View>
+                            <View style={{flex:0.9}}>
+                              <TextInput
+                                ref='password'
+                                value={this.state.confirmPassword}
+                                keyboardType='default'
+                                returnKeyType='go'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                secureTextEntry
+                                underlineColorAndroid='transparent'
+                                placeholder={'Confirm Password'}
+                                onChangeText={(confirmPassword)=> this.setState({confirmPassword})}
+                              />
+                            </View>
                           </View>
                         </View>
 

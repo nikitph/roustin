@@ -82,7 +82,7 @@ class LoginScreen extends Component {
                 <Animatable.Image animation='fadeIn' source={Images.roustin} style={[styles.topLogo]}/>
               </View>
               <View
-                style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.8)', margin:20,borderRadius:10, flexDirection:'row' }}>
+                style={{flex:0.4, backgroundColor:'rgba(247,237,212,0.55)', margin:20,borderRadius:10, flexDirection:'row' }}>
                 <View style={{flexDirection:'column', flex:1}}>
                   <View style={{flex:0.1}}>
                     <Text style={[styles.header]}> Login </Text>
@@ -97,33 +97,46 @@ class LoginScreen extends Component {
                       <View style={styles.container}>
                         <View style={styles.form}>
                           <View style={styles.row}>
-                            <TextInput
-                              value={this.state.email}
-                              keyboardType='default'
-                              returnKeyType='next'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              underlineColorAndroid='transparent'
-                              placeholder={'Email Address'}
-                              onChangeText={(email)=> this.setState({email})}
-                              onSubmitEditing={() => this.refs.password.focus()}
-                            />
+                            <View style={{flex:0.1}}>
+                              <Icon name="ios-mail" size={24} color="rgba(0,0,0,0.5)"
+                              />
+                            </View>
+                            <View style={{flex:0.9}}>
+                              <TextInput
+                                value={this.state.email}
+                                keyboardType='default'
+                                returnKeyType='next'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                style={{fontFamily:'AvenirNext-UltraLight', textAlign:'left', color:'rgba(0,0,0,0.8)', fontSize:18, fontWeight:'200'}}
+                                underlineColorAndroid='transparent'
+                                placeholder={'Email Address'}
+                                onChangeText={(email)=> this.setState({email})}
+                                onSubmitEditing={() => this.refs.password.focus()}
+                              />
+                            </View>
 
                           </View>
 
                           <View style={styles.row}>
-                            <TextInput
-                              ref='password'
-                              value={this.state.password}
-                              keyboardType='default'
-                              returnKeyType='go'
-                              autoCapitalize='none'
-                              autoCorrect={false}
-                              secureTextEntry
-                              underlineColorAndroid='transparent'
-                              placeholder={'Password'}
-                              onChangeText={(password)=> this.setState({password})}
-                            />
+                            <View style={{flex:0.1}}>
+                              <Icon name="ios-key" size={24} color="rgba(0,0,0,0.5)"
+                              />
+                            </View>
+                            <View style={{flex:0.9}}>
+                              <TextInput
+                                ref='password'
+                                value={this.state.password}
+                                keyboardType='default'
+                                returnKeyType='go'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                secureTextEntry
+                                underlineColorAndroid='transparent'
+                                placeholder={'Password'}
+                                onChangeText={(password)=> this.setState({password})}
+                              />
+                            </View>
                           </View>
                           <View>
                             <Text style={[styles.forgot]} onPress={()=>this.props.navigation.navigate('ResetPasswordScreen')}
