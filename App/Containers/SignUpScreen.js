@@ -55,11 +55,13 @@ class SignUpScreen extends Component {
 
   render () {
     const props = this.props;
+    let fetch = props.fetching ? "fetching" : "ready";
+
     return (
       <ScrollView style={{height:Metrics.screenHeight}}>
         <KeyboardAvoidingView behavior='height'>
           <View style={{flex:1}}>
-            <Image source={Images.loginbg} style={{flex:0.9}} width={Metrics.screenWidth} blurRadius={10}>
+            <Image source={Images.loginbg} style={{flex:1}} width={Metrics.screenWidth} blurRadius={10}>
               <View style={{flex:0.3, justifyContent:'center', alignItems:'flex-end'}}>
                 <Animatable.Image animation='fadeIn' source={Images.roustin} style={[styles.topLogo]}/>
               </View>
@@ -156,7 +158,7 @@ class SignUpScreen extends Component {
                       backgroundColors={['#665234', '#514128']}
                       gradientStart={{ x: 0.5, y: 1 }}
                       gradientEnd={{ x: 1, y: 1 }}
-                      buttonState={this.state.buttonstate}
+                      buttonState={fetch}
                       states={{
                               ready: {
                                 onPress: () => {this.handlePressSignUp(this.state)},
