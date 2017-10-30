@@ -10,6 +10,9 @@ import { mapp } from '../Services/Firebase'
 import { RectangleButton } from 'react-native-button-component'
 import DropdownAlert from 'react-native-dropdownalert'
 import Header from '../Components/Header'
+import { Images } from '../Themes'
+import * as Animatable from 'react-native-animatable'
+
 const usr = mapp.auth();
 
 
@@ -68,18 +71,31 @@ class ItemDetail extends Component {
                                }} resizeMode={'cover'}/>
         </View>
         <View style={styles.container}>
-          <View style={{flex:0.1, alignContent: 'center'}}>
-            <Text style={styles.tstyle}>{item.itemSummary}</Text>
-          </View>
-          <View style={{flex:0.2}}>
-            <Text style={styles.tstyle}>{item.details}</Text>
-          </View>
-          <View style={{flex:0.1, alignContent: 'center'}}>
-            <Text style={styles.tstyle}>The item is priced at {item.price}</Text>
-          </View>
-          <View style={{flex:0.1, alignContent: 'center'}}>
+          <View style={{flex:0.4}}>
+            <Image source={Images.buy}
+                   style={{width:100, height:100, alignSelf:'center', resizeMode:'contain'}}>
+
+            </Image>
+
             <Text
-              style={styles.tstyle}>The price of the item is {item.negotiable ? "Negotiable." : "Not Negotiable."}</Text>
+              style={{fontFamily:'AvenirNext-UltraLight', fontSize:24, fontWeight:'100',alignSelf:'center'}}>{item.itemSummary.toUpperCase()}</Text>
+
+          </View>
+          <View style={{flex:0.3}}>
+
+            <Text
+              style={{fontFamily:'AvenirNext-UltraLight', fontSize:20, fontWeight:'100',alignSelf:'center'}}>{item.details}</Text>
+            <Text
+              style={{fontFamily:'AvenirNext-UltraLight', fontSize:20, fontWeight:'100',alignSelf:'center'}}>
+              The price of the item is {item.negotiable ? "Negotiable." : "Not Negotiable."}</Text>
+          </View>
+          <View style={{flex:0.3}}>
+
+            <Animatable.Image source={Images.tag} animation="pulse" easing="ease-out" iterationCount={5}
+                              style={{width:150, height:150, alignSelf:'center', resizeMode:'contain'}}>
+              <Text
+                style={{fontFamily:'AmericanTypewriter-Bold', fontSize:24, marginTop:75,fontWeight:'500',alignSelf:'center', backgroundColor:'transparent', color:'#CBB292'}}>price:{item.price}</Text>
+            </Animatable.Image>
           </View>
         </View>
         <View style={styles.btnCtnr}>
