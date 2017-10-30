@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native'
+import { Text, View, Image, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
-import  ItemDeleteActions  from '../Redux/ItemDeleteRedux'
-
+import ItemDeleteActions from '../Redux/ItemDeleteRedux'
 // Styles
 import styles from './Styles/ItemDetailStyle'
-import { dbService, mapp } from '../Services/Firebase'
+import { mapp } from '../Services/Firebase'
 import { RectangleButton } from 'react-native-button-component'
 import DropdownAlert from 'react-native-dropdownalert'
 import Header from '../Components/Header'
@@ -114,7 +113,17 @@ class ItemDetail extends Component {
           { isSeller &&  <View style={{flex:0.5}}>
 
             <RectangleButton
-              onPress={()=>this.props.attemptDeleteItem(itemKey, navigation)}
+              onPress={()=>{
+                              Alert.alert(
+                'Are you sure you want to Delete?',
+                'Deleted items cannot be retrieved',
+                [
+                  {text: 'Yes I am Sure', onPress: () => this.props.attemptDeleteItem(itemKey, navigation)},
+                  {text: 'Cancel', style: 'cancel'},
+                ],
+                { cancelable: false }
+              );
+              }}
               text="DELETE"
               type="primary"
               height={75}
