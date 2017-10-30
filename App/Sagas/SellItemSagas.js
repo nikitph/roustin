@@ -9,8 +9,8 @@ const storage = mapp.storage();
 const usr = mapp.auth();
 const db = mapp.database();
 
-
-export function * sellItemSaga (data) {
+export function * sellItemSaga ({data, nav}) {
+  console.log(nav);
 
   const {
     itemSummary,
@@ -21,31 +21,31 @@ export function * sellItemSaga (data) {
     sellerId,
     sellerName,
     sellerPic,
-    eventImageOne,
-    eventImageTwo,
-    eventImageThree
-  } = data.data;
+    eventImageOneUrl,
+    eventImageTwoUrl,
+    eventImageThreeUrl
+  } = data;
 
   let storageRef = storage.ref(`itemImages/${usr.currentUser.uid}`);
 
   try
   {
-    let eventImageOneUrl='https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png',
-      eventImageTwoUrl='https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png',
-      eventImageThreeUrl ='https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
-    if(eventImageOne) {
-      const uploadUriOne = Platform.OS === 'ios' ? eventImageOne.uri.replace('file://', '') : eventImageOne.uri;
-      eventImageOneUrl = yield call(itemFileUpload, uploadUriOne, eventImageOne.name,  storageRef);
+    let eventImageOneLoc = 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png',
+      eventImageTwoLoc = 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png',
+      eventImageThreeLoc = 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
+    if (eventImageOneUrl) {
+      const uploadUriOne = Platform.OS === 'ios' ? eventImageOneUrl.uri.replace('file://', '') : eventImageOneUrl.uri;
+      eventImageOneLoc = yield call(itemFileUpload, uploadUriOne, eventImageOneUrl.name, storageRef);
     }
-    if(eventImageTwo)
+    if (eventImageTwoUrl)
     {
-      const uploadUriTwo = Platform.OS === 'ios' ? eventImageOne.uri.replace('file://', '') : eventImageTwo.uri;
-      eventImageTwoUrl = yield call(itemFileUpload, uploadUriTwo,eventImageTwo.name, storageRef);
+      const uploadUriTwo = Platform.OS === 'ios' ? eventImageTwoUrl.uri.replace('file://', '') : eventImageTwoUrl.uri;
+      eventImageTwoLoc = yield call(itemFileUpload, uploadUriTwo, eventImageTwoUrl.name, storageRef);
     }
-    if(eventImageThree)
+    if (eventImageThreeUrl)
     {
-      const uploadUriThree = Platform.OS === 'ios' ? eventImageThree.uri.replace('file://', '') : eventImageThree.uri;
-      eventImageThreeUrl = yield call(itemFileUpload, uploadUriThree, eventImageThree.name, storageRef);
+      const uploadUriThree = Platform.OS === 'ios' ? eventImageThreeUrl.uri.replace('file://', '') : eventImageThreeUrl.uri;
+      eventImageThreeLoc = yield call(itemFileUpload, uploadUriThree, eventImageThreeUrl.name, storageRef);
     }
 
     let itemRef =
@@ -59,9 +59,9 @@ export function * sellItemSaga (data) {
           sellerId,
           sellerName,
           sellerPic,
-          eventImageOneUrl,
-          eventImageTwoUrl,
-          eventImageThreeUrl
+          eventImageOneUrl: eventImageOneLoc,
+          eventImageTwoUrl: eventImageTwoLoc,
+          eventImageThreeUrl: eventImageThreeLoc,
         });
 
     const itemkey = itemRef.key;
@@ -77,13 +77,13 @@ export function * sellItemSaga (data) {
           sellerId,
           sellerName,
           sellerPic,
-          eventImageOneUrl,
-          eventImageTwoUrl,
-          eventImageThreeUrl
+          eventImageOneUrl: eventImageOneLoc,
+          eventImageTwoUrl: eventImageTwoLoc,
+          eventImageThreeUrl: eventImageThreeLoc,
         });
     const userItemkey = userItemRef.key;
     yield put(SellItemActions.sellItemSuccess({ itemkey, userItemkey }));
-    //yield call(nav.navigate,'Dashboard',{ uid, displayName, url })
+    yield call(nav.navigate, 'ConfirmationPage', {message: 'Item Successfully Saved'})
 
   }
   catch(error)

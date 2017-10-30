@@ -171,7 +171,7 @@ class SellItemScreen extends Component {
     let val = this.refs.fcon.refs.form.getValue();
     if(val && (this.state.eventImageOneUrl || this.state.eventImageTwoUrl || this.state.eventImageThreeUrl))
     {
-      this.state.itemKey ? this.props.attemptUpdateItem(this.state) : this.props.attemptSellItem(this.state);
+      this.state.itemKey ? this.props.attemptUpdateItem(this.state, this.props.navigation) : this.props.attemptSellItem(this.state, this.props.navigation);
     }
     else {
       this.dropdown.alertWithType('error','Error', 'Please fill in the missing value(s). Atleast one item image is required');
@@ -298,11 +298,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptSellItem: (data) =>
-      dispatch(SellItemActions.sellItemRequest(data)),
+    attemptSellItem: (data, nav) =>
+      dispatch(SellItemActions.sellItemRequest(data, nav)),
 
-    attemptUpdateItem: (data) =>
-    dispatch(ItemUpdateActions.itemUpdateRequest(data))
+    attemptUpdateItem: (data, nav) =>
+      dispatch(ItemUpdateActions.itemUpdateRequest(data, nav))
   }
 }
 

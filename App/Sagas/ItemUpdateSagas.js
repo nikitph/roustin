@@ -17,7 +17,7 @@ import { mapp,dbService } from '../Services/Firebase'
 const usr = mapp.auth();
 
 export function * itemUpdateSaga ( action) {
-  const { data } = action
+  const {data, nav} = action;
   const { itemKey, ...item } = data;
   console.log(item);
   // make the call to the api
@@ -25,4 +25,6 @@ export function * itemUpdateSaga ( action) {
   const userItemResponse = yield call(dbService.database.patch,`users/${usr.currentUser.uid}/sells/${itemKey}`, item);
 
   yield put(ItemUpdateActions.itemUpdateSuccess({ itemResponse, userItemResponse }));
+  yield call(nav.navigate, 'ConfirmationPage', {message: 'Item Updated Successfully'})
+
 }

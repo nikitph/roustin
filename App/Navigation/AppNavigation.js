@@ -1,4 +1,5 @@
 import { StackNavigator } from 'react-navigation'
+import ConfirmationPage from '../Containers/ConfirmationPage'
 import MyItems from '../Containers/MyItems'
 import Notifications from '../Containers/Notifications'
 import BuyConversations from '../Containers/BuyConversations'
@@ -19,6 +20,11 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  ConfirmationPage: {
+    screen: ConfirmationPage,
+    mode: 'modal',
+    headerMode: 'none'
+  },
   MyItems: { screen: MyItems },
   Notifications: { screen: Notifications },
   BuyConversations: { screen: BuyConversations },
