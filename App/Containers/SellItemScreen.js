@@ -150,9 +150,9 @@ class SellItemScreen extends Component {
         sellerId: usr.currentUser.uid,
         sellerName: usr.currentUser.displayName,
         sellerPic: usr.currentUser.photoURL,
-        eventImageOneUrl: props.eventImageOne,
-        eventImageTwoUrl: props.eventImageTwo,
-        eventImageThreeUrl: props.eventImageThree,
+        eventImageOneUrl: null,
+        eventImageTwoUrl: null,
+        eventImageThreeUrl: null,
         menu: "Item Input Form"
       }
     }
@@ -163,8 +163,8 @@ class SellItemScreen extends Component {
 
   onChange = (value, path) => {
     // validate a field on every change
-    this.refs.fcon.refs.form.getComponent(path).validate();
-    this.setState(this.refs.fcon.refs.form.getValue());
+    //this.refs.fcon.refs.form.getComponent(path).validate();
+    //this.setState(this.refs.fcon.refs.form.getValue());
   };
 
   submitFunc(){

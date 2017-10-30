@@ -21,9 +21,6 @@ export default class Former extends React.Component {
   render () {
 
     onChange = (value, path) => {
-      // validate a field on every change
-      //console.tron.log(this.refs.form.getValue());
-      this.refs.form.getComponent(path).validate();
       this.props.onChange(this.refs.form.getValue());
     };
 
