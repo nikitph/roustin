@@ -151,7 +151,6 @@ class BuyConversations extends React.PureComponent {
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
           ListEmptyComponent={this.renderEmpty}
-          ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
     )

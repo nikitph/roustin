@@ -24,7 +24,9 @@ export default StyleSheet.create({
   label: {
     textAlign: 'center',
     color: '#F4EAD3',
-    backgroundColor: '#BF9C65'
+    backgroundColor: '#BF9C65',
+    fontSize: 16,
+    fontFamily: 'Avenir'
   },
   listContent: {
   },
