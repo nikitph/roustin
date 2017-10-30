@@ -114,7 +114,7 @@ class ItemDetail extends Component {
           { isSeller &&  <View style={{flex:0.5}}>
 
             <RectangleButton
-              onPress={()=>this.props.attemptDeleteItem(itemKey)}
+              onPress={()=>this.props.attemptDeleteItem(itemKey, navigation)}
               text="DELETE"
               type="primary"
               height={75}
@@ -144,9 +144,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptDeleteItem: (data) =>
+    attemptDeleteItem: (data, nav) =>
     {
-      return dispatch(ItemDeleteActions.itemDeleteRequest(data))
+      return dispatch(ItemDeleteActions.itemDeleteRequest(data, nav))
     }
   }
 }

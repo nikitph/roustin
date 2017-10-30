@@ -18,11 +18,12 @@ const usr = mapp.auth();
 
 
 export function * itemDeleteSaga (action) {
-  const { data } = action
+  const {data, nav} = action
   // make the call to the api
   const itemResponse = yield call(dbService.database.delete,`items/${data}`);
   const userItemResponse = yield call(dbService.database.delete,`users/${usr.currentUser.uid}/sells/${data}`);
 
   yield put(ItemDeleteActions.itemDeleteSuccess({ itemResponse, userItemResponse }));
+  yield call(nav.navigate, 'ConfirmationPage', {message: 'Item Deleted Successfully'})
 
 }

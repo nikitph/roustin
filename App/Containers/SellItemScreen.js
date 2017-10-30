@@ -248,20 +248,6 @@ class SellItemScreen extends Component {
               gradientEnd={{ x: 1, y: 1 }}>
             </RectangleButton>
           </View>
-          {
-            this.state.itemKey ? <View style={{flex:0.5}}>
-
-            <RectangleButton
-              onPress={()=>this.props.onPressTwo(this.props.nav)}
-              text="DELETE"
-              type="primary"
-              height={75}
-              backgroundColors={['#BF9C65', '#CEA76A']}
-              gradientStart={{ x: 0.5, y: 1 }}
-              gradientEnd={{ x: 1, y: 1 }}
-            >
-            </RectangleButton>
-          </View> :
               <View style={{flex:0.5}}>
 
                 <RectangleButton
@@ -275,8 +261,6 @@ class SellItemScreen extends Component {
                 >
                 </RectangleButton>
               </View>
-
-          }
         </View>
         <DropdownAlert
           ref={(ref) => this.dropdown = ref}
