@@ -1,25 +1,49 @@
-/* ***********************************************************
-* A short word on how to use this automagically generated file.
-* We're often asked in the ignite gitter channel how to connect
-* to a to a third party api, so we thought we'd demonstrate - but
-* you should know you can use sagas for other flow control too.
-*
-* Other points:
-*  - You'll need to add this saga to sagas/index.js
-*  - This template uses the api declared in sagas/index.js, so
-*    you'll need to define a constant in that file.
-*************************************************************/
-
 import { call, put } from 'redux-saga/effects'
 import ItemUpdateActions from '../Redux/ItemUpdateRedux'
-import { mapp,dbService } from '../Services/Firebase'
+import { mapp, dbService } from '../Services/Firebase'
+import { Platform } from 'react-native'
+import { itemFileUpload } from '../Services/Uploader'
 
 const usr = mapp.auth();
+const storage = mapp.storage();
 
 export function * itemUpdateSaga ( action) {
   const {data, nav} = action;
-  const { itemKey, ...item } = data;
-  console.log(item);
+  let {itemKey, ...item} = data;
+  const {
+    eventImageOneUrl,
+    eventImageTwoUrl,
+    eventImageThreeUrl
+  } = data;
+  let storageRef = storage.ref(`itemImages/${usr.currentUser.uid}`);
+  let eventImageOneLoc,
+    eventImageTwoLoc,
+    eventImageThreeLoc;
+
+  if (eventImageOneUrl.uri) {
+    const uploadUriOne = Platform.OS === 'ios' ? eventImageOneUrl.uri.replace('file://', '') : eventImageOneUrl.uri;
+    eventImageOneLoc = yield call(itemFileUpload, uploadUriOne, eventImageOneUrl.name, storageRef);
+  }
+  else
+    eventImageOneLoc = eventImageOneUrl;
+
+  if (eventImageTwoUrl.uri) {
+    const uploadUriTwo = Platform.OS === 'ios' ? eventImageTwoUrl.uri.replace('file://', '') : eventImageTwoUrl.uri;
+    eventImageTwoLoc = yield call(itemFileUpload, uploadUriTwo, eventImageTwoUrl.name, storageRef);
+  }
+  else
+    eventImageTwoLoc = eventImageTwoUrl;
+  if (eventImageThreeUrl.uri) {
+    const uploadUriThree = Platform.OS === 'ios' ? eventImageThreeUrl.uri.replace('file://', '') : eventImageThreeUrl.uri;
+    eventImageThreeLoc = yield call(itemFileUpload, uploadUriThree, eventImageThreeUrl.name, storageRef);
+  }
+  else
+    eventImageThreeLoc = eventImageThreeUrl;
+
+  item.eventImageOneUrl = eventImageOneLoc;
+  item.eventImageTwoUrl = eventImageTwoLoc;
+  item.eventImageThreeUrl = eventImageThreeLoc;
+
   // make the call to the api
   const itemResponse = yield call(dbService.database.patch,`items/${itemKey}`, item );
   const userItemResponse = yield call(dbService.database.patch,`users/${usr.currentUser.uid}/sells/${itemKey}`, item);

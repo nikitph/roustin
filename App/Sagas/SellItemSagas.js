@@ -3,14 +3,12 @@ import SellItemActions from '../Redux/SellItemRedux'
 import { mapp } from '../Services/Firebase'
 import { Platform } from 'react-native'
 import { fileUpload, itemFileUpload } from '../Services/Uploader'
-import { NavigationActions } from 'react-navigation'
 
 const storage = mapp.storage();
 const usr = mapp.auth();
 const db = mapp.database();
 
 export function * sellItemSaga ({data, nav}) {
-  console.log(nav);
 
   const {
     itemSummary,

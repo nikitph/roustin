@@ -210,8 +210,9 @@ class SellItemScreen extends Component {
                              if (avatar) {
                                    this.setState({eventImageTwoUrl : avatar});
                                  }   }}>
-            <Image source={{uri: 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
-                   style={{
+            <Image
+              source={{uri: this.state.eventImageTwoUrl ?  this.state.eventImageTwoUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
+              style={{
                                  padding: 10,
                                  width:100,
                                  height: 100,
@@ -221,10 +222,10 @@ class SellItemScreen extends Component {
             onPhotoSelect={avatar => {
                              if (avatar) {
                                    this.setState({eventImageThreeUrl : avatar});
-                                   console.log(this.state);
                                  }   }}>
-            <Image source={{uri: 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
-                   style={{
+            <Image
+              source={{uri: this.state.eventImageThreeUrl ?  this.state.eventImageThreeUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png'}}
+              style={{
                                  padding: 10,
                                  width:100,
                                  height: 100,
