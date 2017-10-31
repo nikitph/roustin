@@ -137,7 +137,6 @@ class SellItemScreen extends Component {
     const { navigation } = props;
     let { itemKey } = navigation.state.params;
     if (itemKey) {
-      console.tron.log(props.items[itemKey]);
       this.state = Object.assign({},props.items[itemKey],{itemKey: itemKey});
     }
     else {
@@ -158,13 +157,14 @@ class SellItemScreen extends Component {
     }
 
     this.submitFunc.bind(this);
+    this.onChange.bind(this);
 
   }
 
   onChange = (value, path) => {
     // validate a field on every change
     //this.refs.fcon.refs.form.getComponent(path).validate();
-    //this.setState(this.refs.fcon.refs.form.getValue());
+    this.setState(value);
   };
 
   submitFunc(){
