@@ -41,7 +41,6 @@ class BuyItem extends React.PureComponent {
 
 
   renderRow (item, nav) {
-    console.log(item.item);
     let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
     if(item.item[1].sellerId == usr.currentUser.uid)
       return;
@@ -105,7 +104,6 @@ class BuyItem extends React.PureComponent {
 
   render () {
     const { navigation, items } = this.props;
-    console.log(this.props.items);
 
     return (
       <View style={styles.container}>

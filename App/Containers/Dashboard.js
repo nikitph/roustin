@@ -13,6 +13,7 @@ import * as _ from 'lodash'
 // import YourActions from '../Redux/YourRedux'
 // Styles
 import styles from './Styles/DashboardStyle'
+import * as NavigationActions from 'react-navigation'
 const usr = mapp.auth();
 
 class Dashboard extends Component {
@@ -81,6 +82,7 @@ class Dashboard extends Component {
   }
 
   render () {
+
     let length = this.props.items ? Object.values(this.props.items).filter(val => val.sellerId == usr.currentUser.uid && !val.sold).length : 0;
     let convos = this.props.conversations && this.props.conversations.filter(msg =>
       msg.buyerId == usr.currentUser.uid || msg.sellerId == usr.currentUser.uid).length;

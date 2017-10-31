@@ -49,7 +49,6 @@ class BuyConversations extends React.PureComponent {
     return <MyCustomCell title={item.title} description={item.description} />
   *************************************************************/
   renderRow ({item}, nav, onlyBuyerMessages) {
-    console.log(item);
     return (
       <TouchableOpacity style={styles.row} onPress={()=> nav.navigate('ItemChat',
       {item: item, itemKey: item.itemKey})}>
@@ -124,7 +123,6 @@ class BuyConversations extends React.PureComponent {
   // )}
 
   render () {
-    console.log(this.state.onlyBuyerMessages);
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
@@ -144,7 +142,7 @@ class BuyConversations extends React.PureComponent {
         </View>
         <FlatList
           contentContainerStyle={styles.listContent}
-          data={this.props.conversations.filter(msg=> { console.log(msg);
+          data={this.props.conversations.filter(msg=> {
             return !this.state.onlyBuyerMessages ? msg.buyerId == usr.currentUser.uid :  msg.sellerId == usr.currentUser.uid
           })}
           renderItem={item => this.renderRow(item, this.props.navigation, this.state.onlyBuyerMessages)}

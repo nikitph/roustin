@@ -22,12 +22,7 @@ const sunset = [
   'rgb(255, 229, 170)'
 ]
 
-const resetAction = NavigationActions.reset({
-  index: 0,
-  actions: [
-    NavigationActions.navigate({routeName: 'LoginScreen'})
-  ]
-});
+
 
 const dashboardAction = NavigationActions.reset({
   index: 0,
@@ -47,6 +42,15 @@ class Header extends Component {
   // static defaultProps = {
   //   someSetting: false
   // }
+
+  resetAction (path) {
+    this.props.dispatch(NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({routeName: path})
+      ]
+    }));
+  }
 
   render () {
     return (
@@ -68,7 +72,7 @@ class Header extends Component {
           <View style={{flex:0.3, alignItems:'center'}}>
             <Icon name="ios-log-out-outline" size={25} color="#665234" onPress={()=>{
               usr.signOut();
-              this.props.dispatch(resetAction);
+              this.resetAction('LoginScreen');
             }}/>
           </View>
 
@@ -82,13 +86,13 @@ class Header extends Component {
 
           <View style={{flex:0.4, alignItems:'center'}}>
             <Icon name="ios-chatbubbles" size={25} color="#665234" onPress={()=>{
-             this.props.navigate('BuyConversations');
+             this.resetAction('BuyConversations');
             }}/>
           </View>
 
           <Animatable.View animation='shake' style={{flex:0.3, alignItems:'center',flexDirection:'row', justifyContent:'center'}}>
             <Icon name="ios-notifications-outline" size={25} color="#665234" onPress={()=>{
-             this.props.navigate('Notifications');
+             this.resetAction('Notifications');
             }}/>
             <Badge minWidth={12} minHeight={12} textStyle={{fontSize: 10,  color: 'white'}} style={{backgroundColor:'green',marginBottom:16, marginLeft:-5}}
             >
