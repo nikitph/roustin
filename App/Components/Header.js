@@ -59,8 +59,10 @@ class Header extends Component {
         <View style={styles.container}>
 
           <View style={{flex:0.3, alignItems:'center'}}>
-            <Image source={{uri: usr.currentUser.photoURL}}
-                   style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
+            <Image
+              source={{uri: usr.currentUser.photoURL ? usr.currentUser.photoURL : this.props.state.url ?
+               this.props.state.url : 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'}}
+              style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
           </View>
 
           <TouchableOpacity style={{flex:0.4,height:30, alignItems:'center'}} onPress={()=>{

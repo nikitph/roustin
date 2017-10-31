@@ -92,8 +92,11 @@ class Dashboard extends Component {
         <Header {...this.props.navigation}/>
 
         <View style={styles.container}>
-          <Image source={{uri: usr.currentUser.photoURL}} style={{flex:0.3,height:200, alignItems:'center'}}
-                 resizeMode={'cover'}/>
+          <Image
+            source={{uri: usr.currentUser.photoURL ? usr.currentUser.photoURL : this.props.navigation.state.url ?
+             this.props.navigation.state.url : 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'}}
+            style={{flex:0.3,height:200, alignItems:'center'}}
+            resizeMode={'cover'}/>
           <Text style={styles.dbtextleft}>
             Hi {usr.currentUser.displayName},</Text>
           {/*
