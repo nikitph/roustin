@@ -11,7 +11,9 @@ import { RectangleButton } from 'react-native-button-component'
 import DropdownAlert from 'react-native-dropdownalert'
 import Header from '../Components/Header'
 import { Images } from '../Themes'
+import Icon from 'react-native-vector-icons/Ionicons'
 import * as Animatable from 'react-native-animatable'
+import { NavigationActions } from 'react-navigation'
 
 const usr = mapp.auth();
 
@@ -99,11 +101,15 @@ class ItemDetail extends Component {
           </View>
         </View>
         <View style={styles.btnCtnr}>
+          <TouchableOpacity style={{flex:0.2, justifyContent:'center', alignItems:'center',backgroundColor:'white'}}
+                            onPress={()=>this.props.navigation.dispatch(NavigationActions.back())}>
+            <Icon name="ios-arrow-back" size={32} color="#900"/>
+          </TouchableOpacity>
           { !isSeller && <View style={{flex:0.2, alignItems:'center', justifyContent:'center', backgroundColor:'#665234'}}>
             <Image source={{uri: item.sellerPic}}
                    style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
           </View> }
-          { !isSeller && <View style={{flex:0.8}}>
+          { !isSeller && <View style={{flex:0.6}}>
             <RectangleButton
               onPress={()=>this.props.navigation.navigate('ItemChat', {item: combItem, itemKey: itemKey})}
               text="CONTACT SELLER"
@@ -114,7 +120,7 @@ class ItemDetail extends Component {
               gradientEnd={{ x: 1, y: 1 }}>
             </RectangleButton>
           </View>}
-          { isSeller && <View style={{flex:0.5}}>
+          { isSeller && <View style={{flex:0.4}}>
             <RectangleButton
               onPress={()=>this.props.navigation.navigate('SellItemScreen',{itemKey})}
               text="EDIT"
@@ -126,7 +132,7 @@ class ItemDetail extends Component {
             </RectangleButton>
           </View>
          }
-          { isSeller &&  <View style={{flex:0.5}}>
+          { isSeller && <View style={{flex:0.4}}>
 
             <RectangleButton
               onPress={()=>{
