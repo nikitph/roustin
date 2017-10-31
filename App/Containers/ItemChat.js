@@ -23,7 +23,7 @@ const usr = mapp.auth();
 class ItemChat extends React.Component {
 
   static navigationOptions = {
-    title: 'Seller Chat',
+    title: 'Chat',
     headerTintColor: 'white',
     headerStyle: { backgroundColor: '#8F7140'},
   }
