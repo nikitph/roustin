@@ -13,7 +13,7 @@ import * as _ from 'lodash'
 // import YourActions from '../Redux/YourRedux'
 // Styles
 import styles from './Styles/DashboardStyle'
-import * as NavigationActions from 'react-navigation'
+import { NavigationActions } from 'react-navigation'
 const usr = mapp.auth();
 
 class Dashboard extends Component {
@@ -81,6 +81,15 @@ class Dashboard extends Component {
     )
   }
 
+  resetAction (path) {
+    this.props.navigation.dispatch(NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({routeName: path})
+      ]
+    }));
+  }
+
   render () {
 
     let length = this.props.items ? Object.values(this.props.items).filter(val => val.sellerId == usr.currentUser.uid && !val.sold).length : 0;
@@ -117,7 +126,8 @@ class Dashboard extends Component {
            </View>
            */}
 
-          <View style={styles.imgContainer}>
+          <TouchableOpacity style={styles.imgContainer}
+                            onPress={()=> this.props.navigation.navigate('MyItems', {sold:false})}>
 
             <View style={{flex:0.3, alignItems:'center'}}>
               <Animatable.Image animation='fadeInLeft' source={Images.sell}
@@ -131,8 +141,9 @@ class Dashboard extends Component {
                 {length} items out for sale</Text>
             </View>
 
-          </View>
-          <View style={styles.imgContainer}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.imgContainer}
+                            onPress={()=>this.props.navigation.navigate('BuyConversations')}>
 
             <View style={{flex:0.3, alignItems:'center'}}>
               <Animatable.Image animation='fadeInLeft' source={Images.chats}
@@ -146,7 +157,7 @@ class Dashboard extends Component {
                 {convos} conversations </Text>
             </View>
 
-          </View>
+          </TouchableOpacity>
 
         </View>
         <View style={styles.rmcontainer}>
