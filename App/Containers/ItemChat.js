@@ -71,9 +71,14 @@ class ItemChat extends React.Component {
 
       <View style={{flex:1, backgroundColor:'#F4EAD3'}}>
       <GiftedChat
-            messages={this.state.messages}
-            onSend={(messages) => this.onSend(messages)}
-            user={{ _id: usr.currentUser.uid, name:usr.currentUser.displayName, avatar: usr.currentUser.photoURL }}
+        messages={this.props.messages.filter(msg => (msg.buyerId == usr.currentUser.uid ||
+      msg.sellerId == usr.currentUser.uid) && msg.itemKey == this.props.navigation.state.params.itemKey).sort(function compare(a, b) {
+        let dateA = new Date(a.createdAt);
+        let dateB = new Date(b.createdAt);
+        return dateB - dateA;
+      })}
+        onSend={(messages) => this.onSend(messages)}
+        user={{ _id: usr.currentUser.uid, name:usr.currentUser.displayName, avatar: usr.currentUser.photoURL }}
           />
       </View>
 

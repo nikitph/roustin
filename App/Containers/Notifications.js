@@ -120,7 +120,7 @@ class Notifications extends React.PureComponent {
     <Text style={styles.label}> - There are no Notifications - </Text>
 
   renderSeparator = () =>
-    <Text style={styles.label}> - ~~~~~ - </Text>
+    <Text> </Text>
 
   // The default function if no Key is provided is index
   // an identifiable key is important if you plan on
