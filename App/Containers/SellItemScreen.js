@@ -152,7 +152,8 @@ class SellItemScreen extends Component {
         eventImageOneUrl: null,
         eventImageTwoUrl: null,
         eventImageThreeUrl: null,
-        menu: "Item Input Form"
+        menu: "Item Input Form",
+        location: props.location
       }
     }
 
@@ -277,7 +278,8 @@ class SellItemScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.item.payload
+    items: state.item.payload,
+    location: state.login.payload ? state.login.payload.location : state.signupdetails.payload.location
   }
 }
 

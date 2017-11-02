@@ -23,7 +23,8 @@ export function * uploadSaga ({ image, displayName, alertfunc, nav, uid}) {
         NavigationActions.navigate({routeName: 'Dashboard', uid: uid, displayName: displayName, url: url})
       ]
     });
-    yield put(SignUpDetailsActions.signUpDetailsSuccess({ uid, displayName, url }));
+    const location = yield call(dbService.database.read, `users/${usr.currentUser.uid}/location`);
+    yield put(SignUpDetailsActions.signUpDetailsSuccess({uid, displayName, url, location}));
     yield call(nav.dispatch, resetAction)
 
   }

@@ -3,17 +3,16 @@ import { View, Text, FlatList, Image,TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { mapp } from '../Services/Firebase'
 import Header from '../Components/Header'
-import  SearchBar  from '../Components/SearchBar'
-
-
-const storage = mapp.storage();
-const usr = mapp.auth();
-const db = mapp.database();
-
+import SearchBar from '../Components/SearchBar'
+import geolib from 'geolib'
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
 
 // Styles
 import styles from './Styles/BuyItemStyle'
+
+const storage = mapp.storage();
+const usr = mapp.auth();
+const db = mapp.database();
 
 class MyListItem extends React.PureComponent {
   _onPress = () => {
@@ -39,10 +38,17 @@ class BuyItem extends React.PureComponent {
 
   };
 
+  isItemInRadius (itemLatLong, userLatLong) {
 
-  renderRow (item, nav) {
+    return geolib.isPointInCircle(itemLatLong, userLatLong, 100000);
+
+  }
+
+  renderRow (item, nav, location) {
     let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
     if(item.item[1].sellerId == usr.currentUser.uid)
+      return;
+    if (!this.isItemInRadius(item.item[1].location, location))
       return;
     return <MyListItem
       uri={uri}
@@ -121,7 +127,7 @@ class BuyItem extends React.PureComponent {
           contentContainerStyle={styles.listContent}
           data={items}
           extraData={this.props.navigation}
-          renderItem={item => this.renderRow(item, this.props.navigation)}
+          renderItem={item => this.renderRow(item, this.props.navigation, this.props.location)}
           numColumns={3}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
@@ -134,7 +140,8 @@ class BuyItem extends React.PureComponent {
 
 const mapStateToProps = (state) => {
   return {
-    items: Object.entries(state.item.payload)
+    items: Object.entries(state.item.payload),
+    location: state.login.payload ? state.login.payload.location : state.signupdetails.payload.location
   }
 }
 

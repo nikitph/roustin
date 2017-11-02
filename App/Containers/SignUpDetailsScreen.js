@@ -11,6 +11,10 @@ import SignUpDetailsActions from '../Redux/SignUpDetailsRedux'
 // Styles
 import styles from './Styles/SignUpDetailsScreenStyle'
 import PhotoUpload from '../Components/PhotoUpload'
+import { mapp } from '../Services/Firebase'
+
+const db = mapp.database();
+const usr = mapp.auth();
 
 
 class SignUpDetailsScreen extends Component {
@@ -44,6 +48,17 @@ class SignUpDetailsScreen extends Component {
     this.dropdown.alertWithType(type, title, message);
   };
 
+  componentDidMount () {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        db.ref(`users/${usr.currentUser.uid}/location`)
+          .set({lat: position.coords.latitude, long: position.coords.longitude});
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
   render () {
     const props = this.props;
     let fetch = props.fetching ? "fetching" : "ready";
@@ -63,12 +78,7 @@ class SignUpDetailsScreen extends Component {
                     <Text style={[styles.header]}> Your Details </Text>
                   </View>
                   <View style={{flex:0.7, flexDirection:'row'}}>
-                    <View style={{flex:0.1, justifyContent:'center', alignItems:'center'}}>
-                      <Icon name="ios-arrow-back" size={50} color="#900"
-                            onPress={()=>props.navigation.navigate('WalkThroughScreen')}
-                      />
-                    </View>
-                    <View style={{flex:0.9}}>
+                    <View style={{flex:1}}>
                       <View style={styles.container}>
                         <View style={styles.form}>
                           <PhotoUpload
@@ -89,6 +99,7 @@ class SignUpDetailsScreen extends Component {
                                        uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
                                      }}/>
                           </PhotoUpload>
+                          <Text style={{alignSelf:'center'}}>upload profile image</Text>
                           <View style={styles.row}>
                             <TextInput
                               value={this.state.displayName}
@@ -97,7 +108,7 @@ class SignUpDetailsScreen extends Component {
                               autoCapitalize='none'
                               autoCorrect={false}
                               underlineColorAndroid='transparent'
-                              placeholder={'Display Name'}
+                              placeholder={'Set Display Name'}
                               onChangeText={(displayName)=> this.setState({displayName})}
                             />
 
