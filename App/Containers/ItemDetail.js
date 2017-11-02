@@ -80,15 +80,15 @@ class ItemDetail extends Component {
             </Image>
 
             <Text
-              style={{fontFamily:'AvenirNext-UltraLight', fontSize:24, fontWeight:'100',alignSelf:'center'}}>{item.itemSummary.toUpperCase()}</Text>
+              style={{fontFamily:'AvenirNext-UltraLight', fontSize:20, fontWeight:'100',alignSelf:'center'}}>{item.itemSummary.toUpperCase()}</Text>
 
           </View>
           <View style={{flex:0.3}}>
 
             <Text
-              style={{fontFamily:'AvenirNext-UltraLight', fontSize:20, fontWeight:'100',alignSelf:'center'}}>{item.details}</Text>
+              style={{fontFamily:'AvenirNext-UltraLight', fontSize:16, fontWeight:'100',alignSelf:'center'}}>{item.details}</Text>
             <Text
-              style={{fontFamily:'AvenirNext-UltraLight', fontSize:20, fontWeight:'100',alignSelf:'center'}}>
+              style={{fontFamily:'AvenirNext-UltraLight', fontSize:16, fontWeight:'100',alignSelf:'center'}}>
               The price of the item is {item.negotiable ? "Negotiable." : "Not Negotiable."}</Text>
           </View>
           <View style={{flex:0.3}}>

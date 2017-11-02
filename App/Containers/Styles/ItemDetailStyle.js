@@ -23,6 +23,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
-  tstyle: {fontFamily: 'Avenir', textAlign: 'center', color: '#665234', fontSize: 16, fontWeight: '400', margin: 5}
+  tstyle: {fontFamily: 'Avenir', textAlign: 'center', color: '#665234', fontSize: 12, fontWeight: '400', margin: 5}
   }
 )
