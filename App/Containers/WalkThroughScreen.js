@@ -13,6 +13,8 @@ import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotInd
 import RoundedButton from '../Components/RoundedButton'
 import { Images, Metrics } from '../Themes'
 import { RectangleButton } from 'react-native-button-component'
+import AutoTypingText from 'react-native-auto-typing-text';
+
 
 class WalkThroughScreen extends React.Component {
 
@@ -34,13 +36,16 @@ class WalkThroughScreen extends React.Component {
               indicator={this._renderDotIndicator()}
             >
               <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
-                <Text
-                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:28, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:20}}>
-                  Hi</Text>
+                <Animatable.Text animation="fadeIn"
+                                 style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:28, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:20}}>
+                  Hi</Animatable.Text>
 
-                <Text
+                <AutoTypingText
+                  text={`Thank you for choosing Roust.in, your local marketplace. Swipe left for a quick walkthrough.`}
+                  charMovingTime={60}
+                  delay={0}
                   style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:20, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:20}}>
-                  Thank you for choosing Roust.in, your local marketplace. Lets do a quick walkthrough.</Text>
+                </AutoTypingText>
 
               </View>
               <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>

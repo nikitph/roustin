@@ -6547,6 +6547,12 @@ react-native-animated-linear-gradient@^1.0.2:
   dependencies:
     rgb2hex "^0.1.0"
 
+react-native-auto-typing-text@^1.0.1, react-native-auto-typing-text@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-auto-typing-text/-/react-native-auto-typing-text-1.0.3.tgz#89a8a667fc48248784872c3745d2ba5d41cd2475"
+  dependencies:
+    react-native-auto-typing-text "^1.0.1"
+
 react-native-button-component@^0.1.25:
   version "0.1.25"
   resolved "https://registry.yarnpkg.com/react-native-button-component/-/react-native-button-component-0.1.25.tgz#d7faeafb21ba3522e4ce20fc642c1372a387e423"

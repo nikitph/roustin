@@ -36,6 +36,7 @@
     "react-native": "0.47.2",
     "react-native-animatable": "^1.2.3",
     "react-native-animated-linear-gradient": "^1.0.2",
+    "react-native-auto-typing-text": "^1.0.3",
     "react-native-button-component": "^0.1.25",
     "react-native-camera-roll-picker": "^1.2.1",
     "react-native-config": "^0.6.0",
