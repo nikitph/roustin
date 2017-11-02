@@ -39,26 +39,26 @@ class WalkThroughScreen extends React.Component {
                   Hi</Text>
 
                 <Text
-                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:20, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:20}}>
-                  Thank you for choosing Roust.in. Lets do a quick walkthrough of how to use it.</Text>
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:20, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:20}}>
+                  Thank you for choosing Roust.in, your local marketplace. Lets do a quick walkthrough.</Text>
 
               </View>
               <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
                 <Animatable.Image animation='fadeIn' source={Images.basket} style={[styles.cart]}/>
                 <Text
-                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:-20}}>
-                  Click buy to see everything on sale. Select to see details and contact seller</Text>
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:-20}}>
+                  Click buy to see everything on sale near you. Select to see details and contact seller</Text>
               </View>
               <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
                 <Animatable.Image animation='fadeIn' source={Images.tilttag} style={[styles.cart]}/>
                 <Text
-                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:-50}}>
-                  Click sell. Enter details and your item is out for sale.</Text>
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:-50}}>
+                  Click sell. Enter details and your item is out for sale. Every user in a set radius near you will see the item.</Text>
               </View>
               <View style={{backgroundColor:'transparent',justifyContent:'center', alignItems:'center'}}>
                 <Animatable.Image animation='fadeIn' source={Images.chats} style={[styles.cart, {marginTop:-190}]}/>
                 <Text
-                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'200', marginLeft:25,  marginRight:25,  marginTop:-75}}>
+                  style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:18, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:-75}}>
                   Chat with buyers/sellers in app. Settle your transaction offline. Done!</Text>
 
               </View>
@@ -109,7 +109,7 @@ class WalkThroughScreen extends React.Component {
                               selectedDotStyle={{width: 10,
         height: 10,
         borderRadius: 10 >> 1,
-        backgroundColor: '#CEA76A',
+        backgroundColor: '#665234',
         margin: 10 >> 1}}
 
                               style={{ position: 'absolute',
