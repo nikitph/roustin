@@ -52,7 +52,7 @@ class SignUpDetailsScreen extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         db.ref(`users/${usr.currentUser.uid}/location`)
-          .set({lat: position.coords.latitude, long: position.coords.longitude});
+          .set({latitude: position.coords.latitude, longitude: position.coords.longitude});
       },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}

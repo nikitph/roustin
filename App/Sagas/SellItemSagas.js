@@ -21,7 +21,8 @@ export function * sellItemSaga ({data, nav}) {
     sellerPic,
     eventImageOneUrl,
     eventImageTwoUrl,
-    eventImageThreeUrl
+    eventImageThreeUrl,
+    location
   } = data;
 
   let storageRef = storage.ref(`itemImages/${usr.currentUser.uid}`);
@@ -60,6 +61,7 @@ export function * sellItemSaga ({data, nav}) {
           eventImageOneUrl: eventImageOneLoc,
           eventImageTwoUrl: eventImageTwoLoc,
           eventImageThreeUrl: eventImageThreeLoc,
+          location
         });
 
     const itemkey = itemRef.key;
@@ -78,6 +80,7 @@ export function * sellItemSaga ({data, nav}) {
           eventImageOneUrl: eventImageOneLoc,
           eventImageTwoUrl: eventImageTwoLoc,
           eventImageThreeUrl: eventImageThreeLoc,
+          location
         });
     const userItemkey = userItemRef.key;
     yield put(SellItemActions.sellItemSuccess({ itemkey, userItemkey }));

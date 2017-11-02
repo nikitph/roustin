@@ -40,7 +40,7 @@ class BuyItem extends React.PureComponent {
 
   isItemInRadius (itemLatLong, userLatLong) {
 
-    return geolib.isPointInCircle(itemLatLong, userLatLong, 100000);
+    return geolib.isPointInCircle(itemLatLong, userLatLong, 20000);
 
   }
 
