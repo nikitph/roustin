@@ -43,7 +43,7 @@ class WalkThroughScreen extends React.Component {
                 <AutoTypingText
                   text={`Thank you for choosing Roust.in, your local marketplace. Swipe left for a quick walkthrough.`}
                   charMovingTime={60}
-                  delay={1000}
+                  delay={750}
                   style={{fontFamily:'AvenirNext-UltraLight', textAlign:'center', color:'#8F7140', fontSize:20, fontWeight:'300', marginLeft:25,  marginRight:25,  marginTop:20}}>
                 </AutoTypingText>
 
