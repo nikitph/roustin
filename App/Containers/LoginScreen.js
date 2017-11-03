@@ -75,8 +75,6 @@ class LoginScreen extends Component {
     const {globalStyles, auth, app} = props;
     let fetch = props.fetching ? "fetching" : "ready";
     return (
-      <ScrollView style={{height:Metrics.screenHeight}}>
-        <KeyboardAvoidingView behavior='height'>
           <View style={{flex:1}}>
             <Image source={Images.loginbg} style={{flex:1}} width={Metrics.screenWidth} blurRadius={10}>
               <View style={{flex:0.3, justifyContent:'center', alignItems:'flex-end'}}>
@@ -172,16 +170,14 @@ class LoginScreen extends Component {
                 </View>
               </View>
             </Image>
+            <DropdownAlert
+              ref={(ref) => this.dropdown = ref}
+              showCancel={true}
+              translucent={true}
+              errorColor={'rgba(250,50,50,1)'}
+              closeInterval={6000}
+            />
           </View>
-        </KeyboardAvoidingView>
-        <DropdownAlert
-          ref={(ref) => this.dropdown = ref}
-          showCancel={true}
-          translucent={true}
-          errorColor={'rgba(250,50,50,1)'}
-          closeInterval={6000}
-        />
-      </ScrollView>
     )
   }
 }
