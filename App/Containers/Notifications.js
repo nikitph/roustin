@@ -87,8 +87,7 @@ class Notifications extends React.PureComponent {
                  style={{borderRadius:20, height:40, width:40,alignItems:'center'}} resizeMode={'cover'}/>
         </View>
         <View style={{flex:0.7, alignItems:'flex-start'}}>
-          <Text style={styles.label}>{isUserSeller ? item.buyerName : item.sellerName}
-            has sent you a message regarding {item.itemSummary}</Text>
+          <Text style={styles.label}>{isUserSeller ? item.buyerName : item.sellerName} has sent you a message regarding {item.itemSummary}</Text>
         </View>
         <View style={{flex:0.1, alignItems:'center'}}>
           <Icon name="ios-arrow-forward" size={32} color="rgba(116,100,78,1)"
