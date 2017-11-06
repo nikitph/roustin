@@ -48,6 +48,10 @@ class BuyItem extends React.PureComponent {
     let uri = item.item[1].eventImageOneUrl ? item.item[1].eventImageOneUrl : 'https://www.cmsabirmingham.org/stuff/2017/01/default-placeholder.png';
     if(item.item[1].sellerId == usr.currentUser.uid)
       return;
+    if (!item.item[1].location)
+      return;
+    if (!location)
+      return;
     if (!this.isItemInRadius(item.item[1].location, location))
       return;
     return <MyListItem
