@@ -15,7 +15,7 @@ export default StyleSheet.create({
   cart: {
     alignSelf: 'center',
     resizeMode: 'contain',
-    width: Metrics.screenWidth * 0.35,
+    width: Metrics.screenWidth * 0.25,
     marginTop: -140
   }
 })

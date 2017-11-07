@@ -25,7 +25,7 @@ class WalkThroughScreen extends React.Component {
   render () {
     return (
       <View style={{flex:1}}>
-        <Image source={Images.loginbg} style={{flex:0.9}} width={Metrics.screenWidth} blurRadius={10}>
+        <Image source={Images.loginbg} style={{flex:1}} width={Metrics.screenWidth} blurRadius={10}>
           <View style={{flex:0.5, justifyContent:'center', alignItems:'flex-end'}}>
             <Animatable.Image animation='fadeIn' source={Images.roustin} style={[styles.topLogo]}/>
           </View>
@@ -71,7 +71,7 @@ class WalkThroughScreen extends React.Component {
           </View>
         </Image>
         <View
-          style={{flex:0.1, flexDirection:'row', alignItems:'flex-end', backgroundColor:'#F7EDD3'}}>
+          style={{flexDirection:'row', alignItems:'flex-end', backgroundColor:'#F7EDD3'}}>
           <View style={{flex:0.5}}>
             <RectangleButton
               onPress={()=>this.props.navigation.navigate('SignUpScreen')}
