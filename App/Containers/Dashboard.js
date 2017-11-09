@@ -59,7 +59,7 @@ class Dashboard extends Component {
     return ["My Items", "My Sold Items"].map((i) => {
       return (
         <TouchableOpacity style={styles.rmitem} key={i}
-                          onSelect={ () => { i == "My Items" ? this.props.navigation.navigate('MyItems') :
+                          onSelect={ () => { i == "My Items" ? this.props.navigation.navigate('MyItems', {sold:false}) :
               this.props.navigation.navigate('MyItems', {sold: true})}}
                           onPress={() => { i == "My Items" ? this.props.navigation.navigate('MyItems', {sold:false}) :
                           this.props.navigation.navigate('MyItems', {sold: true})}}
